@@ -5,17 +5,18 @@ using UnityEngine.AI;
 
 public class PlayerInput : MonoBehaviour
 {
-    [Tooltip("Click")]
+    [Header("Click")]
     float startTime;
     [SerializeField] float lenghtOfAClick;
 
-    [Tooltip("Camera")]
+    [Header("Camera")]
     
     [SerializeField] float speedOfCamera;
 
-    [Tooltip("Avatar")]
+    [Header("Avatar")]
     [SerializeField] GameObject fortressNavMesh;
 
+    [SerializeField] LayerMask myMask;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +27,18 @@ public class PlayerInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (fortressNavMesh.GetComponent<NavMeshAgent>().hasPath == true)
+        {
+            fortressNavMesh.GetComponent<CharaAvatar>().workZone.SetActive(false);
+            fortressNavMesh.GetComponent<CharaAvatar>().stopped = false;
+        }
+        else
+        {
+            fortressNavMesh.GetComponent<CharaAvatar>().workZone.SetActive(true);
+            fortressNavMesh.GetComponent<CharaAvatar>().stopped = true;
+
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
             startTime = Time.time;
@@ -55,16 +68,21 @@ public class PlayerInput : MonoBehaviour
 
 
                 //Make the Fortress move;
-                print(Time.time - startTime);
+
 
                 var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
-                if (Physics.Raycast(ray, out hit, 1000))
+                if (Physics.Raycast(ray, out hit, 10000, myMask))
                 {
-                    
-                    var clickPosition = hit.point;
-                    print(clickPosition);
-                    fortressNavMesh.GetComponent<NavMeshAgent>().SetDestination(clickPosition);
+                    if (hit.transform.gameObject.layer == 9)
+                    {
+                        var clickPosition = hit.point;
+                        fortressNavMesh.GetComponent<NavMeshAgent>().SetDestination(clickPosition);
+                    }
+                    else if (hit.transform.gameObject.layer == 5)
+                    {
+
+                    }
                 }
 
                 

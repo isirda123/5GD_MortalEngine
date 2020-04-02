@@ -21,11 +21,10 @@ public class RessourcesInstanciator : MonoBehaviour
         
     }
 
-    IEnumerator RespawnOfRessources()
+    public IEnumerator RespawnOfRessources(int timeToRespawn, GameObject objectToRespawn)
     {
-
-
-        yield return null;
+        yield return new WaitForSeconds (timeToRespawn);
+        objectToRespawn.SetActive(true);
     }
 
 

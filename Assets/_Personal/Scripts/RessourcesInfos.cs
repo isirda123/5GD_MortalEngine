@@ -4,13 +4,9 @@ using UnityEngine;
 
 public class RessourcesInfos : MonoBehaviour
 {
-    public string name;
+    //[System.Serializable]
+    public new GameManager.ResourceType name;
     public int resourcesAmount;
     public int resourcesTimeToMine;
     public int resourcesTimeToRespawn;
-
-    public void GetDestroy()
-    {
-
-    }
 }
