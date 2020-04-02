@@ -120,4 +120,17 @@ public class CharaAvatar : MonoBehaviour
         mining = true;
         
     }
+
+
+    void OnTriggerEnter (Collider collider)
+    {
+        if (collider.transform.tag == "Resources")
+        {
+            if (Vector3.Distance(collider.transform.position, transform.position) < 5)
+            {
+                collider.gameObject.SetActive(false);
+                StartCoroutine(respawner.RespawnOfRessources(collider.GetComponent<RessourcesInfos>().resourcesTimeToRespawn, collider.gameObject));
+            }
+        }
+    }
 }
