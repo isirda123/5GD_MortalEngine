@@ -14,7 +14,8 @@ public class GameManager : Singleton<GameManager>
     }
 
     public ResourceInStock[] stock;
-
+    public Need needSelected;
+    public Need[] needs;
     public ResourceInStock ReturnResourceInStock(ResourceType resourceType)
     {
         ResourceInStock resourceInStockNeeded = null;

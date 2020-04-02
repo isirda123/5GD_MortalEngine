@@ -4,30 +4,24 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class NeedViewer : MonoBehaviour, IPointerDownHandler
 {
     [SerializeField] public GameManager.ResourceType[] resourcesUsable;
-    [SerializeField] public GameManager.ResourceType resourceUsed;
     [SerializeField] private StockViewer stockViewer;
     [SerializeField] private Image ressourceUsedImage;
     [SerializeField] private TextMeshProUGUI resourceUsed_tmp;
+    public Need.NeedType needType;
+    [SerializeField] private Need need;
 
-    private void SetResourceUsedText()
+    public void SetResourceUsedText(int nbr)
     {
-        for (int i = 0; i < GameManager.Instance.stock.Length; i++)
-        {
-            if(resourceUsed == GameManager.Instance.stock[i].resourceType)
-            {
-                int nbr = (int)GameManager.Instance.stock[i].numberInStock;
-                resourceUsed_tmp.text = nbr.ToString();
-            }
-        }
+        resourceUsed_tmp.text = nbr.ToString();
     }
 
-    public void SetResourceUsed(GameManager.ResourceType resourceUsed, Sprite ressourceUsedImage)
+    public void SetImageResourceUsed(Sprite ressourceUsedImage)
     {
-        this.resourceUsed = resourceUsed;
         this.ressourceUsedImage.sprite = ressourceUsedImage;
     }
 
@@ -36,6 +30,7 @@ public class NeedViewer : MonoBehaviour, IPointerDownHandler
         DrawStockViewer();
         ResetResourcesUSableViewer();
         SetResourcesUsableViewer();
+        SetNeedViewerSelected();
         SetNeedSelected();
     }
 
@@ -63,12 +58,7 @@ public class NeedViewer : MonoBehaviour, IPointerDownHandler
         }
     }
 
-    private void SetNeedSelected() => UIManager.Instance.needSelected = this;
+    private void SetNeedViewerSelected() => UIManager.Instance.needViewerSelected = this;
+    private void SetNeedSelected() => GameManager.Instance.needSelected = need;
 
-
-
-    private void Update()
-    {
-        SetResourceUsedText();
-    }
 }

@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class UIManager : Singleton<UIManager>
 {
-    [HideInInspector] public NeedViewer needSelected;
+    [HideInInspector] public NeedViewer needViewerSelected;
     public StockViewer stockViewer;
 }

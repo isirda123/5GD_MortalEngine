@@ -48,6 +48,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Need_Houses
       objectReference: {fileID: 0}
+    - target: {fileID: 7927568889818812473, guid: aa96824341e211048affc1ad09f34e73,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8405716421284926033, guid: aa96824341e211048affc1ad09f34e73,
         type: 3}
       propertyPath: m_LocalPosition.x

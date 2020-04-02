@@ -44,7 +44,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   needViewer: {fileID: 0}
-  needsDatas: {fileID: 0}
+  needDatas: {fileID: 11400000, guid: 6bd72c6ffb7a26148a2fc6cb788e56e2, type: 2}
+  needType: 0
+  resourceUsed: 4
 --- !u!1 &6178514526622534515
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,7 +125,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   needViewer: {fileID: 0}
-  needsDatas: {fileID: 0}
+  needDatas: {fileID: 11400000, guid: 8bc1f4418f62fc24aa4b366fda5af525, type: 2}
+  needType: 2
+  resourceUsed: 1
 --- !u!1 &6178514526895940746
 GameObject:
   m_ObjectHideFlags: 0
@@ -246,7 +250,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   needViewer: {fileID: 0}
-  needsDatas: {fileID: 0}
+  needDatas: {fileID: 11400000, guid: 81e9f3cf882011440896b6569a8c231d, type: 2}
+  needType: 1
+  resourceUsed: 2
 --- !u!1 &6178514527595694782
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System;
 
 public class ResourceViewer : MonoBehaviour, IPointerDownHandler
 {
@@ -12,24 +13,31 @@ public class ResourceViewer : MonoBehaviour, IPointerDownHandler
     public Image background;
     [SerializeField] private Image resourceImage;
 
-
     public void OnPointerDown(PointerEventData eventData)
     {
         if (CheckResourceType())
         {
-            SetResourceUsed();
+            SetImageResourceUsed();
             UIManager.Instance.stockViewer.DesableStockViewer();
+            SetResourceUsed();
         }
     }
 
-    private void SetResourceUsed() => UIManager.Instance.needSelected.SetResourceUsed(resourceType,resourceImage.sprite);
+    private void SetImageResourceUsed()
+    {
+        UIManager.Instance.needViewerSelected.SetImageResourceUsed(resourceImage.sprite);
+    }
+    private void SetResourceUsed()
+    {
+        GameManager.Instance.needSelected.resourceUsed = GameManager.Instance.ReturnResourceInStock(resourceType);
+    }
 
     private bool CheckResourceType()
     {
         bool canIUseThisResource = false;
-        for (int i = 0; i < UIManager.Instance.needSelected.resourcesUsable.Length; i++)
+        for (int i = 0; i < UIManager.Instance.needViewerSelected.resourcesUsable.Length; i++)
         {
-            if (resourceType == UIManager.Instance.needSelected.resourcesUsable[i])
+            if (resourceType == UIManager.Instance.needViewerSelected.resourcesUsable[i])
                 canIUseThisResource = true;
         }
         return canIUseThisResource;
