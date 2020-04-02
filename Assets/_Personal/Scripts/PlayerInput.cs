@@ -45,7 +45,7 @@ public class PlayerInput : MonoBehaviour
         }
         if (Input.GetMouseButton(0))
         {
-            if (Time.time - startTime > lenghtOfAClick)
+            if (Time.time - startTime > lenghtOfAClick )
             {
                 if (Input.GetAxis("Mouse X") > 0)
                 {
@@ -63,7 +63,7 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
-            if (Time.time - startTime <= lenghtOfAClick)
+            if (Time.time - startTime <= lenghtOfAClick && fortressNavMesh.GetComponent<CharaAvatar>().mining == false)
             {
 
 

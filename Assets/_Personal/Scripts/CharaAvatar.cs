@@ -36,7 +36,7 @@ public class CharaAvatar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        print(mining);
         if (mining == true)
         {
             Mine();
