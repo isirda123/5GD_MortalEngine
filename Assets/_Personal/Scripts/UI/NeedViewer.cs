@@ -8,18 +8,18 @@ using TMPro;
 public class NeedViewer : MonoBehaviour, IPointerDownHandler
 {
     [SerializeField] public GameManager.ResourceType[] resourcesUsable;
-    [SerializeField] private GameManager.ResourceType resourceUsed;
+    [SerializeField] public GameManager.ResourceType resourceUsed;
     [SerializeField] private StockViewer stockViewer;
     [SerializeField] private Image ressourceUsedImage;
     [SerializeField] private TextMeshProUGUI resourceUsed_tmp;
 
     private void SetResourceUsedText()
     {
-        for (int i = 0; i < GameManager.Instance.stock.resourcesInStock.Length; i++)
+        for (int i = 0; i < GameManager.Instance.stock.Length; i++)
         {
-            if(resourceUsed == GameManager.Instance.stock.resourcesInStock[i].resourceType)
+            if(resourceUsed == GameManager.Instance.stock[i].resourceType)
             {
-                int nbr = (int)GameManager.Instance.stock.resourcesInStock[i].numberInStock;
+                int nbr = (int)GameManager.Instance.stock[i].numberInStock;
                 resourceUsed_tmp.text = nbr.ToString();
             }
         }
@@ -65,20 +65,10 @@ public class NeedViewer : MonoBehaviour, IPointerDownHandler
 
     private void SetNeedSelected() => UIManager.Instance.needSelected = this;
 
-    private void UseResource(float resourceUsedPerSecond)
-    {
-        for (int i = 0; i < GameManager.Instance.stock.resourcesInStock.Length; i++)
-        {
-            if (resourceUsed == GameManager.Instance.stock.resourcesInStock[i].resourceType)
-            {
-                GameManager.Instance.stock.resourcesInStock[i].numberInStock -= resourceUsedPerSecond * Time.deltaTime;
-            }
-        }
-    }
+
 
     private void Update()
     {
         SetResourceUsedText();
-        UseResource(2);
     }
 }

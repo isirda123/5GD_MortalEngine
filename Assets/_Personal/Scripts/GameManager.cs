@@ -13,6 +13,18 @@ public class GameManager : Singleton<GameManager>
         Rock
     }
 
-    public Stock stock;
-    public NeedViewer[] needs;
+    public ResourceInStock[] stock;
+
+    public ResourceInStock ReturnResourceInStock(ResourceType resourceType)
+    {
+        ResourceInStock resourceInStockNeeded = null;
+        for (int i = 0; i < stock.Length; i++)
+        {
+            if(resourceType == stock[i].resourceType)
+            {
+                resourceInStockNeeded = stock[i];
+            }
+        }
+        return resourceInStockNeeded;
+    }
 }

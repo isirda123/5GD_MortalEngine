@@ -5,7 +5,6 @@ using UnityEngine;
 public class StockViewer : MonoBehaviour
 {
     [SerializeField] public ResourceViewer[] resourcesViewers;
-    [SerializeField] private Stock stock;
 
     private void Update()
     {
@@ -14,14 +13,27 @@ public class StockViewer : MonoBehaviour
 
     private void SetViwersText()
     {
+        ResourceInStock[] stock = GameManager.Instance.stock;
         //set the number of each resources in the UI
         for (int i = 0; i < resourcesViewers.Length; i++)
         {
-            for (int j = 0; j < stock.resourcesInStock.Length; j++)
+            //switch(resourcesViewers[i].resourceType)
+            //{
+            //    case GameManager.ResourceType.Chicken:
+            //        break;
+            //    case GameManager.ResourceType.Chicken:
+            //        break;
+            //    case GameManager.ResourceType.Chicken:
+            //        break;
+            //    case GameManager.ResourceType.Chicken:
+            //        break;
+            //}
+
+            for (int j = 0; j < stock.Length; j++)
             {
-                if(stock.resourcesInStock[j].resourceType == resourcesViewers[i].resourceType)
+                if(stock[j].resourceType == resourcesViewers[i].resourceType)
                 {
-                    int nbr = (int)stock.resourcesInStock[j].numberInStock;
+                    int nbr = (int)stock[j].numberInStock;
                     resourcesViewers[i].tmp.text = nbr.ToString();
                 }
             }
