@@ -4,8 +4,5 @@ using UnityEngine;
 
 public class Stock : MonoBehaviour
 {
-    public int wood;
-    public int rock;
-    public int sheep;
-    public int corn;
+    [SerializeField] public ResourceInStock[] resourcesInStock;
 }

@@ -6,8 +6,9 @@ public class GameManager : MonoBehaviour
 {
     public enum ResourceType
     {
+        None,
         Wood,
-        Sheep,
+        Chicken,
         Corn,
         Rock
     }
