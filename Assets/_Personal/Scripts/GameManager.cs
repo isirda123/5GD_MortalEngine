@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
     public enum ResourceType
     {
@@ -12,4 +12,7 @@ public class GameManager : MonoBehaviour
         Corn,
         Rock
     }
+
+    public Stock stock;
+    public NeedViewer[] needs;
 }

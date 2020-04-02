@@ -5,5 +5,5 @@ using UnityEngine;
 public class ResourceInStock : MonoBehaviour
 {
     public GameManager.ResourceType resourceType;
-    public int numberInStock;
+    public float numberInStock;
 }
