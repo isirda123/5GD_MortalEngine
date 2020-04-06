@@ -21,7 +21,7 @@ public class CharaAvatar : MonoBehaviour
     [SerializeField] float rangeWorkZone;
     public bool mining = false;
     float timeToMineAll;
-    float miningTime =0;
+    [HideInInspector] public float miningTime =0;
     [HideInInspector] public bool stopped;
     [SerializeField] bool doItOneTime = false;
     bool findThePos = false;
@@ -33,7 +33,7 @@ public class CharaAvatar : MonoBehaviour
     [SerializeField] Text cornText;
     [SerializeField] Text rockText;
     [SerializeField] Text timingTime;
-    [SerializeField] Text buttonText;
+    [SerializeField] public Text buttonText;
 
     [SerializeField] Collider[] hitColliders;
 
@@ -191,8 +191,17 @@ public class CharaAvatar : MonoBehaviour
 
     public void BeginMining()
     {
-        mining = true;
-        bufferPosInList = ressourcePos[0];
+        if (mining == true)
+        {
+            mining = false;
+            miningTime = 0;
+            buttonText.text = "Begin";
+        }
+        else
+        {
+            mining = true;
+            bufferPosInList = ressourcePos[0];
+        }
     }
 
 

@@ -63,9 +63,9 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
-            if (Time.time - startTime <= lenghtOfAClick && fortressNavMesh.GetComponent<CharaAvatar>().mining == false)
+            if (Time.time - startTime <= lenghtOfAClick)
             {
-
+                
 
                 //Make the Fortress move;
 
@@ -77,6 +77,15 @@ public class PlayerInput : MonoBehaviour
                     if (hit.transform.gameObject.layer == 9)
                     {
                         var clickPosition = hit.point;
+
+                        if (fortressNavMesh.GetComponent<CharaAvatar>().mining == true)
+                        {
+                            fortressNavMesh.GetComponent<CharaAvatar>().mining = false;
+                            fortressNavMesh.GetComponent<CharaAvatar>().miningTime = 0;
+                            fortressNavMesh.GetComponent<CharaAvatar>().buttonText.text = "Begin";
+                        }
+
+
                         fortressNavMesh.GetComponent<NavMeshAgent>().SetDestination(clickPosition);
                     }
                     else if (hit.transform.gameObject.layer == 5)
