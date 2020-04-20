@@ -144,7 +144,7 @@ public class CharaAvatar : MonoBehaviour
             }
             ressourcePos.Add(buffer);
             bufferCollider.Remove(whatToDestroy);
-            print(buffer.objectToCollect + "    " + bufferCollider.Count);
+
             
         }
     }
