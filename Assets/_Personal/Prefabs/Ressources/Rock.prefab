@@ -107,5 +107,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 4
   resourcesAmount: 20
-  resourcesTimeToMine: 10
-  resourcesTimeToRespawn: 25
+  resourcesTimeToMine: 1
+  resourcesTimeToRespawn: 120

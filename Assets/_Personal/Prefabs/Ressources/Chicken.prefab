@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 97f27d639b2fd144abb3f662e1ed822f, type: 2}
+  - {fileID: 2100000, guid: 96578752582a3394bb49f94107909f3f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -107,5 +107,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 2
   resourcesAmount: 5
-  resourcesTimeToMine: 5
-  resourcesTimeToRespawn: 8
+  resourcesTimeToMine: 1
+  resourcesTimeToRespawn: 30
