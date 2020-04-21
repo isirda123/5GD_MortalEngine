@@ -12,10 +12,11 @@ public class GameManager : Singleton<GameManager>
         Corn,
         Rock
     }
-
+    public RessourcesStartDatas ressourcesStartDatas;
     public ResourceInStock[] stock;
     public Need needSelected;
     public Need[] needs;
+
     public ResourceInStock ReturnResourceInStock(ResourceType resourceType)
     {
         ResourceInStock resourceInStockNeeded = null;
@@ -27,5 +28,32 @@ public class GameManager : Singleton<GameManager>
             }
         }
         return resourceInStockNeeded;
+    }
+
+    private void SetRessourcesAtStart()
+    {
+        for (int i = 0; i < stock.Length; i++)
+        {
+            switch (stock[i].resourceType)
+            {
+                case GameManager.ResourceType.Chicken:
+                    stock[i].numberInStock = ressourcesStartDatas.chicken;
+                    break;
+                case GameManager.ResourceType.Corn:
+                    stock[i].numberInStock = ressourcesStartDatas.corn;
+                    break;
+                case GameManager.ResourceType.Wood:
+                    stock[i].numberInStock = ressourcesStartDatas.wood;
+                    break;
+                case GameManager.ResourceType.Rock:
+                    stock[i].numberInStock = ressourcesStartDatas.rock;
+                    break;
+            }
+        }
+    }
+
+    private void Start()
+    {
+        SetRessourcesAtStart();
     }
 }

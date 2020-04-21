@@ -15,12 +15,10 @@ public class ResourceViewer : MonoBehaviour, IPointerUpHandler, IPointerDownHand
 
     public void OnPointerDown (PointerEventData eventData)
     {
-        print("Down");
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        print("Up");
         if (CheckResourceType())
         {
             SetImageResourceUsed();
