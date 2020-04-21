@@ -37,6 +37,8 @@ public class CharaAvatar : MonoBehaviour
 
     [SerializeField] Collider[] hitColliders;
 
+    
+
 
 
 
@@ -53,6 +55,7 @@ public class CharaAvatar : MonoBehaviour
         if (mining == true)
         {
             Mine();
+            CheckForStability();
         }
 
 
@@ -177,6 +180,13 @@ public class CharaAvatar : MonoBehaviour
         }
     }
 
+
+
+    IEnumerator CheckForStability()
+    {
+        return null;
+    }
+
     void destroyMinedObject()
     {
         for (int i =0; i< hitColliders.Length; i++)
@@ -209,7 +219,7 @@ public class CharaAvatar : MonoBehaviour
     {
         if (collider.transform.tag == "Resources")
         {
-            if (Vector3.Distance(collider.transform.position, transform.position) < 5)
+            if (Vector3.Distance(collider.transform.position, transform.position) < this.transform.localScale.x)
             {
                 collider.gameObject.SetActive(false);
                 StartCoroutine(respawner.RespawnOfRessources(collider.GetComponent<RessourcesInfos>().resourcesTimeToRespawn, collider.gameObject));
