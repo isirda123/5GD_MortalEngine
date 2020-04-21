@@ -160,7 +160,7 @@ public class CharaAvatar : MonoBehaviour
 
     void Mine()
     {
-        buttonText.text = "In Progress : " + (100*(miningTime / bufferPosInList.objectToCollect.GetComponent<RessourcesInfos>().resourcesTimeToMine)).ToString("0.0");
+        buttonText.text = "In Progress : " + (100*(miningTime / bufferPosInList.objectToCollect.GetComponent<RessourcesInfos>().resourcesTimeToMine)).ToString("0.0") + "%";
         miningTime += Time.deltaTime;
         if (miningTime/ bufferPosInList.objectToCollect.GetComponent<RessourcesInfos>().resourcesTimeToMine > 1)
         {
