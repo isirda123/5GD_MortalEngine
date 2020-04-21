@@ -20,19 +20,19 @@ public class Need : MonoBehaviour
         switch (resourceUsed.resourceType)
         {
             case GameManager.ResourceType.Chicken:
-                GameManager.Instance.ReturnResourceInStock(resourceUsed.resourceType).numberInStock -= needDatas.chickenPerSecond * Time.deltaTime;
+                GameManager.Instance.ReturnResourceInStock(resourceUsed.resourceType).numberInStock -= needDatas.chickenPerMinute * Time.deltaTime / 60f;
                 break;
             case GameManager.ResourceType.Wood:
-                GameManager.Instance.ReturnResourceInStock(resourceUsed.resourceType).numberInStock -= needDatas.woodPerSecond * Time.deltaTime;
+                GameManager.Instance.ReturnResourceInStock(resourceUsed.resourceType).numberInStock -= needDatas.woodPerMinute * Time.deltaTime / 60f;
                 break;
             case GameManager.ResourceType.Rock:
-                GameManager.Instance.ReturnResourceInStock(resourceUsed.resourceType).numberInStock -= needDatas.rockPerSecond * Time.deltaTime;
+                GameManager.Instance.ReturnResourceInStock(resourceUsed.resourceType).numberInStock -= needDatas.rockPerMinute * Time.deltaTime / 60f;
                 break;
             case GameManager.ResourceType.Corn:
-                GameManager.Instance.ReturnResourceInStock(resourceUsed.resourceType).numberInStock -= needDatas.cornPerSecond * Time.deltaTime;
+                GameManager.Instance.ReturnResourceInStock(resourceUsed.resourceType).numberInStock -= needDatas.cornPerMinute * Time.deltaTime / 60f;
                 break;
         }
-        needViewer.SetResourceUsedText((int)GameManager.Instance.ReturnResourceInStock(resourceUsed.resourceType).numberInStock);
+        needViewer.SetResourceUsedText((int)Mathf.Round(GameManager.Instance.ReturnResourceInStock(resourceUsed.resourceType).numberInStock));
     }
 
     private void SetRessourceSelected()

@@ -5,8 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewNeedData", menuName = "ScriptableObjects/NeedDatas")]
 public class NeedsDatas : ScriptableObject
 {
-    public float woodPerSecond;
-    public float rockPerSecond;
-    public float chickenPerSecond;
-    public float cornPerSecond;
+    public float woodPerMinute;
+    public float rockPerMinute;
+    public float chickenPerMinute;
+    public float cornPerMinute;
 }
