@@ -232,9 +232,12 @@ public class CharaAvatar : MonoBehaviour
         }
         else
         {
-            mining = true;
-            if (ressourcePos.Count >0)
+            if (ressourcePos.Count > 0)
+            {
                 bufferPosInList = ressourcePos[0];
+                    
+                mining = true;
+            }
         }
     }
 
