@@ -50,13 +50,13 @@ public class PlayerInput : MonoBehaviour
             {
                 if (Input.GetAxis("Mouse X") > 0)
                 {
-                    Camera.main.transform.position -= new Vector3(Input.GetAxisRaw("Mouse X") * Time.deltaTime * speedOfCamera,
+                    Camera.main.transform.localPosition -= new Vector3(Input.GetAxisRaw("Mouse X") * Time.deltaTime * speedOfCamera,
                                                0.0f, Input.GetAxisRaw("Mouse Y") * Time.deltaTime * speedOfCamera);
                 }
 
                 else if (Input.GetAxis("Mouse X") < 0)
                 {
-                    Camera.main.transform.transform.position -= new Vector3(Input.GetAxisRaw("Mouse X") * Time.deltaTime * speedOfCamera,
+                    Camera.main.transform.transform.localPosition -= new Vector3(Input.GetAxisRaw("Mouse X") * Time.deltaTime * speedOfCamera,
                                                0.0f, Input.GetAxisRaw("Mouse Y") * Time.deltaTime * speedOfCamera);
                 }
             }
