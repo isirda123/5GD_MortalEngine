@@ -27,6 +27,7 @@ public class PlayerInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        print(fortressNavMesh.GetComponent<NavMeshAgent>().destination);
         if (fortressNavMesh.GetComponent<NavMeshAgent>().hasPath == true)
         {
             fortressNavMesh.GetComponent<CharaAvatar>().workZone.SetActive(false);

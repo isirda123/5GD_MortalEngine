@@ -6,15 +6,21 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System;
 
-public class ResourceViewer : MonoBehaviour, IPointerDownHandler
+public class ResourceViewer : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
 {
     public GameManager.ResourceType resourceType;
     public TextMeshProUGUI tmp;
     public Image background;
     [SerializeField] private Image resourceImage;
 
-    public void OnPointerDown(PointerEventData eventData)
+    public void OnPointerDown (PointerEventData eventData)
     {
+        print("Down");
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        print("Up");
         if (CheckResourceType())
         {
             SetImageResourceUsed();
