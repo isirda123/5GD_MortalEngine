@@ -2164,6 +2164,11 @@ PrefabInstance:
       propertyPath: respawner
       value: 
       objectReference: {fileID: 633950659}
+    - target: {fileID: 8491901174387506781, guid: 4bc6de77fcf4d1c4f827d0d1171d104b,
+        type: 3}
+      propertyPath: buttonText
+      value: 
+      objectReference: {fileID: 426455097}
     - target: {fileID: 8491901174387506783, guid: 4bc6de77fcf4d1c4f827d0d1171d104b,
         type: 3}
       propertyPath: m_LocalPosition.x
