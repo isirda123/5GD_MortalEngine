@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Linq;
-
+using DG.Tweening;
 public class CharaAvatar : MonoBehaviour
 {
     [System.Serializable] public struct distanceRessource
@@ -41,13 +41,15 @@ public class CharaAvatar : MonoBehaviour
 
     
 
-
-
-
     // Start is called before the first frame update
     void Start()
     {
         workZone.transform.localScale = new Vector3( rangeWorkZone/transform.localScale.x, rangeWorkZone / transform.localScale.x, rangeWorkZone / transform.localScale.x);
+        PlayerInput.InputUp += Move;
+    }
+    private void OnDestroy()
+    {
+        PlayerInput.InputUp -= Move;
     }
 
     // Update is called once per frame
@@ -186,7 +188,11 @@ public class CharaAvatar : MonoBehaviour
         }
     }
 
-
+    private void Move(RaycastHit hit)
+    {
+        float distance = Vector3.Distance(transform.position, hit.collider.transform.position);
+        transform.DOMove(hit.collider.transform.position, distance);
+    }
 
     IEnumerator CheckForStability()
     {

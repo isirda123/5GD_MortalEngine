@@ -56,4 +56,11 @@ public class GameManager : Singleton<GameManager>
     {
         SetRessourcesAtStart();
     }
+
+
+
+    private void Update()
+    {
+        
+    }
 }
