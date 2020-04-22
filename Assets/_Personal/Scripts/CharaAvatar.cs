@@ -44,9 +44,9 @@ public class CharaAvatar : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        workZone.transform.localScale = new Vector3( rangeWorkZone/transform.localScale.x, rangeWorkZone / transform.localScale.x, rangeWorkZone / transform.localScale.x);
         PlayerInput.InputUp += Move;
     }
+
     private void OnDestroy()
     {
         PlayerInput.InputUp -= Move;
@@ -55,19 +55,17 @@ public class CharaAvatar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (mining == true)
         {
             Mine();
             StartCoroutine(CheckForStability());
         }
 
-
         if (stopped == true)
         {
             if (doItOneTime == false)
             {
-                mineCanvas.SetActive(true);
+              //  mineCanvas.SetActive(true);
                 timeToMineAll = 0;
                 hitColliders = Physics.OverlapSphere(transform.position, rangeWorkZone / 2, 1 << 8);
 
@@ -107,15 +105,13 @@ public class CharaAvatar : MonoBehaviour
                 rockText.text = "Rock : " + rock.ToString();
                 timingTime.text = "Time to mine : " + timeToMineAll.ToString();
                 doItOneTime = true;
-                print("Jusy Stopped");
-
 
                 CheckForPos();
             }
         }
         else
         {
-            mineCanvas.SetActive(false);
+          //  mineCanvas.SetActive(false);
             doItOneTime = false;
         }
     }
@@ -168,7 +164,7 @@ public class CharaAvatar : MonoBehaviour
         {
             bufferPosInList.objectToCollect.SetActive(false);
             StartCoroutine(respawner.RespawnOfRessources(bufferPosInList.objectToCollect.GetComponent<RessourcesInfos>().resourcesTimeToRespawn, bufferPosInList.objectToCollect));
-            GameManager.Instance.ReturnResourceInStock(bufferPosInList.objectToCollect.GetComponent<RessourcesInfos>().name).numberInStock += bufferPosInList.objectToCollect.GetComponent<RessourcesInfos>().resourcesAmount;
+            GameManager.Instance.ReturnResourceInStock(bufferPosInList.objectToCollect.GetComponent<RessourcesInfos>().name).NumberInStock += bufferPosInList.objectToCollect.GetComponent<RessourcesInfos>().resourcesAmount;
             miningTime = 0;
             
             ressourcePos.Remove(bufferPosInList);
@@ -190,23 +186,30 @@ public class CharaAvatar : MonoBehaviour
 
     private void Move(RaycastHit hit)
     {
+        stopped = false;
+        workZone.SetActive(false);
+        transform.DOKill();
         float distance = Vector3.Distance(transform.position, hit.collider.transform.position);
-        transform.DOMove(hit.collider.transform.position, distance);
+        transform.DOMove(hit.collider.transform.position, distance).onComplete += EndMove;
     }
-
+    private void EndMove()
+    {
+        workZone.SetActive(true);
+        stopped = true;
+    }
     IEnumerator CheckForStability()
     {
-        float woodInStock = GameManager.Instance.ReturnResourceInStock(GameManager.ResourceType.Wood).numberInStock;
-        float chickenInStock = GameManager.Instance.ReturnResourceInStock(GameManager.ResourceType.Chicken).numberInStock;
-        float cornInStock = GameManager.Instance.ReturnResourceInStock(GameManager.ResourceType.Corn).numberInStock;
-        float rockInStock = GameManager.Instance.ReturnResourceInStock(GameManager.ResourceType.Rock).numberInStock;
+        float woodInStock = GameManager.Instance.ReturnResourceInStock(GameManager.ResourceType.Wood).NumberInStock;
+        float chickenInStock = GameManager.Instance.ReturnResourceInStock(GameManager.ResourceType.Chicken).NumberInStock;
+        float cornInStock = GameManager.Instance.ReturnResourceInStock(GameManager.ResourceType.Corn).NumberInStock;
+        float rockInStock = GameManager.Instance.ReturnResourceInStock(GameManager.ResourceType.Rock).NumberInStock;
 
         yield return new WaitForSeconds(timeBeforeVictory);
 
-        if (woodInStock <= GameManager.Instance.ReturnResourceInStock(GameManager.ResourceType.Wood).numberInStock &&
-            chickenInStock <= GameManager.Instance.ReturnResourceInStock(GameManager.ResourceType.Chicken).numberInStock &&
-            cornInStock <= GameManager.Instance.ReturnResourceInStock(GameManager.ResourceType.Corn).numberInStock && 
-            rockInStock <= GameManager.Instance.ReturnResourceInStock(GameManager.ResourceType.Rock).numberInStock)
+        if (woodInStock <= GameManager.Instance.ReturnResourceInStock(GameManager.ResourceType.Wood).NumberInStock &&
+            chickenInStock <= GameManager.Instance.ReturnResourceInStock(GameManager.ResourceType.Chicken).NumberInStock &&
+            cornInStock <= GameManager.Instance.ReturnResourceInStock(GameManager.ResourceType.Corn).NumberInStock && 
+            rockInStock <= GameManager.Instance.ReturnResourceInStock(GameManager.ResourceType.Rock).NumberInStock)
         {
             print("Victory");
         }
@@ -222,7 +225,7 @@ public class CharaAvatar : MonoBehaviour
         {
             hitColliders[i].gameObject.SetActive(false);
             StartCoroutine(respawner.RespawnOfRessources(hitColliders[i].GetComponent<RessourcesInfos>().resourcesTimeToRespawn, hitColliders[i].gameObject));
-            GameManager.Instance.ReturnResourceInStock(hitColliders[i].GetComponent<RessourcesInfos>().name).numberInStock += hitColliders[i].GetComponent<RessourcesInfos>().resourcesAmount;
+            GameManager.Instance.ReturnResourceInStock(hitColliders[i].GetComponent<RessourcesInfos>().name).NumberInStock += hitColliders[i].GetComponent<RessourcesInfos>().resourcesAmount;
             buttonText.text = "Begin";
         }
     }
@@ -252,11 +255,8 @@ public class CharaAvatar : MonoBehaviour
     {
         if (collider.transform.tag == "Resources")
         {
-            if (Vector3.Distance(collider.transform.position, transform.position) < this.transform.localScale.x)
-            {
-                collider.gameObject.SetActive(false);
-                StartCoroutine(respawner.RespawnOfRessources(collider.GetComponent<RessourcesInfos>().resourcesTimeToRespawn, collider.gameObject));
-            }
+            collider.gameObject.SetActive(false);
+            StartCoroutine(respawner.RespawnOfRessources(collider.GetComponent<RessourcesInfos>().resourcesTimeToRespawn, collider.gameObject));
         }
     }
 }

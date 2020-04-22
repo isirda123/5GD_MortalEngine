@@ -33,7 +33,7 @@ public class StockViewer : MonoBehaviour
             {
                 if(stock[j].resourceType == resourcesViewers[i].resourceType)
                 {
-                    int nbr = (int)stock[j].numberInStock;
+                    int nbr = (int)Mathf.Round(stock[j].NumberInStock);
                     resourcesViewers[i].tmp.text = nbr.ToString();
                 }
             }

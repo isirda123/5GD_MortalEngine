@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b5894b96576b59439fa55415fc813ef, type: 3}
   m_Name: FoodDatas
   m_EditorClassIdentifier: 
-  woodPerSecond: 0
-  rockPerSecond: 0
-  chickenPerSecond: 0.5
-  cornPerSecond: 2
+  woodPerMinute: 0
+  rockPerMinute: 0
+  chickenPerMinute: 1
+  cornPerMinute: 2

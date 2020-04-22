@@ -22,9 +22,9 @@ public class PlayerInput : MonoBehaviour
     {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        LayerMask layerMask = 1 << 10;
-
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+        LayerMask layerMask = 1 << 8;
+        layerMask = ~layerMask;
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity,layerMask))
         {
         }
 

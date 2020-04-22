@@ -37,16 +37,16 @@ public class GameManager : Singleton<GameManager>
             switch (stock[i].resourceType)
             {
                 case GameManager.ResourceType.Chicken:
-                    stock[i].numberInStock = ressourcesStartDatas.chicken;
+                    stock[i].NumberInStock = ressourcesStartDatas.chicken;
                     break;
                 case GameManager.ResourceType.Corn:
-                    stock[i].numberInStock = ressourcesStartDatas.corn;
+                    stock[i].NumberInStock = ressourcesStartDatas.corn;
                     break;
                 case GameManager.ResourceType.Wood:
-                    stock[i].numberInStock = ressourcesStartDatas.wood;
+                    stock[i].NumberInStock = ressourcesStartDatas.wood;
                     break;
                 case GameManager.ResourceType.Rock:
-                    stock[i].numberInStock = ressourcesStartDatas.rock;
+                    stock[i].NumberInStock = ressourcesStartDatas.rock;
                     break;
             }
         }
