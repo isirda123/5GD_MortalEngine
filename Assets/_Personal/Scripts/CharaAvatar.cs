@@ -23,7 +23,7 @@ public class CharaAvatar : MonoBehaviour
     float timeToMineAll;
     [HideInInspector] public float miningTime =0;
     [HideInInspector] public bool stopped;
-    [SerializeField] bool doItOneTime = false;
+    [SerializeField] public bool doItOneTime = false;
     bool findThePos = false;
     [Tooltip ("In Seconde")]
     [SerializeField] float timeBeforeVictory;
@@ -250,6 +250,7 @@ public class CharaAvatar : MonoBehaviour
             {
                 collider.gameObject.SetActive(false);
                 StartCoroutine(respawner.RespawnOfRessources(collider.GetComponent<RessourcesInfos>().resourcesTimeToRespawn, collider.gameObject));
+                doItOneTime = false;
             }
         }
     }

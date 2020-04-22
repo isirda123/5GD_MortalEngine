@@ -25,6 +25,7 @@ public class RessourcesInstanciator : MonoBehaviour
     {
         yield return new WaitForSeconds (timeToRespawn);
         objectToRespawn.SetActive(true);
+        GameObject.Find("Fortress").GetComponent<CharaAvatar>().doItOneTime = false;
     }
 
 
