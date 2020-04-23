@@ -21,7 +21,7 @@ public class RessourcesInstanciator : MonoBehaviour
         
     }
 
-    public IEnumerator RespawnOfRessources(int timeToRespawn, GameObject objectToRespawn)
+    public IEnumerator RespawnOfRessources(float timeToRespawn, GameObject objectToRespawn)
     {
         yield return new WaitForSeconds (timeToRespawn);
         objectToRespawn.SetActive(true);

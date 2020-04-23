@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be9148915dcf4c243acb49ecef861d46, type: 3}
   m_Name: RessourcesStart_00
   m_EditorClassIdentifier: 
-  wood: 3
+  wood: 20
+  berry: 20
   rock: 0
-  chicken: 0
-  corn: 0
+  mouflu: 0

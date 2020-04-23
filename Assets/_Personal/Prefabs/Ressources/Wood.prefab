@@ -124,9 +124,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: 1
-  resourcesAmount: 1
-  resourcesTimeToMine: 2
-  resourcesTimeToRespawn: 60
+  resourcesTimeToMine: 5
+  resourcesTimeToRespawn: 10
+  resourcesAmount: 5
 --- !u!136 &9219890627062905921
 CapsuleCollider:
   m_ObjectHideFlags: 0

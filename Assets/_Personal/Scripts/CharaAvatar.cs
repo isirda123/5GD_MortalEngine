@@ -69,10 +69,10 @@ public class CharaAvatar : MonoBehaviour
                 timeToMineAll = 0;
                 hitColliders = Physics.OverlapSphere(transform.position, rangeWorkZone / 2, 1 << 8);
 
-                int wood = 0;
-                int chicken = 0;
-                int corn = 0;
-                int rock = 0;
+                float wood = 0;
+                float chicken = 0;
+                float corn = 0;
+                float rock = 0;
                 for (int i = 0; i < hitColliders.Length; i++)
                 {
                     findThePos = false;
@@ -81,12 +81,12 @@ public class CharaAvatar : MonoBehaviour
                         wood += hitColliders[i].GetComponent<RessourcesInfos>().resourcesAmount;
                         timeToMineAll += hitColliders[i].GetComponent<RessourcesInfos>().resourcesTimeToMine;
                     }
-                    else if (hitColliders[i].GetComponent<RessourcesInfos>().name == GameManager.ResourceType.Chicken)
+                    else if (hitColliders[i].GetComponent<RessourcesInfos>().name == GameManager.ResourceType.Mouflu)
                     {
                         chicken += hitColliders[i].GetComponent<RessourcesInfos>().resourcesAmount;
                         timeToMineAll += hitColliders[i].GetComponent<RessourcesInfos>().resourcesTimeToMine;
                     }
-                    else if (hitColliders[i].GetComponent<RessourcesInfos>().name == GameManager.ResourceType.Corn)
+                    else if (hitColliders[i].GetComponent<RessourcesInfos>().name == GameManager.ResourceType.Berry)
                     {
                         corn += hitColliders[i].GetComponent<RessourcesInfos>().resourcesAmount;
                         timeToMineAll += hitColliders[i].GetComponent<RessourcesInfos>().resourcesTimeToMine;
@@ -200,22 +200,22 @@ public class CharaAvatar : MonoBehaviour
     IEnumerator CheckForStability()
     {
         float woodInStock = GameManager.Instance.ReturnResourceInStock(GameManager.ResourceType.Wood).NumberInStock;
-        float chickenInStock = GameManager.Instance.ReturnResourceInStock(GameManager.ResourceType.Chicken).NumberInStock;
-        float cornInStock = GameManager.Instance.ReturnResourceInStock(GameManager.ResourceType.Corn).NumberInStock;
+        float chickenInStock = GameManager.Instance.ReturnResourceInStock(GameManager.ResourceType.Mouflu).NumberInStock;
+        float cornInStock = GameManager.Instance.ReturnResourceInStock(GameManager.ResourceType.Berry).NumberInStock;
         float rockInStock = GameManager.Instance.ReturnResourceInStock(GameManager.ResourceType.Rock).NumberInStock;
 
         yield return new WaitForSeconds(timeBeforeVictory);
 
         if (woodInStock <= GameManager.Instance.ReturnResourceInStock(GameManager.ResourceType.Wood).NumberInStock &&
-            chickenInStock <= GameManager.Instance.ReturnResourceInStock(GameManager.ResourceType.Chicken).NumberInStock &&
-            cornInStock <= GameManager.Instance.ReturnResourceInStock(GameManager.ResourceType.Corn).NumberInStock && 
+            chickenInStock <= GameManager.Instance.ReturnResourceInStock(GameManager.ResourceType.Mouflu).NumberInStock &&
+            cornInStock <= GameManager.Instance.ReturnResourceInStock(GameManager.ResourceType.Berry).NumberInStock && 
             rockInStock <= GameManager.Instance.ReturnResourceInStock(GameManager.ResourceType.Rock).NumberInStock)
         {
-            print("Victory");
+          //  print("Victory");
         }
         else
         {
-            print("Try Again");
+           // print("Try Again");
         }
     }
 

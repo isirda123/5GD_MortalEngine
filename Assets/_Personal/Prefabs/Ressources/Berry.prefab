@@ -246,7 +246,7 @@ GameObject:
   - component: {fileID: 2187575580552311405}
   - component: {fileID: 2336349726148609776}
   m_Layer: 8
-  m_Name: Corn
+  m_Name: Berry
   m_TagString: Resources
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -295,6 +295,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: 3
-  resourcesAmount: 2
   resourcesTimeToMine: 1
-  resourcesTimeToRespawn: 10
+  resourcesTimeToRespawn: 5
+  resourcesAmount: 2

@@ -17,18 +17,6 @@ public class StockViewer : MonoBehaviour
         //set the number of each resources in the UI
         for (int i = 0; i < resourcesViewers.Length; i++)
         {
-            //switch(resourcesViewers[i].resourceType)
-            //{
-            //    case GameManager.ResourceType.Chicken:
-            //        break;
-            //    case GameManager.ResourceType.Chicken:
-            //        break;
-            //    case GameManager.ResourceType.Chicken:
-            //        break;
-            //    case GameManager.ResourceType.Chicken:
-            //        break;
-            //}
-
             for (int j = 0; j < stock.Length; j++)
             {
                 if(stock[j].resourceType == resourcesViewers[i].resourceType)
@@ -39,6 +27,6 @@ public class StockViewer : MonoBehaviour
             }
         }
     }
-
+    
     public void DesableStockViewer() => gameObject.SetActive(false);
 }

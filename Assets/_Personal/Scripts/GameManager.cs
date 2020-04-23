@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -8,15 +9,15 @@ public class GameManager : Singleton<GameManager>
     {
         None,
         Wood,
-        Chicken,
-        Corn,
+        Mouflu,
+        Berry,
         Rock
     }
     public RessourcesStartDatas ressourcesStartDatas;
     public ResourceInStock[] stock;
     public Need needSelected;
     public Need[] needs;
-
+    public static event Action<bool> LevelEnd;
     public ResourceInStock ReturnResourceInStock(ResourceType resourceType)
     {
         ResourceInStock resourceInStockNeeded = null;
@@ -30,17 +31,17 @@ public class GameManager : Singleton<GameManager>
         return resourceInStockNeeded;
     }
 
-    private void SetRessourcesAtStart()
+    private void SetStartingStock()
     {
         for (int i = 0; i < stock.Length; i++)
         {
             switch (stock[i].resourceType)
             {
-                case GameManager.ResourceType.Chicken:
-                    stock[i].NumberInStock = ressourcesStartDatas.chicken;
+                case GameManager.ResourceType.Mouflu:
+                    stock[i].NumberInStock = ressourcesStartDatas.mouflu;
                     break;
-                case GameManager.ResourceType.Corn:
-                    stock[i].NumberInStock = ressourcesStartDatas.corn;
+                case GameManager.ResourceType.Berry:
+                    stock[i].NumberInStock = ressourcesStartDatas.berry;
                     break;
                 case GameManager.ResourceType.Wood:
                     stock[i].NumberInStock = ressourcesStartDatas.wood;
@@ -54,13 +55,7 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
-        SetRessourcesAtStart();
+        SetStartingStock();
     }
 
-
-
-    private void Update()
-    {
-        
-    }
 }

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: FoodDatas
   m_EditorClassIdentifier: 
   woodPerMinute: 0
+  chickenPerMinute: 5
+  berryPerMinute: 20
   rockPerMinute: 0
-  chickenPerMinute: 1
-  cornPerMinute: 2

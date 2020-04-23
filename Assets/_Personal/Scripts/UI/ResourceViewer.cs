@@ -31,6 +31,7 @@ public class ResourceViewer : MonoBehaviour, IPointerUpHandler, IPointerDownHand
     {
         UIManager.Instance.needViewerSelected.SetImageResourceUsed(resourceImage.sprite);
     }
+
     private void SetResourceUsed()
     {
         GameManager.Instance.needSelected.resourceUsed = GameManager.Instance.ReturnResourceInStock(resourceType);
@@ -39,13 +40,11 @@ public class ResourceViewer : MonoBehaviour, IPointerUpHandler, IPointerDownHand
     private bool CheckResourceType()
     {
         bool canIUseThisResource = false;
-        for (int i = 0; i < UIManager.Instance.needViewerSelected.resourcesUsable.Length; i++)
+        for (int i = 0; i < UIManager.Instance.needViewerSelected.need.resourcesUsable.Length; i++)
         {
-            if (resourceType == UIManager.Instance.needViewerSelected.resourcesUsable[i])
+            if (resourceType == UIManager.Instance.needViewerSelected.need.resourcesUsable[i])
                 canIUseThisResource = true;
         }
         return canIUseThisResource;
     }
-
-
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 public class NeedsDatas : ScriptableObject
 {
     public float woodPerMinute;
-    public float rockPerMinute;
     public float chickenPerMinute;
-    public float cornPerMinute;
+    public float berryPerMinute;
+    public float rockPerMinute;
 }
