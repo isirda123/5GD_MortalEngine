@@ -14,6 +14,8 @@ public class DecretManager : MonoBehaviour
     [SerializeField] GameObject textNoDecreeAvailable;
     [SerializeField] GameObject numberOfDecreeGO;
     [SerializeField] GameObject validateButton;
+    [SerializeField] GameObject decretValidateManager;
+    [SerializeField] GameObject decretValidatePrefab;
 
     [SerializeField] Sprite baseDecreeColor;
     [SerializeField] Sprite selectedDecree;
@@ -26,6 +28,7 @@ public class DecretManager : MonoBehaviour
 
 
     bool decreeCanvasOpen = false;
+    bool decreeChoiceCanvasOpen = false;
     bool decreeAlreadySeen = false;
 
     int choosenDecree = 0;
@@ -77,11 +80,11 @@ public class DecretManager : MonoBehaviour
                 ChoiceDecreeCanvas();
             }
         }
-        else
-        {
-            
-            ShowNormalUI();
-        }
+    }
+
+    void ShowAllChoosenDecree()
+    {
+        decretValidateManager.SetActive(true);
     }
 
     public void ReturntoGame()
@@ -123,6 +126,7 @@ public class DecretManager : MonoBehaviour
         canvasDecree.SetActive(false);
         textNoDecreeAvailable.SetActive(false);
         availableDecree.SetActive(false);
+        decretValidateManager.SetActive(false);
         print("HideAll");
     }
 
@@ -172,6 +176,8 @@ public class DecretManager : MonoBehaviour
     {
         numberOfDecreeAvailable -= 1;
         decreeValidate.Add(decreeChoosen[choosenDecree]);
+        GameObject dVP = Instantiate(decretValidatePrefab, decretValidateManager.transform.GetChild(0));
+        dVP.GetComponent<DecretsValidate>().personalDecree = decreeChoosen[choosenDecree];
         print(decreeChoosen[choosenDecree]);
         decreeChoosen.RemoveAt(choosenDecree);
         for (int i = 0; i < 2; i++)
@@ -182,6 +188,7 @@ public class DecretManager : MonoBehaviour
         decreeAlreadySeen = false;
         UnSelectAllDecree();
         decreeCanvasOpen = false;
+
         if (numberOfDecreeAvailable > 0)
         {
             HideItAll();

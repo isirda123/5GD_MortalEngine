@@ -1,10 +1,15 @@
-﻿using System;
+﻿
+#if UNITY_EDITOR
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 using UnityEditor;
 
 [CustomEditor(typeof(DecreeScriptable))]
+
 public class DecreeScriptableEditor : Editor
 {
     private bool typeOfDecreeFolder,
@@ -335,3 +340,5 @@ public class DecreeScriptableEditor : Editor
 
     }
 }
+
+#endif
