@@ -142,6 +142,7 @@ public class CharaAvatar : MonoBehaviour
             if (GameManager.Instance.needs[i].resourceUsed.resourceType == GameManager.ResourceType.Berry)
                 berryTilesNeeded += GameManager.Instance.needs[i].TilesNeeded;
         }
+
         //count resources around
         int woodAround = 0;
         int berryAround = 0;

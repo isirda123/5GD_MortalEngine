@@ -32,7 +32,7 @@ public class Need : MonoBehaviour
                     wastOfEnergyUsed = resourceUsed.resourcesInfos.wastForBuildPerMinute;
                     break;
             }
-            return (int)Mathf.Round(resourceUsed.resourcesInfos.ResourcesPerMinute / wastOfEnergyUsed);
+            return Mathf.CeilToInt(resourceUsed.resourcesInfos.ResourcesPerMinute / wastOfEnergyUsed);
         }
     }
 

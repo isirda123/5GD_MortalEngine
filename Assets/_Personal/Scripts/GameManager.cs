@@ -18,6 +18,12 @@ public class GameManager : Singleton<GameManager>
     public Need needSelected;
     public Need[] needs;
     public static event Action<bool> LevelEnd;
+    public enum GameState
+    {
+        Playing,
+        Score
+    }
+    private GameState gameState;
     public ResourceInStock ReturnResourceInStock(ResourceType resourceType)
     {
         ResourceInStock resourceInStockNeeded = null;
@@ -32,7 +38,8 @@ public class GameManager : Singleton<GameManager>
     }
     public void EndLevel(bool win)
     {
-        LevelEnd?.Invoke(win);
+        if(gameState == GameState.Playing)
+            LevelEnd?.Invoke(win);
     }
     private void SetStartingStock()
     {
