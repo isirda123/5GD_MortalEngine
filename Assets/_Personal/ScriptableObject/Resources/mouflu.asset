@@ -9,10 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b5894b96576b59439fa55415fc813ef, type: 3}
-  m_Name: FoodDatas
+  m_Script: {fileID: 11500000, guid: 32fc1f0314c27074ba051bb846c871ef, type: 3}
+  m_Name: mouflu
   m_EditorClassIdentifier: 
-  woodPerMinute: 0
-  chickenPerMinute: 5
-  berryPerMinute: 20
-  rockPerMinute: 0
+  resourceType: 2
+  resourcesTimeToMine: 2
+  resourcesTimeToRespawn: 1000
+  resourcesAmount: 5
+  wastForEnergyPerMinute: 0
+  wastForBuildPerMinute: 0
+  wastForFoodPerMinute: 10

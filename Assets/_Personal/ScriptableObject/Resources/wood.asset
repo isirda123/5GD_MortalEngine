@@ -9,10 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b5894b96576b59439fa55415fc813ef, type: 3}
-  m_Name: HousesDatas
+  m_Script: {fileID: 11500000, guid: 32fc1f0314c27074ba051bb846c871ef, type: 3}
+  m_Name: wood
   m_EditorClassIdentifier: 
-  woodPerMinute: 20
-  chickenPerMinute: 0
-  berryPerMinute: 0
-  rockPerMinute: 5
+  resourceType: 1
+  resourcesTimeToMine: 5
+  resourcesTimeToRespawn: 10
+  resourcesAmount: 5
+  wastForEnergyPerMinute: 20
+  wastForBuildPerMinute: 40
+  wastForFoodPerMinute: 0

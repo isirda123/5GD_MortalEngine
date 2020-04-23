@@ -58,7 +58,10 @@ public class CharaAvatar : MonoBehaviour
         if (mining == true)
         {
             Mine();
-            StartCoroutine(CheckForStability());
+            hitColliders = Physics.OverlapSphere(transform.position, rangeWorkZone / 2, 1 << 8);
+            List<ResourceInGame> resourcesAround = GetResourcesAround(hitColliders);
+            CheckLevelValidation(resourcesAround);
+            //   StartCoroutine(CheckForStability());
         }
 
         if (stopped == true)
@@ -68,7 +71,6 @@ public class CharaAvatar : MonoBehaviour
               //  mineCanvas.SetActive(true);
                 timeToMineAll = 0;
                 hitColliders = Physics.OverlapSphere(transform.position, rangeWorkZone / 2, 1 << 8);
-
                 float wood = 0;
                 float chicken = 0;
                 float corn = 0;
@@ -76,25 +78,25 @@ public class CharaAvatar : MonoBehaviour
                 for (int i = 0; i < hitColliders.Length; i++)
                 {
                     findThePos = false;
-                    if (hitColliders[i].GetComponent<ResourcesInfos>().resourceType == GameManager.ResourceType.Wood)
+                    if (hitColliders[i].GetComponent<ResourceInGame>().resourcesInfos.resourceType == GameManager.ResourceType.Wood)
                     {
-                        wood += hitColliders[i].GetComponent<ResourcesInfos>().resourcesAmount;
-                        timeToMineAll += hitColliders[i].GetComponent<ResourcesInfos>().resourcesTimeToMine;
+                        wood += hitColliders[i].GetComponent<ResourceInGame>().resourcesInfos.resourcesAmount;
+                        timeToMineAll += hitColliders[i].GetComponent<ResourceInGame>().resourcesInfos.resourcesTimeToMine;
                     }
-                    else if (hitColliders[i].GetComponent<ResourcesInfos>().resourceType == GameManager.ResourceType.Mouflu)
+                    else if (hitColliders[i].GetComponent<ResourceInGame>().resourcesInfos.resourceType == GameManager.ResourceType.Mouflu)
                     {
-                        chicken += hitColliders[i].GetComponent<ResourcesInfos>().resourcesAmount;
-                        timeToMineAll += hitColliders[i].GetComponent<ResourcesInfos>().resourcesTimeToMine;
+                        chicken += hitColliders[i].GetComponent<ResourceInGame>().resourcesInfos.resourcesAmount;
+                        timeToMineAll += hitColliders[i].GetComponent<ResourceInGame>().resourcesInfos.resourcesTimeToMine;
                     }
-                    else if (hitColliders[i].GetComponent<ResourcesInfos>().resourceType == GameManager.ResourceType.Berry)
+                    else if (hitColliders[i].GetComponent<ResourceInGame>().resourcesInfos.resourceType == GameManager.ResourceType.Berry)
                     {
-                        corn += hitColliders[i].GetComponent<ResourcesInfos>().resourcesAmount;
-                        timeToMineAll += hitColliders[i].GetComponent<ResourcesInfos>().resourcesTimeToMine;
+                        corn += hitColliders[i].GetComponent<ResourceInGame>().resourcesInfos.resourcesAmount;
+                        timeToMineAll += hitColliders[i].GetComponent<ResourceInGame>().resourcesInfos.resourcesTimeToMine;
                     }
-                    else if (hitColliders[i].GetComponent<ResourcesInfos>().resourceType == GameManager.ResourceType.Rock)
+                    else if (hitColliders[i].GetComponent<ResourceInGame>().resourcesInfos.resourceType == GameManager.ResourceType.Rock)
                     {
-                        rock += hitColliders[i].GetComponent<ResourcesInfos>().resourcesAmount;
-                        timeToMineAll += hitColliders[i].GetComponent<ResourcesInfos>().resourcesTimeToMine;
+                        rock += hitColliders[i].GetComponent<ResourceInGame>().resourcesInfos.resourcesAmount;
+                        timeToMineAll += hitColliders[i].GetComponent<ResourceInGame>().resourcesInfos.resourcesTimeToMine;
                     }
                 }
                 woodText.text = "Wood : " + wood.ToString();
@@ -114,18 +116,47 @@ public class CharaAvatar : MonoBehaviour
         }
     }
 
-    private List<ResourcesInfos> GetResourcesAround(Collider[] hitColliders)
+    private List<ResourceInGame> GetResourcesAround(Collider[] hitColliders)
     {
-        List<ResourcesInfos> resourcesInRange = new List<ResourcesInfos>();
+        List<ResourceInGame> resourcesInRange = new List<ResourceInGame>();
         for (int i = 0; i < hitColliders.Length; i++)
         {
-            ResourcesInfos resource = hitColliders[i].transform.GetComponent<ResourcesInfos>();
+            ResourceInGame resource = hitColliders[i].transform.GetComponent<ResourceInGame>();
             if (resource != null)
                 resourcesInRange.Add(resource);
         }
         return resourcesInRange;
     }
 
+    private void CheckLevelValidation(List<ResourceInGame> resourcesAround)
+    {
+        //use to check if needs < resourcesAround
+        //count tiles needed
+        int woodTilesNeeded = 0;
+        int berryTilesNeeded = 0;
+        for (int i = 0; i < GameManager.Instance.needs.Length; i++)
+        {
+            if (GameManager.Instance.needs[i].resourceUsed.resourceType == GameManager.ResourceType.Wood)
+                woodTilesNeeded += GameManager.Instance.needs[i].TilesNeeded;
+            else
+            if (GameManager.Instance.needs[i].resourceUsed.resourceType == GameManager.ResourceType.Berry)
+                berryTilesNeeded += GameManager.Instance.needs[i].TilesNeeded;
+        }
+        //count resources around
+        int woodAround = 0;
+        int berryAround = 0;
+        for (int i = 0; i < resourcesAround.Count; i++)
+        {
+            if (resourcesAround[i].resourcesInfos.resourceType == GameManager.ResourceType.Wood)
+                woodAround++;
+            if (resourcesAround[i].resourcesInfos.resourceType == GameManager.ResourceType.Berry)
+                berryAround++;
+        }
+        //compare both
+        if (woodAround >= woodTilesNeeded && berryAround >= berryTilesNeeded)
+            GameManager.Instance.EndLevel(true);
+    }
+    
     void CheckForPos()
     {
         distanceRessource buffer;
@@ -167,13 +198,13 @@ public class CharaAvatar : MonoBehaviour
 
     void Mine()
     {
-        buttonText.text = "In Progress : " + (100*(miningTime / bufferPosInList.objectToCollect.GetComponent<ResourcesInfos>().resourcesTimeToMine)).ToString("0.0") + "%";
+        buttonText.text = "In Progress : " + (100*(miningTime / bufferPosInList.objectToCollect.GetComponent<ResourceInGame>().resourcesInfos.resourcesTimeToMine)).ToString("0.0") + "%";
         miningTime += Time.deltaTime;
-        if (miningTime/ bufferPosInList.objectToCollect.GetComponent<ResourcesInfos>().resourcesTimeToMine > 1)
+        if (miningTime/ bufferPosInList.objectToCollect.GetComponent<ResourceInGame>().resourcesInfos.resourcesTimeToMine > 1)
         {
             bufferPosInList.objectToCollect.SetActive(false);
-            StartCoroutine(respawner.RespawnOfRessources(bufferPosInList.objectToCollect.GetComponent<ResourcesInfos>().resourcesTimeToRespawn, bufferPosInList.objectToCollect));
-            GameManager.Instance.ReturnResourceInStock(bufferPosInList.objectToCollect.GetComponent<ResourcesInfos>().resourceType).NumberInStock += bufferPosInList.objectToCollect.GetComponent<ResourcesInfos>().resourcesAmount;
+            StartCoroutine(respawner.RespawnOfRessources(bufferPosInList.objectToCollect.GetComponent<ResourceInGame>().resourcesInfos.resourcesTimeToRespawn, bufferPosInList.objectToCollect));
+            GameManager.Instance.ReturnResourceInStock(bufferPosInList.objectToCollect.GetComponent<ResourceInGame>().resourcesInfos.resourceType).NumberInStock += bufferPosInList.objectToCollect.GetComponent<ResourceInGame>().resourcesInfos.resourcesAmount;
             miningTime = 0;
             
             ressourcePos.Remove(bufferPosInList);

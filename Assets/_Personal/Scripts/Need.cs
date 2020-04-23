@@ -5,35 +5,54 @@ using UnityEngine;
 public class Need : MonoBehaviour
 {
     public NeedViewer needViewer;
-    public NeedsDatas needDatas;
     public enum NeedType
     {
-        Houses,
+        Build,
         Food,
         Energy
     }
     public NeedType needType;
     [SerializeField] public ResourceInStock resourceUsed;
     [SerializeField] public GameManager.ResourceType[] resourcesUsable;
+    [SerializeField] public ResourcesInfos[] resourceForValidation;
+    public int TilesNeeded
+    {
+        get
+        {
+            float wastOfEnergyUsed = 0;
+            switch (needType)
+            {
+                case NeedType.Energy:
+                    wastOfEnergyUsed = resourceUsed.resourcesInfos.wastForEnergyPerMinute;
+                    break;
+                case NeedType.Food:
+                    wastOfEnergyUsed = resourceUsed.resourcesInfos.wastForFoodPerMinute;
+                    break;
+                case NeedType.Build:
+                    wastOfEnergyUsed = resourceUsed.resourcesInfos.wastForBuildPerMinute;
+                    break;
+            }
+            return (int)Mathf.Round(resourceUsed.resourcesInfos.ResourcesPerMinute / wastOfEnergyUsed);
+        }
+    }
 
     private void UseResources()
     {
-        switch (resourceUsed.resourceType)
+        switch (needType)
         {
-            case GameManager.ResourceType.Mouflu:
-                GameManager.Instance.ReturnResourceInStock(resourceUsed.resourceType).NumberInStock -= needDatas.chickenPerMinute * Time.deltaTime / 60f;
+            case NeedType.Energy:
+                GameManager.Instance.ReturnResourceInStock(resourceUsed.resourceType).NumberInStock 
+                    -= resourceUsed.resourcesInfos.wastForEnergyPerMinute * Time.deltaTime / 60f;
                 break;
-            case GameManager.ResourceType.Wood:
-                GameManager.Instance.ReturnResourceInStock(resourceUsed.resourceType).NumberInStock -= needDatas.woodPerMinute * Time.deltaTime / 60f;
+            case NeedType.Food:
+                GameManager.Instance.ReturnResourceInStock(resourceUsed.resourceType).NumberInStock 
+                    -= resourceUsed.resourcesInfos.wastForFoodPerMinute * Time.deltaTime / 60f;
                 break;
-            case GameManager.ResourceType.Rock:
-                GameManager.Instance.ReturnResourceInStock(resourceUsed.resourceType).NumberInStock -= needDatas.rockPerMinute * Time.deltaTime / 60f;
-                break;
-            case GameManager.ResourceType.Berry:
-                GameManager.Instance.ReturnResourceInStock(resourceUsed.resourceType).NumberInStock -= needDatas.berryPerMinute * Time.deltaTime / 60f;
+            case NeedType.Build:
+                GameManager.Instance.ReturnResourceInStock(resourceUsed.resourceType).NumberInStock 
+                    -= resourceUsed.resourcesInfos.wastForBuildPerMinute * Time.deltaTime / 60f;
                 break;
         }
-        print(Mathf.Round(GameManager.Instance.ReturnResourceInStock(resourceUsed.resourceType).NumberInStock));
         needViewer.SetResourceUsedText((int)Mathf.Round(GameManager.Instance.ReturnResourceInStock(resourceUsed.resourceType).NumberInStock));
     }
 
@@ -59,8 +78,7 @@ public class Need : MonoBehaviour
                     }
                     else
                     {
-                        //GameManager.LevelEnd?.Invoke(false);
-                        print("LOOOOOOOOOOOOOOOOOSE");
+                        GameManager.Instance.EndLevel(false);
                     }
                 }
             }

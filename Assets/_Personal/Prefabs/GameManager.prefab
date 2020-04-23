@@ -44,10 +44,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   needViewer: {fileID: 0}
-  needDatas: {fileID: 11400000, guid: 6bd72c6ffb7a26148a2fc6cb788e56e2, type: 2}
   needType: 0
   resourceUsed: {fileID: 6178514528284028440}
   resourcesUsable: 0100000004000000
+  resourceForValidation:
+  - {fileID: 11400000, guid: e424dd937ad32a54fa2578e580611f2e, type: 2}
 --- !u!1 &6178514526622534515
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,10 +127,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   needViewer: {fileID: 0}
-  needDatas: {fileID: 11400000, guid: 8bc1f4418f62fc24aa4b366fda5af525, type: 2}
   needType: 2
   resourceUsed: {fileID: 6178514527730196952}
   resourcesUsable: 0100000003000000
+  resourceForValidation:
+  - {fileID: 11400000, guid: b2bf0ac074881f242a365fe7a0e21330, type: 2}
+  - {fileID: 11400000, guid: e424dd937ad32a54fa2578e580611f2e, type: 2}
 --- !u!1 &6178514526895940746
 GameObject:
   m_ObjectHideFlags: 0
@@ -141,7 +144,7 @@ GameObject:
   - component: {fileID: 6178514526895940740}
   - component: {fileID: 6178514526895940747}
   m_Layer: 0
-  m_Name: Chicken
+  m_Name: Mouflu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -174,6 +177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resourceType: 2
+  resourcesInfos: {fileID: 11400000, guid: ecccbfd1fbe98874c9f8b6e199ea99fc, type: 2}
   resourceImage: {fileID: 21300000, guid: c09e014058ed1304ab0caf05810bfbc9, type: 3}
   maxStock: 100
 --- !u!1 &6178514527025958073
@@ -253,10 +257,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   needViewer: {fileID: 0}
-  needDatas: {fileID: 11400000, guid: 81e9f3cf882011440896b6569a8c231d, type: 2}
   needType: 1
   resourceUsed: {fileID: 6178514526895940747}
   resourcesUsable: 0200000003000000
+  resourceForValidation:
+  - {fileID: 11400000, guid: b2bf0ac074881f242a365fe7a0e21330, type: 2}
 --- !u!1 &6178514527595694782
 GameObject:
   m_ObjectHideFlags: 0
@@ -267,7 +272,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6178514527595694776}
   - component: {fileID: 6178514527595694783}
-  - component: {fileID: 1230533813}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -315,20 +319,6 @@ MonoBehaviour:
   - {fileID: 6178514526808299920}
   - {fileID: 6178514526384305525}
   - {fileID: 6178514527522090596}
---- !u!114 &1230533813
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6178514527595694782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3feabfcc7a01cbf48afbb5509439fe62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  needViewerSelected: {fileID: 0}
-  stockViewer: {fileID: 0}
 --- !u!1 &6178514527730196959
 GameObject:
   m_ObjectHideFlags: 0
@@ -373,6 +363,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resourceType: 1
+  resourcesInfos: {fileID: 11400000, guid: e424dd937ad32a54fa2578e580611f2e, type: 2}
   resourceImage: {fileID: 21300000, guid: ee62c1ff8829e0443ab7e83b4f9c6c9a, type: 3}
   maxStock: 100
 --- !u!1 &6178514527936234649
@@ -386,7 +377,7 @@ GameObject:
   - component: {fileID: 6178514527936234651}
   - component: {fileID: 6178514527936234650}
   m_Layer: 0
-  m_Name: Corn
+  m_Name: Berry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -419,6 +410,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resourceType: 3
+  resourcesInfos: {fileID: 11400000, guid: b2bf0ac074881f242a365fe7a0e21330, type: 2}
   resourceImage: {fileID: 21300000, guid: 751ab58a1e0efd246ada6e40f0beb1be, type: 3}
   maxStock: 100
 --- !u!1 &6178514528284028447
@@ -465,5 +457,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resourceType: 4
+  resourcesInfos: {fileID: 11400000, guid: 5cd3135e6fce66c479a4c696d2c3c0e0, type: 2}
   resourceImage: {fileID: 21300000, guid: 4f39d4b8fa93c224eb5ec40511832281, type: 3}
   maxStock: 100

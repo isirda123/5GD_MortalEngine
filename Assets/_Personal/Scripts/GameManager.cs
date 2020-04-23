@@ -30,7 +30,10 @@ public class GameManager : Singleton<GameManager>
         }
         return resourceInStockNeeded;
     }
-
+    public void EndLevel(bool win)
+    {
+        LevelEnd?.Invoke(win);
+    }
     private void SetStartingStock()
     {
         for (int i = 0; i < stock.Length; i++)

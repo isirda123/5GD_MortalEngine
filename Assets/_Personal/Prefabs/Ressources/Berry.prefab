@@ -244,7 +244,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1120822761506781380}
   - component: {fileID: 2187575580552311405}
-  - component: {fileID: 2336349726148609776}
+  - component: {fileID: 7234030266795975363}
   m_Layer: 8
   m_Name: Berry
   m_TagString: Resources
@@ -282,7 +282,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.7
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2336349726148609776
+--- !u!114 &7234030266795975363
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -291,10 +291,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7415791136941945926}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32fc1f0314c27074ba051bb846c871ef, type: 3}
+  m_Script: {fileID: 11500000, guid: 72817e63813046c4d82612d0b5170782, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: 3
-  resourcesTimeToMine: 1
-  resourcesTimeToRespawn: 5
-  resourcesAmount: 2
+  resourcesInfos: {fileID: 11400000, guid: b2bf0ac074881f242a365fe7a0e21330, type: 2}

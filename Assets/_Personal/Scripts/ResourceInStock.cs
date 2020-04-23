@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ResourceInStock : MonoBehaviour
 {
     public GameManager.ResourceType resourceType;
+    public ResourcesInfos resourcesInfos;
     private float numberInStock;
     public static event Action<GameManager.ResourceType> ResourceEmpty;
     public Sprite resourceImage;

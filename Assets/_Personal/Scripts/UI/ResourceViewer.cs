@@ -12,7 +12,7 @@ public class ResourceViewer : MonoBehaviour, IPointerUpHandler, IPointerDownHand
     public TextMeshProUGUI tmp;
     public Image background;
     [SerializeField] private Image resourceImage;
-
+    
     public void OnPointerDown (PointerEventData eventData)
     {
     }

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7091777041989660548}
   - component: {fileID: 8339874448597017901}
-  - component: {fileID: 5587447935290020272}
+  - component: {fileID: 3712499535119031557}
   m_Layer: 8
   m_Name: Mouflu
   m_TagString: Resources
@@ -46,7 +46,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0.52, z: 0}
---- !u!114 &5587447935290020272
+--- !u!114 &3712499535119031557
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -55,13 +55,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 796245731570803462}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32fc1f0314c27074ba051bb846c871ef, type: 3}
+  m_Script: {fileID: 11500000, guid: 72817e63813046c4d82612d0b5170782, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: 2
-  resourcesTimeToMine: 2
-  resourcesTimeToRespawn: 1000
-  resourcesAmount: 5
+  resourcesInfos: {fileID: 11400000, guid: ecccbfd1fbe98874c9f8b6e199ea99fc, type: 2}
 --- !u!1 &1145604410080917713
 GameObject:
   m_ObjectHideFlags: 0
