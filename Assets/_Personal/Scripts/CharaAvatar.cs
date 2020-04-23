@@ -142,6 +142,7 @@ public class CharaAvatar : MonoBehaviour
             if (GameManager.Instance.needs[i].resourceUsed.resourceType == GameManager.ResourceType.Berry)
                 berryTilesNeeded += GameManager.Instance.needs[i].TilesNeeded;
         }
+
         //count resources around
         int woodAround = 0;
         int berryAround = 0;
@@ -230,7 +231,7 @@ public class CharaAvatar : MonoBehaviour
         workZone.SetActive(false);
         transform.DOKill();
         float distance = Vector3.Distance(transform.position, hit.collider.transform.position);
-        transform.DOMove(hit.collider.transform.position, distance).onComplete += EndMove;
+        transform.DOMove(hit.collider.transform.position, distance).SetEase(Ease.Linear).onComplete += EndMove;
     }
     private void EndMove()
     {
