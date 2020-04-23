@@ -76,22 +76,22 @@ public class CharaAvatar : MonoBehaviour
                 for (int i = 0; i < hitColliders.Length; i++)
                 {
                     findThePos = false;
-                    if (hitColliders[i].GetComponent<RessourcesInfos>().type == GameManager.ResourceType.Wood)
+                    if (hitColliders[i].GetComponent<RessourcesInfos>().resourceType == GameManager.ResourceType.Wood)
                     {
                         wood += hitColliders[i].GetComponent<RessourcesInfos>().resourcesAmount;
                         timeToMineAll += hitColliders[i].GetComponent<RessourcesInfos>().resourcesTimeToMine;
                     }
-                    else if (hitColliders[i].GetComponent<RessourcesInfos>().type == GameManager.ResourceType.Mouflu)
+                    else if (hitColliders[i].GetComponent<RessourcesInfos>().resourceType == GameManager.ResourceType.Mouflu)
                     {
                         chicken += hitColliders[i].GetComponent<RessourcesInfos>().resourcesAmount;
                         timeToMineAll += hitColliders[i].GetComponent<RessourcesInfos>().resourcesTimeToMine;
                     }
-                    else if (hitColliders[i].GetComponent<RessourcesInfos>().type == GameManager.ResourceType.Berry)
+                    else if (hitColliders[i].GetComponent<RessourcesInfos>().resourceType == GameManager.ResourceType.Berry)
                     {
                         corn += hitColliders[i].GetComponent<RessourcesInfos>().resourcesAmount;
                         timeToMineAll += hitColliders[i].GetComponent<RessourcesInfos>().resourcesTimeToMine;
                     }
-                    else if (hitColliders[i].GetComponent<RessourcesInfos>().type == GameManager.ResourceType.Rock)
+                    else if (hitColliders[i].GetComponent<RessourcesInfos>().resourceType == GameManager.ResourceType.Rock)
                     {
                         rock += hitColliders[i].GetComponent<RessourcesInfos>().resourcesAmount;
                         timeToMineAll += hitColliders[i].GetComponent<RessourcesInfos>().resourcesTimeToMine;
@@ -164,7 +164,7 @@ public class CharaAvatar : MonoBehaviour
         {
             bufferPosInList.objectToCollect.SetActive(false);
             StartCoroutine(respawner.RespawnOfRessources(bufferPosInList.objectToCollect.GetComponent<RessourcesInfos>().resourcesTimeToRespawn, bufferPosInList.objectToCollect));
-            GameManager.Instance.ReturnResourceInStock(bufferPosInList.objectToCollect.GetComponent<RessourcesInfos>().type).NumberInStock += bufferPosInList.objectToCollect.GetComponent<RessourcesInfos>().resourcesAmount;
+            GameManager.Instance.ReturnResourceInStock(bufferPosInList.objectToCollect.GetComponent<RessourcesInfos>().resourceType).NumberInStock += bufferPosInList.objectToCollect.GetComponent<RessourcesInfos>().resourcesAmount;
             miningTime = 0;
             
             ressourcePos.Remove(bufferPosInList);
@@ -225,7 +225,7 @@ public class CharaAvatar : MonoBehaviour
         {
             hitColliders[i].gameObject.SetActive(false);
             StartCoroutine(respawner.RespawnOfRessources(hitColliders[i].GetComponent<RessourcesInfos>().resourcesTimeToRespawn, hitColliders[i].gameObject));
-            GameManager.Instance.ReturnResourceInStock(hitColliders[i].GetComponent<RessourcesInfos>().type).NumberInStock += hitColliders[i].GetComponent<RessourcesInfos>().resourcesAmount;
+            GameManager.Instance.ReturnResourceInStock(hitColliders[i].GetComponent<RessourcesInfos>().resourceType).NumberInStock += hitColliders[i].GetComponent<RessourcesInfos>().resourcesAmount;
             buttonText.text = "Begin";
         }
     }

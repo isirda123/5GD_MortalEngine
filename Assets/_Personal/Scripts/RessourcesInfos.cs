@@ -5,7 +5,7 @@ using UnityEngine;
 public class RessourcesInfos : MonoBehaviour
 {
     //[System.Serializable]
-    public new GameManager.ResourceType type;
+    public GameManager.ResourceType resourceType;
     public float resourcesTimeToMine;
     public float resourcesTimeToRespawn;
     public float resourcesAmount;
