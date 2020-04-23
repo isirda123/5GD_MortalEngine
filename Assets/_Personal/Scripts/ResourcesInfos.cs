@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RessourcesInfos : MonoBehaviour
+public class ResourcesInfos : MonoBehaviour
 {
     //[System.Serializable]
     public GameManager.ResourceType resourceType;
