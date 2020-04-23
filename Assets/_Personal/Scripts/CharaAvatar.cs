@@ -231,7 +231,7 @@ public class CharaAvatar : MonoBehaviour
         workZone.SetActive(false);
         transform.DOKill();
         float distance = Vector3.Distance(transform.position, hit.collider.transform.position);
-        transform.DOMove(hit.collider.transform.position, distance).onComplete += EndMove;
+        transform.DOMove(hit.collider.transform.position, distance).SetEase(Ease.Linear).onComplete += EndMove;
     }
     private void EndMove()
     {
