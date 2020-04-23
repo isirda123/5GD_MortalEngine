@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using System.Linq;
 public class DecretManager : MonoBehaviour
 {
     int numberOfDecreeAvailable = 0;
@@ -19,16 +19,22 @@ public class DecretManager : MonoBehaviour
     [SerializeField] Sprite selectedDecree;
     [SerializeField] Sprite NotValideDecree;
 
+    [SerializeField] List<DecreeScriptable> allDecree = new List<DecreeScriptable>();
+    [SerializeField] List<DecreeScriptable> decreeChoosen = new List<DecreeScriptable>();
+    [SerializeField] List<DecreeScriptable> decreeValidate = new List<DecreeScriptable>();
+
 
 
     bool decreeCanvasOpen = false;
     bool decreeAlreadySeen = false;
 
+    int choosenDecree = 0;
 
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(NewDecree());
+        allDecree = Resources.LoadAll<DecreeScriptable>("Decree").ToList();
     }
 
     // Update is called once per frame
@@ -73,21 +79,29 @@ public class DecretManager : MonoBehaviour
         }
         else
         {
-            decreeCanvasOpen = false;
+            
             ShowNormalUI();
         }
+    }
+
+    public void ReturntoGame()
+    {
+        HideItAll();
+        ShowNormalUI();
     }
 
     public void ChoiceADecree(int WhichDecree)
     {
         UnSelectAllDecree();
-        availableDecree.transform.GetChild(WhichDecree-1).GetComponent<Image>().sprite = selectedDecree;
+        availableDecree.transform.GetChild(WhichDecree - 1).GetComponent<Image>().sprite = selectedDecree;
+        choosenDecree = WhichDecree - 1;
+        print(choosenDecree);
         validateButton.SetActive(true);
     }
 
     void UnSelectAllDecree()
     {
-        for (int i =0; i < availableDecree.transform.childCount; i++)
+        for (int i = 0; i < availableDecree.transform.childCount; i++)
         {
             availableDecree.transform.GetChild(i).GetComponent<Image>().sprite = baseDecreeColor;
         }
@@ -98,7 +112,9 @@ public class DecretManager : MonoBehaviour
     {
         canvasMinage.SetActive(true);
         canvasResources.SetActive(true);
+        decreeCanvasOpen = false;
         UnSelectAllDecree();
+        print("Show Game");
     }
     void HideItAll()
     {
@@ -107,6 +123,7 @@ public class DecretManager : MonoBehaviour
         canvasDecree.SetActive(false);
         textNoDecreeAvailable.SetActive(false);
         availableDecree.SetActive(false);
+        print("HideAll");
     }
 
     void EmptyDecreeCanvas()
@@ -128,17 +145,53 @@ public class DecretManager : MonoBehaviour
 
     void GetDecreesAvailable()
     {
+        decreeAlreadySeen = true;
         availableDecree.SetActive(true);
+        GetDecreeFromPool();
     }
-    
+
+    void GetDecreeFromPool()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            print(i);
+            int randomDecreeIndex = Random.Range(0, allDecree.Count);
+            decreeChoosen.Add(allDecree[randomDecreeIndex]);
+            availableDecree.transform.GetChild(i).GetComponent<DecretsUI>().showInfoDecret(allDecree[randomDecreeIndex]);
+            allDecree.Remove(decreeChoosen[i]);
+        }
+    }
+
     void GetDecreesAlreadyGet()
     {
-
+        availableDecree.SetActive(true);
     }
 
 
     public void ValidateDecree()
     {
-        ShowNormalUI();
+        numberOfDecreeAvailable -= 1;
+        decreeValidate.Add(decreeChoosen[choosenDecree]);
+        print(decreeChoosen[choosenDecree]);
+        decreeChoosen.RemoveAt(choosenDecree);
+        for (int i = 0; i < 2; i++)
+        {
+            allDecree.Add(decreeChoosen[0]);
+            decreeChoosen.RemoveAt(0);
+        }
+        decreeAlreadySeen = false;
+        UnSelectAllDecree();
+        decreeCanvasOpen = false;
+        if (numberOfDecreeAvailable > 0)
+        {
+            HideItAll();
+            ChangeDecreeInterface();
+        }
+        else
+        {
+            HideItAll();
+            ShowNormalUI();
+        }
+
     }
 }
