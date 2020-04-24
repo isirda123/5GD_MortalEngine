@@ -61,7 +61,7 @@ public class CharaAvatar : MonoBehaviour
             hitColliders = Physics.OverlapSphere(transform.position, rangeWorkZone / 2, 1 << 8);
             List<ResourceInGame> resourcesAround = GetResourcesAround(hitColliders);
             CheckLevelValidation(resourcesAround);
-            //   StartCoroutine(CheckForStability());
+            //StartCoroutine(CheckForStability());
         }
 
         if (stopped == true)

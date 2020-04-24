@@ -25,6 +25,8 @@ public class DecretManager : MonoBehaviour
     [SerializeField] List<DecreeScriptable> decreeChoosen = new List<DecreeScriptable>();
     [SerializeField] List<DecreeScriptable> decreeValidate = new List<DecreeScriptable>();
 
+    [SerializeField] DecretsInfos totalDecreeInfos;
+
 
 
     bool decreeCanvasOpen = false;
@@ -79,6 +81,12 @@ public class DecretManager : MonoBehaviour
             {
                 ChoiceDecreeCanvas();
             }
+        }
+        else
+        {
+            canvasDecree.SetActive(true);
+            decretValidateManager.SetActive(true);
+            decreeCanvasOpen = false;
         }
     }
 
@@ -175,9 +183,11 @@ public class DecretManager : MonoBehaviour
     public void ValidateDecree()
     {
         numberOfDecreeAvailable -= 1;
+        SetAllDecreeInfos(decreeChoosen[choosenDecree]);
         decreeValidate.Add(decreeChoosen[choosenDecree]);
         GameObject dVP = Instantiate(decretValidatePrefab, decretValidateManager.transform.GetChild(0));
         dVP.GetComponent<DecretsValidate>().personalDecree = decreeChoosen[choosenDecree];
+        dVP.GetComponent<DecretsValidate>().SetText();
         print(decreeChoosen[choosenDecree]);
         decreeChoosen.RemoveAt(choosenDecree);
         for (int i = 0; i < 2; i++)
@@ -201,4 +211,28 @@ public class DecretManager : MonoBehaviour
         }
 
     }
+
+
+    void SetAllDecreeInfos(DecreeScriptable dS)
+    {
+        totalDecreeInfos.maxFoodPercent += dS.decretsInfos.maxFoodPercent;
+        totalDecreeInfos.maxEnergyPercent += dS.decretsInfos.maxEnergyPercent;
+        totalDecreeInfos.maxConstructionPercent += dS.decretsInfos.maxConstructionPercent;
+        totalDecreeInfos.consumptionFoodPercent += dS.decretsInfos.consumptionFoodPercent;
+        totalDecreeInfos.consumptionEnergyPercent += dS.decretsInfos.consumptionEnergyPercent;
+        totalDecreeInfos.consumptionBuildPercent += dS.decretsInfos.consumptionBuildPercent;
+        totalDecreeInfos.speedPercent += dS.decretsInfos.speedPercent;
+        totalDecreeInfos.collectSpeedPercent += dS.decretsInfos.collectSpeedPercent;
+        totalDecreeInfos.collectRangeMax += dS.decretsInfos.collectRangeMax;
+        totalDecreeInfos.giveMouflu += dS.decretsInfos.giveMouflu;
+        totalDecreeInfos.giveRock += dS.decretsInfos.giveRock;
+        totalDecreeInfos.giveWood += dS.decretsInfos.giveWood;
+        totalDecreeInfos.giveBerry += dS.decretsInfos.giveBerry;
+        totalDecreeInfos.collectQuantityMouflu += dS.decretsInfos.collectQuantityMouflu;
+        totalDecreeInfos.collectQuantityRock += dS.decretsInfos.collectQuantityRock;
+        totalDecreeInfos.collectQuantityWood += dS.decretsInfos.collectQuantityWood;
+        totalDecreeInfos.collectQuantityBerry += dS.decretsInfos.collectQuantityBerry;
+    }
+
+    
 }
