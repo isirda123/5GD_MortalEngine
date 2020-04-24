@@ -1,10 +1,18 @@
-﻿using System;
+﻿
+
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
+
 
 [CustomEditor(typeof(DecreeScriptable))]
+
 public class DecreeScriptableEditor : Editor
 {
     private bool typeOfDecreeFolder,
@@ -333,5 +341,15 @@ public class DecreeScriptableEditor : Editor
             EditorGUILayout.Space();
         }
 
+
+
+        serializedObject.ApplyModifiedProperties();
+        AssetDatabase.SaveAssets();
+        if (GUI.changed)
+        {
+            EditorUtility.SetDirty(manager);
+        }
+
     }
 }
+
