@@ -3822,16 +3822,31 @@ PrefabInstance:
       propertyPath: needViewer
       value: 
       objectReference: {fileID: 985491353}
+    - target: {fileID: 6178514526384305525, guid: 0912bb8eba170e1428281b43fc25dea0,
+        type: 3}
+      propertyPath: multiplicateur
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6178514526808299920, guid: 0912bb8eba170e1428281b43fc25dea0,
         type: 3}
       propertyPath: needViewer
       value: 
       objectReference: {fileID: 138216034}
+    - target: {fileID: 6178514526808299920, guid: 0912bb8eba170e1428281b43fc25dea0,
+        type: 3}
+      propertyPath: multiplicateur
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6178514527522090596, guid: 0912bb8eba170e1428281b43fc25dea0,
         type: 3}
       propertyPath: needViewer
       value: 
       objectReference: {fileID: 768924860}
+    - target: {fileID: 6178514527522090596, guid: 0912bb8eba170e1428281b43fc25dea0,
+        type: 3}
+      propertyPath: multiplicateur
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6178514527595694776, guid: 0912bb8eba170e1428281b43fc25dea0,
         type: 3}
       propertyPath: m_LocalPosition.x

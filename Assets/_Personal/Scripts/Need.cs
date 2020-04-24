@@ -15,6 +15,8 @@ public class Need : MonoBehaviour
     [SerializeField] public ResourceInStock resourceUsed;
     [SerializeField] public GameManager.ResourceType[] resourcesUsable;
     [SerializeField] public ResourcesInfos[] resourceForValidation;
+    public float multiplicateur;
+
     public int TilesNeeded
     {
         get
@@ -39,7 +41,7 @@ public class Need : MonoBehaviour
     private void UseResources()
     {
         GameManager.Instance.GetResourceInStock(resourceUsed.resourceType).NumberInStock
-                    -= resourceUsed.resourcesInfos.ReturnEnergyUseFor(needType) * Time.deltaTime / 60f;
+                    -= resourceUsed.resourcesInfos.ReturnEnergyUseFor(needType) * Time.deltaTime / 60f * multiplicateur;
         needViewer.SetResourceUsedText((int)Mathf.Round(GameManager.Instance.GetResourceInStock(resourceUsed.resourceType).NumberInStock));
     }
 

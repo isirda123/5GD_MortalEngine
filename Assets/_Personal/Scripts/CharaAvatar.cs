@@ -231,6 +231,7 @@ public class CharaAvatar : MonoBehaviour
 
     private void Move(RaycastHit hit)
     {
+        State = CharacterState.Moving;
         stopped = false;
         workZone.SetActive(false);
         transform.DOKill();
@@ -253,7 +254,8 @@ public class CharaAvatar : MonoBehaviour
 
     public void BeginMining()
     {
-        State = CharacterState.Mining;
+        if(State != CharacterState.Mining)
+            State = CharacterState.Mining;
     }
 
     void OnTriggerEnter (Collider collider)
@@ -261,7 +263,7 @@ public class CharaAvatar : MonoBehaviour
         if (collider.transform.tag == "Resources")
         {
             collider.gameObject.SetActive(false);
-            StartCoroutine(GameManager.Instance.RespawnOfRessources(collider.GetComponent<ResourcesInfos>().resourcesTimeToRespawn, collider.gameObject));
+            StartCoroutine(GameManager.Instance.RespawnOfRessources(collider.GetComponent<ResourceInGame>().resourcesInfos.resourcesTimeToRespawn, collider.gameObject));
         }
     }
 }
