@@ -115,10 +115,10 @@ public class CharaAvatar : MonoBehaviour
                 corn += resourceInRange[i].resourcesInfos.resourcesAmount;
                 timeToMineAll += resourceInRange[i].resourcesInfos.resourcesTimeToMine;
             }
-            else if (resourceInRange[i].GetComponent<ResourceInGame>().resourcesInfos.resourceType == GameManager.ResourceType.Rock)
+            else if (resourceInRange[i].resourcesInfos.resourceType == GameManager.ResourceType.Rock)
             {
-                rock += resourceInRange[i].GetComponent<ResourceInGame>().resourcesInfos.resourcesAmount;
-                timeToMineAll += resourceInRange[i].GetComponent<ResourceInGame>().resourcesInfos.resourcesTimeToMine;
+                rock += resourceInRange[i].resourcesInfos.resourcesAmount;
+                timeToMineAll += resourceInRange[i].resourcesInfos.resourcesTimeToMine;
             }
         }
         woodText.text = "Wood : " + wood.ToString();
@@ -139,7 +139,6 @@ public class CharaAvatar : MonoBehaviour
     {
         PlayerInput.InputUp -= Move;
     }
-
 
     private void Update()
     {
