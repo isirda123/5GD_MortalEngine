@@ -6,29 +6,18 @@ using System.Linq;
 using DG.Tweening;
 public class CharaAvatar : MonoBehaviour
 {
-    [System.Serializable] public struct distanceRessource
-    {
-        public GameObject objectToCollect;
-        public float distanceOfObject;
-    }
-    public List<distanceRessource> ressourcePos = new List<distanceRessource>();
-
-    distanceRessource bufferPosInList = new distanceRessource();
-
     [Header("Work")]
     [SerializeField] RessourcesInstanciator respawner;
     [SerializeField] public GameObject workZone;
     [SerializeField] float rangeWorkZone;
-    public bool mining = false;
     float timeToMineAll;
-    [HideInInspector] public float miningTime =0;
     [HideInInspector] public bool stopped;
     [SerializeField] public bool doItOneTime = false;
     bool findThePos = false;
-    [Tooltip ("In Seconde")]
+    [Tooltip("In Seconde")]
     [SerializeField] float timeBeforeVictory;
 
-    [Header ("UI")]
+    [Header("UI")]
     [SerializeField] GameObject mineCanvas;
     [SerializeField] Text woodText;
     [SerializeField] Text chickenText;
@@ -39,7 +28,106 @@ public class CharaAvatar : MonoBehaviour
 
     [SerializeField] Collider[] hitColliders;
 
-    
+    public enum CharacterState
+    {
+        Moving,
+        Mining,
+    }
+    private CharacterState actualState;
+    public CharacterState State
+    { get { return actualState; } set { SwitchState(value); } }
+
+    private float startMiningTime;
+
+    private void SwitchState(CharacterState focusState)
+    {
+        switch (focusState)
+        {
+            case CharacterState.Moving:
+                buttonText.text = "Begin";
+                actualState = CharacterState.Moving;
+                break;
+            case CharacterState.Mining:
+                // feedbacks (light target resource etc)
+                //set variables for mine
+                startMiningTime = Time.time;
+
+                Collider[] hitColliders = Physics.OverlapSphere(transform.position, rangeWorkZone / 2, 1 << 8);
+                //get resources around & set mine text & check level validation
+                List<ResourceInGame> resourcesInRange = GetResourcesAround(hitColliders);
+                if (resourcesInRange.Count > 0)
+                {
+                    SetMineText(resourcesInRange);
+                    CheckLevelValidation(resourcesInRange);
+                    //get resource in range mining order
+                    resourcesInRange = GetMiningOrder(resourcesInRange);
+                    //change resourcefocused & change state
+                    resourceFocused = resourcesInRange[0];
+                    actualState = CharacterState.Mining;
+                }
+                else
+                {
+                    print("Nothing there");
+                    actualState = CharacterState.Moving;
+                }
+                break;
+        }
+        
+    }
+    private ResourceInGame resourceFocused;
+
+    private void CheckState(CharacterState characterState)
+    {
+        switch(characterState)
+        {
+            case CharacterState.Mining:
+                //whent timer is over, destroy&assign stock
+                if (resourceFocused!= null && (startMiningTime + resourceFocused.resourcesInfos.resourcesTimeToMine < Time.time))
+                {
+                    SetResourceInStock(resourceFocused);
+                    State = CharacterState.Mining;
+                }
+                break;
+        }
+    }
+
+    private void SetMineText(List<ResourceInGame> resourceInRange)
+    {
+        float wood = 0;
+        float chicken = 0;
+        float corn = 0;
+        float rock = 0;
+        for (int i = 0; i < resourceInRange.Count; i++)
+        {
+            findThePos = false;
+            if (resourceInRange[i].resourcesInfos.resourceType == GameManager.ResourceType.Wood)
+            {
+                wood += resourceInRange[i].resourcesInfos.resourcesAmount;
+                timeToMineAll += resourceInRange[i].resourcesInfos.resourcesTimeToMine;
+            }
+            else if (resourceInRange[i].resourcesInfos.resourceType == GameManager.ResourceType.Mouflu)
+            {
+                chicken += resourceInRange[i].resourcesInfos.resourcesAmount;
+                timeToMineAll += resourceInRange[i].resourcesInfos.resourcesTimeToMine;
+            }
+            else if (resourceInRange[i].resourcesInfos.resourceType == GameManager.ResourceType.Berry)
+            {
+                corn += resourceInRange[i].resourcesInfos.resourcesAmount;
+                timeToMineAll += resourceInRange[i].resourcesInfos.resourcesTimeToMine;
+            }
+            else if (resourceInRange[i].GetComponent<ResourceInGame>().resourcesInfos.resourceType == GameManager.ResourceType.Rock)
+            {
+                rock += resourceInRange[i].GetComponent<ResourceInGame>().resourcesInfos.resourcesAmount;
+                timeToMineAll += resourceInRange[i].GetComponent<ResourceInGame>().resourcesInfos.resourcesTimeToMine;
+            }
+        }
+        woodText.text = "Wood : " + wood.ToString();
+        chickenText.text = "Chicken : " + chicken.ToString();
+        cornText.text = "Corn : " + corn.ToString();
+        rockText.text = "Rock : " + rock.ToString();
+        timingTime.text = "Time to mine : " + timeToMineAll.ToString();
+        doItOneTime = true;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -52,68 +140,10 @@ public class CharaAvatar : MonoBehaviour
         PlayerInput.InputUp -= Move;
     }
 
-    // Update is called once per frame
-    void Update()
+
+    private void Update()
     {
-        if (mining == true)
-        {
-            Mine();
-            hitColliders = Physics.OverlapSphere(transform.position, rangeWorkZone / 2, 1 << 8);
-            List<ResourceInGame> resourcesAround = GetResourcesAround(hitColliders);
-            CheckLevelValidation(resourcesAround);
-            //   StartCoroutine(CheckForStability());
-        }
-
-        if (stopped == true)
-        {
-            if (doItOneTime == false)
-            {
-              //  mineCanvas.SetActive(true);
-                timeToMineAll = 0;
-                hitColliders = Physics.OverlapSphere(transform.position, rangeWorkZone / 2, 1 << 8);
-                float wood = 0;
-                float chicken = 0;
-                float corn = 0;
-                float rock = 0;
-                for (int i = 0; i < hitColliders.Length; i++)
-                {
-                    findThePos = false;
-                    if (hitColliders[i].GetComponent<ResourceInGame>().resourcesInfos.resourceType == GameManager.ResourceType.Wood)
-                    {
-                        wood += hitColliders[i].GetComponent<ResourceInGame>().resourcesInfos.resourcesAmount;
-                        timeToMineAll += hitColliders[i].GetComponent<ResourceInGame>().resourcesInfos.resourcesTimeToMine;
-                    }
-                    else if (hitColliders[i].GetComponent<ResourceInGame>().resourcesInfos.resourceType == GameManager.ResourceType.Mouflu)
-                    {
-                        chicken += hitColliders[i].GetComponent<ResourceInGame>().resourcesInfos.resourcesAmount;
-                        timeToMineAll += hitColliders[i].GetComponent<ResourceInGame>().resourcesInfos.resourcesTimeToMine;
-                    }
-                    else if (hitColliders[i].GetComponent<ResourceInGame>().resourcesInfos.resourceType == GameManager.ResourceType.Berry)
-                    {
-                        corn += hitColliders[i].GetComponent<ResourceInGame>().resourcesInfos.resourcesAmount;
-                        timeToMineAll += hitColliders[i].GetComponent<ResourceInGame>().resourcesInfos.resourcesTimeToMine;
-                    }
-                    else if (hitColliders[i].GetComponent<ResourceInGame>().resourcesInfos.resourceType == GameManager.ResourceType.Rock)
-                    {
-                        rock += hitColliders[i].GetComponent<ResourceInGame>().resourcesInfos.resourcesAmount;
-                        timeToMineAll += hitColliders[i].GetComponent<ResourceInGame>().resourcesInfos.resourcesTimeToMine;
-                    }
-                }
-                woodText.text = "Wood : " + wood.ToString();
-                chickenText.text = "Chicken : " + chicken.ToString();
-                cornText.text = "Corn : " + corn.ToString();
-                rockText.text = "Rock : " + rock.ToString();
-                timingTime.text = "Time to mine : " + timeToMineAll.ToString();
-                doItOneTime = true;
-
-                CheckForPos();
-            }
-        }
-        else
-        {
-          //  mineCanvas.SetActive(false);
-            doItOneTime = false;
-        }
+        CheckState(State);
     }
 
     private List<ResourceInGame> GetResourcesAround(Collider[] hitColliders)
@@ -153,76 +183,50 @@ public class CharaAvatar : MonoBehaviour
             if (resourcesAround[i].resourcesInfos.resourceType == GameManager.ResourceType.Berry)
                 berryAround++;
         }
+
         //compare both
         if (woodAround >= woodTilesNeeded && berryAround >= berryTilesNeeded)
             GameManager.Instance.EndLevel(true);
     }
-    
-    void CheckForPos()
+
+    public struct ResourceUsages
     {
-        distanceRessource buffer;
-        ressourcePos.Clear();
-        buffer.objectToCollect = null;
-        buffer.distanceOfObject = 0;
-        List<Collider> bufferCollider = new List<Collider>();
-        bufferCollider = hitColliders.ToList();
-        Collider whatToDestroy = null;
-
-        for (int i =0; i< hitColliders.Length; i++)
-        {
-            for (int j =0; j < bufferCollider.Count; j++)
-            {
-                if (j == 0)
-                {
-                    buffer.objectToCollect = bufferCollider[j].gameObject;
-                    buffer.distanceOfObject = Vector3.Distance(bufferCollider[j].transform.position, transform.position);
-                    whatToDestroy = bufferCollider[j];
-                }
-                else
-                {
-                    float newDistance = Vector3.Distance(bufferCollider[j].transform.position, transform.position);
-                    if (buffer.distanceOfObject > newDistance)
-                    {
-                        buffer.objectToCollect = bufferCollider[j].gameObject;
-                        buffer.distanceOfObject = newDistance;
-                        whatToDestroy = bufferCollider[j];
-                    }
-                }
-                
-            }
-            ressourcePos.Add(buffer);
-            bufferCollider.Remove(whatToDestroy);
-
-            
-        }
+        public ResourceInGame resourceInGame;
+        public float usageRatio;
+        public float resourceUsedPerMinute;
     }
 
-    void Mine()
+    private List<ResourceInGame> GetMiningOrder(List<ResourceInGame> resourcesInRange)
     {
-        buttonText.text = "In Progress : " + (100*(miningTime / bufferPosInList.objectToCollect.GetComponent<ResourceInGame>().resourcesInfos.resourcesTimeToMine)).ToString("0.0") + "%";
-        miningTime += Time.deltaTime;
-        if (miningTime/ bufferPosInList.objectToCollect.GetComponent<ResourceInGame>().resourcesInfos.resourcesTimeToMine > 1)
+        // set resourcesUsages
+        ResourceUsages[] resourcesUsages = new ResourceUsages[resourcesInRange.Count];
+        for (int i = 0; i < resourcesUsages.Length; i++)
         {
-            bufferPosInList.objectToCollect.SetActive(false);
-            StartCoroutine(respawner.RespawnOfRessources(bufferPosInList.objectToCollect.GetComponent<ResourceInGame>().resourcesInfos.resourcesTimeToRespawn, bufferPosInList.objectToCollect));
-            GameManager.Instance.ReturnResourceInStock(bufferPosInList.objectToCollect.GetComponent<ResourceInGame>().resourcesInfos.resourceType).NumberInStock += bufferPosInList.objectToCollect.GetComponent<ResourceInGame>().resourcesInfos.resourcesAmount;
-            miningTime = 0;
-            
-            ressourcePos.Remove(bufferPosInList);
-
-            if (ressourcePos.Count > 0)
-            {
-                bufferPosInList = ressourcePos[0];
-            }
-            else
-            {
-                buttonText.text = "Begin";
-                
-                mining = false;
-            }
-            doItOneTime = false;
-            //destroyMinedObject();
+            resourcesUsages[i].resourceInGame = resourcesInRange[i];
         }
+        //calculate most needed resource
+        //calculate energy used 
+        for (int i = 0; i < GameManager.Instance.needs.Length ; i++)
+        {
+            Need need = GameManager.Instance.needs[i];
+            for (int j = 0; j < resourcesUsages.Length; j++)
+            {
+                if (need.resourceUsed.resourceType == resourcesUsages[j].resourceInGame.resourcesInfos.resourceType)
+                {   //calculate energy used 
+                    resourcesUsages[j].resourceUsedPerMinute += need.resourceUsed.resourcesInfos.ReturnEnergyUseFor(need.needType);
+                    //calculate time it is ok 
+                    resourcesUsages[j].usageRatio = GameManager.Instance.GetResourceInStock(resourcesUsages[j].resourceInGame.resourcesInfos.resourceType).NumberInStock / resourcesUsages[j].resourceUsedPerMinute;
+                }
+            }
+        }
+        System.Array.Sort<ResourceUsages>(resourcesUsages, (x, y) => x.usageRatio.CompareTo(y.usageRatio));
+        //set return list
+        List<ResourceInGame> resourceInGamesOrder = new List<ResourceInGame>();
+        for (int i = 0; i < resourcesUsages.Length; i++)
+        {
+            resourceInGamesOrder.Add(resourcesUsages[i].resourceInGame);
+        }
+        return resourceInGamesOrder;
     }
 
     private void Move(RaycastHit hit)
@@ -233,71 +237,31 @@ public class CharaAvatar : MonoBehaviour
         float distance = Vector3.Distance(transform.position, hit.collider.transform.position);
         transform.DOMove(hit.collider.transform.position, distance).SetEase(Ease.Linear).onComplete += EndMove;
     }
+
     private void EndMove()
     {
         workZone.SetActive(true);
         stopped = true;
     }
-    IEnumerator CheckForStability()
+
+    private void SetResourceInStock(ResourceInGame resourceFocused)
     {
-        float woodInStock = GameManager.Instance.ReturnResourceInStock(GameManager.ResourceType.Wood).NumberInStock;
-        float chickenInStock = GameManager.Instance.ReturnResourceInStock(GameManager.ResourceType.Mouflu).NumberInStock;
-        float cornInStock = GameManager.Instance.ReturnResourceInStock(GameManager.ResourceType.Berry).NumberInStock;
-        float rockInStock = GameManager.Instance.ReturnResourceInStock(GameManager.ResourceType.Rock).NumberInStock;
-
-        yield return new WaitForSeconds(timeBeforeVictory);
-
-        if (woodInStock <= GameManager.Instance.ReturnResourceInStock(GameManager.ResourceType.Wood).NumberInStock &&
-            chickenInStock <= GameManager.Instance.ReturnResourceInStock(GameManager.ResourceType.Mouflu).NumberInStock &&
-            cornInStock <= GameManager.Instance.ReturnResourceInStock(GameManager.ResourceType.Berry).NumberInStock && 
-            rockInStock <= GameManager.Instance.ReturnResourceInStock(GameManager.ResourceType.Rock).NumberInStock)
-        {
-          //  print("Victory");
-        }
-        else
-        {
-           // print("Try Again");
-        }
+        GameManager.Instance.GetResourceInStock(resourceFocused.resourcesInfos.resourceType).NumberInStock += resourceFocused.resourcesInfos.resourcesAmount;
+        resourceFocused.gameObject.SetActive(false);
+        StartCoroutine(GameManager.Instance.RespawnOfRessources(resourceFocused.resourcesInfos.resourcesTimeToRespawn, resourceFocused.gameObject));
     }
-
-    void destroyMinedObject()
-    {
-        for (int i =0; i< hitColliders.Length; i++)
-        {
-            hitColliders[i].gameObject.SetActive(false);
-            StartCoroutine(respawner.RespawnOfRessources(hitColliders[i].GetComponent<ResourcesInfos>().resourcesTimeToRespawn, hitColliders[i].gameObject));
-            GameManager.Instance.ReturnResourceInStock(hitColliders[i].GetComponent<ResourcesInfos>().resourceType).NumberInStock += hitColliders[i].GetComponent<ResourcesInfos>().resourcesAmount;
-            buttonText.text = "Begin";
-        }
-    }
-
 
     public void BeginMining()
     {
-        if (mining == true)
-        {
-            mining = false;
-            miningTime = 0;
-            buttonText.text = "Begin";
-        }
-        else
-        {
-            if (ressourcePos.Count > 0)
-            {
-                bufferPosInList = ressourcePos[0];
-                    
-                mining = true;
-            }
-        }
+        State = CharacterState.Mining;
     }
-
 
     void OnTriggerEnter (Collider collider)
     {
         if (collider.transform.tag == "Resources")
         {
             collider.gameObject.SetActive(false);
-            StartCoroutine(respawner.RespawnOfRessources(collider.GetComponent<ResourcesInfos>().resourcesTimeToRespawn, collider.gameObject));
+            StartCoroutine(GameManager.Instance.RespawnOfRessources(collider.GetComponent<ResourcesInfos>().resourcesTimeToRespawn, collider.gameObject));
         }
     }
 }

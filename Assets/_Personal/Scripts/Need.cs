@@ -38,22 +38,9 @@ public class Need : MonoBehaviour
 
     private void UseResources()
     {
-        switch (needType)
-        {
-            case NeedType.Energy:
-                GameManager.Instance.ReturnResourceInStock(resourceUsed.resourceType).NumberInStock 
-                    -= resourceUsed.resourcesInfos.wastForEnergyPerMinute * Time.deltaTime / 60f;
-                break;
-            case NeedType.Food:
-                GameManager.Instance.ReturnResourceInStock(resourceUsed.resourceType).NumberInStock 
-                    -= resourceUsed.resourcesInfos.wastForFoodPerMinute * Time.deltaTime / 60f;
-                break;
-            case NeedType.Build:
-                GameManager.Instance.ReturnResourceInStock(resourceUsed.resourceType).NumberInStock 
-                    -= resourceUsed.resourcesInfos.wastForBuildPerMinute * Time.deltaTime / 60f;
-                break;
-        }
-        needViewer.SetResourceUsedText((int)Mathf.Round(GameManager.Instance.ReturnResourceInStock(resourceUsed.resourceType).NumberInStock));
+        GameManager.Instance.GetResourceInStock(resourceUsed.resourceType).NumberInStock
+                    -= resourceUsed.resourcesInfos.ReturnEnergyUseFor(needType) * Time.deltaTime / 60f;
+        needViewer.SetResourceUsedText((int)Mathf.Round(GameManager.Instance.GetResourceInStock(resourceUsed.resourceType).NumberInStock));
     }
 
     private void Update()
@@ -69,10 +56,9 @@ public class Need : MonoBehaviour
             {
                 if (resourcesUsable[i] != currentRessource)
                 {
-                    ResourceInStock otherResourceUsable = GameManager.Instance.ReturnResourceInStock(resourcesUsable[i]);
+                    ResourceInStock otherResourceUsable = GameManager.Instance.GetResourceInStock(resourcesUsable[i]);
                     if (otherResourceUsable.NumberInStock > 0)
                     {
-                        print("Resource Changed");
                         resourceUsed = otherResourceUsable;
                         needViewer.SetImageResourceUsed(resourceUsed.resourceImage);
                     }

@@ -18,13 +18,14 @@ public class GameManager : Singleton<GameManager>
     public Need needSelected;
     public Need[] needs;
     public static event Action<bool> LevelEnd;
+
     public enum GameState
     {
         Playing,
         Score
     }
     private GameState gameState;
-    public ResourceInStock ReturnResourceInStock(ResourceType resourceType)
+    public ResourceInStock GetResourceInStock(ResourceType resourceType)
     {
         ResourceInStock resourceInStockNeeded = null;
         for (int i = 0; i < stock.Length; i++)
@@ -61,6 +62,12 @@ public class GameManager : Singleton<GameManager>
                     break;
             }
         }
+    }
+
+    public IEnumerator RespawnOfRessources(float timeToRespawn, GameObject objectToRespawn)
+    {
+        yield return new WaitForSeconds(timeToRespawn);
+        objectToRespawn.SetActive(true);
     }
 
     private void Start()

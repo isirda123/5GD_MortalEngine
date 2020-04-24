@@ -34,7 +34,7 @@ public class ResourceViewer : MonoBehaviour, IPointerUpHandler, IPointerDownHand
 
     private void SetResourceUsed()
     {
-        GameManager.Instance.needSelected.resourceUsed = GameManager.Instance.ReturnResourceInStock(resourceType);
+        GameManager.Instance.needSelected.resourceUsed = GameManager.Instance.GetResourceInStock(resourceType);
     }
 
     private bool CheckResourceType()

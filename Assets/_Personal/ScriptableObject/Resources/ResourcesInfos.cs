@@ -17,4 +17,21 @@ public class ResourcesInfos : ScriptableObject
     public float wastForBuildPerMinute;
     public float wastForFoodPerMinute;
 
+    public float ReturnEnergyUseFor(Need.NeedType needType)
+    {
+        float amount = -1;
+        switch (needType)
+        {
+            case Need.NeedType.Energy:
+                amount = wastForEnergyPerMinute;
+                break;
+            case Need.NeedType.Food:
+                amount = wastForFoodPerMinute;
+                break;
+            case Need.NeedType.Build:
+                amount = wastForBuildPerMinute;
+                break;
+        }
+        return amount;
+    }
 }
