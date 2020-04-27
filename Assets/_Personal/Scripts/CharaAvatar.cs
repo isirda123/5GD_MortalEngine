@@ -228,14 +228,14 @@ public class CharaAvatar : MonoBehaviour
         return resourceInGamesOrder;
     }
 
-    private void Move(RaycastHit hit)
+    private void Move(GameObject hit)
     {
         State = CharacterState.Moving;
         stopped = false;
         workZone.SetActive(false);
         transform.DOKill();
-        float distance = Vector3.Distance(transform.position, hit.collider.transform.position);
-        transform.DOMove(hit.collider.transform.position, distance).SetEase(Ease.Linear).onComplete += EndMove;
+        float distance = Vector3.Distance(transform.position, hit.transform.position);
+        transform.DOMove(hit.transform.position, distance).SetEase(Ease.Linear).onComplete += EndMove;
     }
 
     private void EndMove()

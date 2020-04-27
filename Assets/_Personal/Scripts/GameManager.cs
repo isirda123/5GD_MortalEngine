@@ -13,9 +13,9 @@ public class GameManager : Singleton<GameManager>
         Berry,
         Rock
     }
-    public RessourcesStartDatas ressourcesStartDatas;
+    public ResourcesNeedsStartDatas ressourcesStartDatas;
     public ResourceInStock[] stock;
-    public Need needSelected;
+    [HideInInspector] public Need needSelected;
     public Need[] needs;
     public static event Action<bool> LevelEnd;
 
@@ -63,6 +63,24 @@ public class GameManager : Singleton<GameManager>
             }
         }
     }
+    private void SetNeedsMultiplicateur()
+    {
+        for (int i = 0; i < needs.Length; i++)
+        {
+            switch (needs[i].needType)
+            {
+                case Need.NeedType.Build:
+                    needs[i].multiplicateur = ressourcesStartDatas.needBuildsStart;
+                    break;
+                case Need.NeedType.Energy:
+                    needs[i].multiplicateur = ressourcesStartDatas.needEnergyStart;
+                    break;
+                case Need.NeedType.Food:
+                    needs[i].multiplicateur = ressourcesStartDatas.needFoodStart;
+                    break;
+            }
+        }
+    }
 
     public IEnumerator RespawnOfRessources(float timeToRespawn, GameObject objectToRespawn)
     {
@@ -73,6 +91,7 @@ public class GameManager : Singleton<GameManager>
     private void Start()
     {
         SetStartingStock();
+        SetNeedsMultiplicateur();
     }
 
 }

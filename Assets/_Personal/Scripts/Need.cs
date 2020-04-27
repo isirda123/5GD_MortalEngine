@@ -15,7 +15,7 @@ public class Need : MonoBehaviour
     [SerializeField] public ResourceInStock resourceUsed;
     [SerializeField] public GameManager.ResourceType[] resourcesUsable;
     [SerializeField] public ResourcesInfos[] resourceForValidation;
-    public float multiplicateur;
+    [HideInInspector] public float multiplicateur;
 
     public int TilesNeeded
     {
