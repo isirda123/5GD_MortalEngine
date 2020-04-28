@@ -18,6 +18,12 @@ public class GameManager : Singleton<GameManager>
     [HideInInspector] public Need needSelected;
     public Need[] needs;
     public static event Action<bool> LevelEnd;
+    public struct ResourceUsage
+    {
+        public ResourceInStock resourceInStock;
+        public float lifeTime;
+        public float resourceUsedPerMinute;
+    }
 
     public enum GameState
     {

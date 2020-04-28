@@ -17,6 +17,31 @@ public class Need : MonoBehaviour
     [SerializeField] public ResourcesInfos[] resourceForValidation;
     [HideInInspector] public float multiplicateur;
 
+    public float LifeTime
+    {
+        get
+        {
+            float lifeTime = 0;
+            List<ResourceInStock> resourcesInStock = GetUsableResourcesInStock(this);
+            for (int j = 0; j < resourcesInStock.Count; j++)
+            {
+                lifeTime += resourcesInStock[j].ResourceUsage.lifeTime;
+            }
+            return lifeTime;
+        }
+    }
+
+    private List<ResourceInStock> GetUsableResourcesInStock(Need need)
+    {
+        List<ResourceInStock> usableResourcesInStock = new List<ResourceInStock>();
+        for (int i = 0; i < need.resourcesUsable.Length; i++)
+        {
+            ResourceInStock resource = GameManager.Instance.GetResourceInStock(need.resourcesUsable[i]);
+            usableResourcesInStock.Add(resource);
+        }
+        return usableResourcesInStock;
+    }
+
     public int TilesNeeded
     {
         get

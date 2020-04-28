@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: wood
   m_EditorClassIdentifier: 
   resourceType: 1
-  resourcesTimeToMine: 5
+  resourcesTimeToMine: 3
   resourcesTimeToRespawn: 10
   resourcesAmount: 5
   wastForEnergyPerMinute: 20

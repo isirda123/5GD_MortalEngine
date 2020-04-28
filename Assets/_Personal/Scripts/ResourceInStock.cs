@@ -19,4 +19,25 @@ public class ResourceInStock : MonoBehaviour
         }
     }
     [SerializeField] int maxStock;
+
+    public GameManager.ResourceUsage ResourceUsage
+    {
+        get
+        {
+            GameManager.ResourceUsage resourceUsages = new GameManager.ResourceUsage();
+            resourceUsages.resourceInStock = this;
+            for (int i = 0; i < GameManager.Instance.needs.Length; i++)
+            {
+                Need need = GameManager.Instance.needs[i];
+                //calculate energy used 
+                if (resourcesInfos.resourceType == need.resourceUsed.resourcesInfos.resourceType)
+                {
+                    resourceUsages.resourceUsedPerMinute += need.resourceUsed.resourcesInfos.ReturnEnergyUseFor(need.needType);
+                    //calculate time it is ok 
+                    resourceUsages.lifeTime = GameManager.Instance.GetResourceInStock(resourcesInfos.resourceType).NumberInStock / resourceUsages.resourceUsedPerMinute;
+                }
+            }
+            return resourceUsages;
+        }
+    }
 }
