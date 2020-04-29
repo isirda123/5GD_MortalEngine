@@ -31,6 +31,17 @@ public class Need : MonoBehaviour
         }
     }
 
+    public bool CanUseResource(GameManager.ResourceType resourceType)
+    { //check if the need can use a resource type
+        bool canIUseIt = false;
+        for (int i = 0; i < resourcesUsable.Length; i++)
+        {
+            if (resourcesUsable[i] == resourceType)
+                canIUseIt = true;
+        }
+        return canIUseIt;
+    }
+
     private List<ResourceInStock> GetUsableResourcesInStock(Need need)
     {
         List<ResourceInStock> usableResourcesInStock = new List<ResourceInStock>();
@@ -59,7 +70,8 @@ public class Need : MonoBehaviour
                     wastOfEnergyUsed = resourceUsed.resourcesInfos.wastForBuildPerMinute;
                     break;
             }
-            return Mathf.CeilToInt(resourceUsed.resourcesInfos.ResourcesPerMinute / wastOfEnergyUsed);
+            print("Need " + Mathf.CeilToInt(wastOfEnergyUsed / resourceUsed.resourcesInfos.ResourcesPerMinute)+ "of " + resourceUsed.resourceType);
+            return Mathf.CeilToInt( wastOfEnergyUsed / resourceUsed.resourcesInfos.ResourcesPerMinute);
         }
     }
 

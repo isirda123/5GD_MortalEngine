@@ -16,6 +16,6 @@ MonoBehaviour:
   resourcesTimeToMine: 1
   resourcesTimeToRespawn: 5
   resourcesAmount: 2
-  wastForEnergyPerMinute: 40
+  wastForEnergyPerMinute: 20
   wastForBuildPerMinute: 0
-  wastForFoodPerMinute: 40
+  wastForFoodPerMinute: 20

@@ -167,6 +167,9 @@ public class CharaAvatar : MonoBehaviour
             else
             if (GameManager.Instance.needs[i].resourceUsed.resourceType == GameManager.ResourceType.Berry)
                 berryTilesNeeded += GameManager.Instance.needs[i].TilesNeeded;
+            //protection pour que le joueur mette des resources renouvlables pour le check de son lvl
+            else
+                woodTilesNeeded += 10;
         }
 
         //count resources around
@@ -184,7 +187,6 @@ public class CharaAvatar : MonoBehaviour
         if (woodAround >= woodTilesNeeded && berryAround >= berryTilesNeeded)
             GameManager.Instance.EndLevel(true);
     }
-
 
     private ResourceInGame GetOptimalResource(List<ResourceInGame> resourcesInRange)
     {
@@ -217,7 +219,6 @@ public class CharaAvatar : MonoBehaviour
             if (firstOptimalResourceInGame != null)
                 n = 1000;
         }
-        print(firstOptimalResourceInGame);
         return firstOptimalResourceInGame;
     }
 
