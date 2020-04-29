@@ -59,10 +59,7 @@ public class CharaAvatar : MonoBehaviour
                 {
                     SetMineText(resourcesInRange);
                     CheckLevelValidation(resourcesInRange);
-                    //get resource in range mining order
-                    resourcesInRange = GetMiningOrder(resourcesInRange);
-                    //change resourcefocused & change state
-                    resourceFocused = resourcesInRange[0];
+                    resourceFocused = GetOptimalResource(resourcesInRange);
                     actualState = CharacterState.Mining;
                 }
                 else
@@ -188,54 +185,50 @@ public class CharaAvatar : MonoBehaviour
             GameManager.Instance.EndLevel(true);
     }
 
-    public struct ResourceUsages
-    {
-        public ResourceInGame resourceInGame;
-        public float usageRatio;
-        public float resourceUsedPerMinute;
-    }
 
-    private List<ResourceInGame> GetMiningOrder(List<ResourceInGame> resourcesInRange)
+    private ResourceInGame GetOptimalResource(List<ResourceInGame> resourcesInRange)
     {
-        // set resourcesUsages
-        ResourceUsages[] resourcesUsages = new ResourceUsages[resourcesInRange.Count];
-        for (int i = 0; i < resourcesUsages.Length; i++)
+        Need[] needs = new Need[GameManager.Instance.needs.Length];
+        GameManager.Instance.needs.CopyTo(needs,0);
+        System.Array.Sort(needs, (x, y) => x.LifeTime.CompareTo(y.LifeTime));
+        ResourceInGame firstOptimalResourceInGame = null;
+        for (int n = 0; n < needs.Length; n++)
         {
-            resourcesUsages[i].resourceInGame = resourcesInRange[i];
-        }
-        //calculate most needed resource
-        //calculate energy used 
-        for (int i = 0; i < GameManager.Instance.needs.Length ; i++)
-        {
-            Need need = GameManager.Instance.needs[i];
-            for (int j = 0; j < resourcesUsages.Length; j++)
+            Need need = needs[n];
+            GameManager.ResourceType resourceTypeToTake = need.resourceUsed.resourcesInfos.resourceType;
+            //check if there is a optimal resource in range
+            for (int i = 0; i < resourcesInRange.Count; i++)
             {
-                if (need.resourceUsed.resourceType == resourcesUsages[j].resourceInGame.resourcesInfos.resourceType)
-                {   //calculate energy used 
-                    resourcesUsages[j].resourceUsedPerMinute += need.resourceUsed.resourcesInfos.ReturnEnergyUseFor(need.needType);
-                    //calculate time it is ok 
-                    resourcesUsages[j].usageRatio = GameManager.Instance.GetResourceInStock(resourcesUsages[j].resourceInGame.resourcesInfos.resourceType).NumberInStock / resourcesUsages[j].resourceUsedPerMinute;
+                if (resourcesInRange[i].resourcesInfos.resourceType == resourceTypeToTake)
+                    firstOptimalResourceInGame = resourcesInRange[i];
+            }
+            //if there is none, take the first resource that can be use for this need
+            if (firstOptimalResourceInGame == null)
+            {
+                for (int i = 0; i < resourcesInRange.Count; i++)
+                {
+                    for (int j = 0; j < need.resourcesUsable.Length; j++)
+                    {
+                        if (resourcesInRange[i].resourcesInfos.resourceType == need.resourcesUsable[j])
+                            firstOptimalResourceInGame = resourcesInRange[i];
+                    }
                 }
             }
+            if (firstOptimalResourceInGame != null)
+                n = 1000;
         }
-        System.Array.Sort<ResourceUsages>(resourcesUsages, (x, y) => x.usageRatio.CompareTo(y.usageRatio));
-        //set return list
-        List<ResourceInGame> resourceInGamesOrder = new List<ResourceInGame>();
-        for (int i = 0; i < resourcesUsages.Length; i++)
-        {
-            resourceInGamesOrder.Add(resourcesUsages[i].resourceInGame);
-        }
-        return resourceInGamesOrder;
+        print(firstOptimalResourceInGame);
+        return firstOptimalResourceInGame;
     }
 
-    private void Move(RaycastHit hit)
+    private void Move(GameObject hit)
     {
         State = CharacterState.Moving;
         stopped = false;
         workZone.SetActive(false);
         transform.DOKill();
-        float distance = Vector3.Distance(transform.position, hit.collider.transform.position);
-        transform.DOMove(hit.collider.transform.position, distance).SetEase(Ease.Linear).onComplete += EndMove;
+        float distance = Vector3.Distance(transform.position, hit.transform.position);
+        transform.DOMove(hit.transform.position, distance).SetEase(Ease.Linear).onComplete += EndMove;
     }
 
     private void EndMove()

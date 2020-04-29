@@ -49,6 +49,7 @@ MonoBehaviour:
   resourcesUsable: 0100000004000000
   resourceForValidation:
   - {fileID: 11400000, guid: e424dd937ad32a54fa2578e580611f2e, type: 2}
+  multiplicateur: 0.5
 --- !u!1 &6178514526622534515
 GameObject:
   m_ObjectHideFlags: 0
@@ -59,7 +60,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6178514526622534476}
   m_Layer: 0
-  m_Name: Resources
+  m_Name: Stock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -133,6 +134,7 @@ MonoBehaviour:
   resourceForValidation:
   - {fileID: 11400000, guid: b2bf0ac074881f242a365fe7a0e21330, type: 2}
   - {fileID: 11400000, guid: e424dd937ad32a54fa2578e580611f2e, type: 2}
+  multiplicateur: 0.5
 --- !u!1 &6178514526895940746
 GameObject:
   m_ObjectHideFlags: 0
@@ -262,6 +264,7 @@ MonoBehaviour:
   resourcesUsable: 0200000003000000
   resourceForValidation:
   - {fileID: 11400000, guid: b2bf0ac074881f242a365fe7a0e21330, type: 2}
+  multiplicateur: 0.5
 --- !u!1 &6178514527595694782
 GameObject:
   m_ObjectHideFlags: 0
