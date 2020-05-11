@@ -15,12 +15,25 @@ public class tileInfos : MonoBehaviour
         Berry
     }
 
+    public enum stateOfResources
+    {
+        Available,
+        Reloading
+    }
+
     public ResourcesInfos resourcesInfos = null;
 
     public typeOfTile tileType;
 
+    public stateOfResources stateResources;
+
     public List<tileInfos> neighbours;
 
+    float timerRespawn = 0;
+
+    [SerializeField] GameObject visualResource;
+
+    [HideInInspector] public bool avatarOnMe = false;
 
     // Start is called before the first frame update
     void Start()
@@ -30,9 +43,39 @@ public class tileInfos : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        CheckState(stateResources);
     }
 
+    void CheckState(stateOfResources sR)
+    {
+        if (sR == stateOfResources.Reloading)
+        {
+            ReloadTheResource();
+        }
+    }
+
+    void ReloadTheResource()
+    {
+        visualResource.SetActive(false);
+        if (avatarOnMe == false)
+        {
+            if (timerRespawn < resourcesInfos.resourcesTimeToRespawn)
+            {
+                timerRespawn += Time.deltaTime;
+            }
+            else
+            {
+                stateResources = stateOfResources.Available;
+                VisualRespawnResource();
+                timerRespawn = 0;
+            }
+        }
+    }
+
+    void VisualRespawnResource()
+    {
+        visualResource.SetActive(true);
+    }
 
     public void GetTileAround()
     {
@@ -133,30 +176,40 @@ public class tileInfos : MonoBehaviour
 
     public void SetTypeOfTile()
     {
-        
+        if (transform.childCount > 0)
+        {
+            DestroyImmediate(transform.GetChild(0).gameObject);
+        }
         switch (tileType)
         {
+            
             case typeOfTile.None:
                 GetComponent<MeshRenderer>().materials[1].color = (Resources.Load("MaterialTiles/None", typeof(Material)) as Material).color;
+                resourcesInfos = null;
                 break;
             case typeOfTile.Blocker:
                 GetComponent<MeshRenderer>().materials[1].color = (Resources.Load("MaterialTiles/Blocker", typeof(Material)) as Material).color;
+                resourcesInfos = null;
                 break;
             case typeOfTile.Mouflu:
                 GetComponent<MeshRenderer>().materials[1].color = (Resources.Load("MaterialTiles/Mouflu", typeof(Material)) as Material).color;
                 resourcesInfos = Resources.Load("ResourcesInfos/Mouflu", typeof(ResourcesInfos)) as ResourcesInfos;
+                visualResource = Instantiate(Resources.Load("VisualResources/Mouflu", typeof(GameObject)) as GameObject, transform.position,Quaternion.identity, transform);
                 break;
             case typeOfTile.Rock:
                 GetComponent<MeshRenderer>().materials[1].color = (Resources.Load("MaterialTiles/Rock", typeof(Material)) as Material).color;
                 resourcesInfos = Resources.Load("ResourcesInfos/Rock", typeof(ResourcesInfos)) as ResourcesInfos;
+                visualResource = Instantiate(Resources.Load("VisualResources/Rock", typeof(GameObject)) as GameObject, transform.position,Quaternion.identity, transform);
                 break;
             case typeOfTile.Wood:
                 GetComponent<MeshRenderer>().materials[1].color = (Resources.Load("MaterialTiles/Wood", typeof(Material)) as Material).color;
                 resourcesInfos = Resources.Load("ResourcesInfos/Wood", typeof(ResourcesInfos)) as ResourcesInfos;
+                visualResource = Instantiate(Resources.Load("VisualResources/Wood", typeof(GameObject)) as GameObject, transform.position,Quaternion.identity, transform);
                 break;
             case typeOfTile.Berry:
                 GetComponent<MeshRenderer>().materials[1].color = (Resources.Load("MaterialTiles/Berry", typeof(Material)) as Material).color;
                 resourcesInfos = Resources.Load("ResourcesInfos/Berry", typeof(ResourcesInfos)) as ResourcesInfos;
+                visualResource = Instantiate(Resources.Load("VisualResources/Berry", typeof(GameObject)) as GameObject, transform.position,Quaternion.identity, transform);
                 break;
         }
 
