@@ -107,7 +107,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f291e1cfd1963ab4bb191d007fc953d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileType: 0
+  resourcesInfos: {fileID: 11400000, guid: b2bf0ac074881f242a365fe7a0e21330, type: 2}
+  tileType: 5
   neighbours:
   - {fileID: 0}
   - {fileID: 0}
