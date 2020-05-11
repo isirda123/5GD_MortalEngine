@@ -30,12 +30,14 @@ public class CharaAvatar : MonoBehaviour
     [SerializeField] Collider[] hitColliders;
     [SerializeField] tileManager pathManager;
     DG.Tweening.Sequence sequence;
+
     public enum CharacterState
     {
         Moving,
         Mining,
     }
     private CharacterState actualState;
+
     public CharacterState State
     { get { return actualState; } set { SwitchState(value); } }
 
@@ -75,7 +77,6 @@ public class CharaAvatar : MonoBehaviour
                 }
                 break;
         }
-        
     }
 
     private void CheckState(CharacterState characterState)

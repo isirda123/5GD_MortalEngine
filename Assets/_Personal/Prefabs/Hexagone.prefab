@@ -59,8 +59,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 81e300a0abdedd14d854d29820be495d, type: 2}
+  - {fileID: 2100000, guid: 2cd64f96d34776740b52c523eda2c697, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -107,6 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f291e1cfd1963ab4bb191d007fc953d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resourcesInfos: {fileID: 0}
   tileType: 0
   neighbours:
   - {fileID: 0}
