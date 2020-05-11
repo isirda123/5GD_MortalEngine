@@ -18,4 +18,4 @@ MonoBehaviour:
   resourcesAmount: 5
   wastForEnergyPerMinute: 0
   wastForBuildPerMinute: 0
-  wastForFoodPerMinute: 5
+  wastForFoodPerMinute: 10
