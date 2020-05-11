@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class tileInfos : MonoBehaviour
 {
@@ -14,15 +15,16 @@ public class tileInfos : MonoBehaviour
         Berry
     }
 
+    public ResourcesInfos resourcesInfos = null;
+
     public typeOfTile tileType;
 
-    public List<GameObject> tileAround = new List<GameObject>();
+    public List<tileInfos> neighbours;
 
 
     // Start is called before the first frame update
     void Start()
-    {
-        
+    { 
     }
 
     // Update is called once per frame
@@ -34,13 +36,7 @@ public class tileInfos : MonoBehaviour
 
     public void GetTileAround()
     {
-        tileAround.Clear();
-        /*Collider[] colliders = Physics.OverlapSphere(transform.position, (transform.localScale.x * 1f) + 0.1f);
-        
-        for (int i =0; i < colliders.Length; i++)
-        {
-            tileAround.Add(colliders[i].gameObject);
-        }*/
+        neighbours = new List<tileInfos>();
 
 
         RaycastHit[] hits;
@@ -54,7 +50,7 @@ public class tileInfos : MonoBehaviour
             RaycastHit hit = hits[i];
             if (hit.transform != this.transform)
             {
-                tileAround.Add(hit.transform.gameObject);
+                neighbours.Add(hit.transform.GetComponent<tileInfos>());
             }
         }
 
@@ -67,7 +63,7 @@ public class tileInfos : MonoBehaviour
             RaycastHit hit = hits[i];
             if (hit.transform != this.transform)
             {
-                tileAround.Add(hit.transform.gameObject);
+                neighbours.Add(hit.transform.GetComponent<tileInfos>());
             }
         }
 
@@ -81,7 +77,7 @@ public class tileInfos : MonoBehaviour
             RaycastHit hit = hits[i];
             if (hit.transform != this.transform)
             {
-                tileAround.Add(hit.transform.gameObject);
+                neighbours.Add(hit.transform.GetComponent<tileInfos>());
             }
         }
 
@@ -93,7 +89,7 @@ public class tileInfos : MonoBehaviour
             RaycastHit hit = hits[i];
             if (hit.transform != this.transform)
             {
-                tileAround.Add(hit.transform.gameObject);
+                neighbours.Add(hit.transform.GetComponent<tileInfos>());
             }
         }
 
@@ -106,7 +102,7 @@ public class tileInfos : MonoBehaviour
             RaycastHit hit = hits[i];
             if (hit.transform != this.transform)
             {
-                tileAround.Add(hit.transform.gameObject);
+                neighbours.Add(hit.transform.GetComponent<tileInfos>());
             }
         }
 
@@ -119,131 +115,52 @@ public class tileInfos : MonoBehaviour
             RaycastHit hit = hits[i];
             if (hit.transform != this.transform)
             {
-                tileAround.Add(hit.transform.gameObject);
+                neighbours.Add(hit.transform.GetComponent<tileInfos>());
             }
         }
 
+        SetDirtyEditor();
 
+    }
 
+    void SetDirtyEditor()
+    {
+    #if UNITY_EDITOR
+        EditorUtility.SetDirty(this);
 
-        /*if (Physics.RaycastAll (transform.position, Vector3.forward, out hit, transform.localScale.x + 0.5f,))
-        {
-            Debug.DrawRay(transform.position, Vector3.forward, Color.red);
-            if (hit.transform != this.transform)
-            {
-                if (hit.transform.tag == "Hexagone")
-                {
-                    tileAround.Add(hit.transform.gameObject);
-                    print("oui");
-
-
-                }
-            }
-        }
-        //North East
-        if (Physics.Raycast(transform.position, Vector3.forward+Vector3.right, out hit[], transform.localScale.x + 0.5f))
-        {
-            if (hit.transform != this.transform)
-            {
-                Debug.DrawRay(transform.position, Vector3.forward + Vector3.right, Color.blue);
-                if (hit.transform.tag == "Hexagone")
-                {
-                    tileAround.Add(hit.transform.gameObject);
-                    print("oui");
-
-                }
-            }
-        }
-
-        //South East
-        if (Physics.Raycast(transform.position, -Vector3.forward + Vector3.right, out hit[], transform.localScale.x + 0.5f))
-        {
-            Debug.DrawRay(transform.position, -Vector3.forward + Vector3.right, Color.green);
-            if (hit.transform != this.transform)
-            {
-                if (hit.transform.tag == "Hexagone")
-                {
-                    tileAround.Add(hit.transform.gameObject);
-                    print("oui");
-
-                }
-            }
-        }
-
-        //South
-        if (Physics.Raycast(transform.position, -Vector3.forward, out hit[], transform.localScale.x + 0.5f))
-        {
-            Debug.DrawRay(transform.position, -Vector3.forward, Color.yellow);
-            if (hit.transform != this.transform)
-            {
-                if (hit.transform.tag == "Hexagone")
-                {
-                    tileAround.Add(hit.transform.gameObject);
-                    print("oui");
-                }
-            }
-        }
-
-        //South West
-        if (Physics.Raycast(transform.position, -Vector3.forward - Vector3.right, out hit[], transform.localScale.x + 0.5f))
-        {
-            Debug.DrawRay(transform.position, -Vector3.forward - Vector3.right, Color.magenta);
-            if (hit.transform != this.transform)
-            {
-                if (hit.transform.tag == "Hexagone")
-                {
-                    tileAround.Add(hit.transform.gameObject);
-                    print("oui");
-
-                }
-            }
-        }
-
-        //North West
-
-        if (Physics.Raycast(transform.position, Vector3.forward - Vector3.right, out hit[], transform.localScale.x + 0.5f))
-        {
-            Debug.DrawRay(transform.position, Vector3.forward - Vector3.right, Color.red);
-            if (hit.transform != this.transform)
-            {
-                if (hit.transform.tag == "Hexagone")
-                {
-                    tileAround.Add(hit.transform.gameObject);
-                    print("oui");
-                }
-            }
-        }*/
+    #endif
     }
 
     public void SetTypeOfTile()
     {
-
+        
         switch (tileType)
         {
             case typeOfTile.None:
                 GetComponent<MeshRenderer>().materials[1].color = (Resources.Load("MaterialTiles/None", typeof(Material)) as Material).color;
                 break;
             case typeOfTile.Blocker:
-                print("Blocker");
                 GetComponent<MeshRenderer>().materials[1].color = (Resources.Load("MaterialTiles/Blocker", typeof(Material)) as Material).color;
                 break;
             case typeOfTile.Mouflu:
                 GetComponent<MeshRenderer>().materials[1].color = (Resources.Load("MaterialTiles/Mouflu", typeof(Material)) as Material).color;
+                resourcesInfos = Resources.Load("ResourcesInfos/Mouflu", typeof(ResourcesInfos)) as ResourcesInfos;
                 break;
             case typeOfTile.Rock:
                 GetComponent<MeshRenderer>().materials[1].color = (Resources.Load("MaterialTiles/Rock", typeof(Material)) as Material).color;
+                resourcesInfos = Resources.Load("ResourcesInfos/Rock", typeof(ResourcesInfos)) as ResourcesInfos;
                 break;
             case typeOfTile.Wood:
                 GetComponent<MeshRenderer>().materials[1].color = (Resources.Load("MaterialTiles/Wood", typeof(Material)) as Material).color;
+                resourcesInfos = Resources.Load("ResourcesInfos/Wood", typeof(ResourcesInfos)) as ResourcesInfos;
                 break;
             case typeOfTile.Berry:
                 GetComponent<MeshRenderer>().materials[1].color = (Resources.Load("MaterialTiles/Berry", typeof(Material)) as Material).color;
+                resourcesInfos = Resources.Load("ResourcesInfos/Berry", typeof(ResourcesInfos)) as ResourcesInfos;
                 break;
-
-
-
-
         }
+
+        SetDirtyEditor();
     }
 
 }

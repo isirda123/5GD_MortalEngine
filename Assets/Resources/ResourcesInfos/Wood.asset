@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 32fc1f0314c27074ba051bb846c871ef, type: 3}
-  m_Name: rock
+  m_Name: Wood
   m_EditorClassIdentifier: 
-  resourceType: 4
-  resourcesTimeToMine: 5
-  resourcesTimeToRespawn: 1000
-  resourcesAmount: 3
-  wastForEnergyPerMinute: 0
-  wastForBuildPerMinute: 10
+  resourceType: 1
+  resourcesTimeToMine: 3
+  resourcesTimeToRespawn: 10
+  resourcesAmount: 9
+  wastForEnergyPerMinute: 40
+  wastForBuildPerMinute: 40
   wastForFoodPerMinute: 0

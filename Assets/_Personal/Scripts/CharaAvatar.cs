@@ -7,8 +7,8 @@ using DG.Tweening;
 public class CharaAvatar : MonoBehaviour
 {
     [Header("Work")]
-    [SerializeField] RessourcesInstanciator respawner;
     [SerializeField] public GameObject workZone;
+    [SerializeField] tileInfos tileStandingOn;
     [SerializeField] float rangeWorkZone;
     float timeToMineAll;
     [HideInInspector] public bool stopped;
@@ -16,6 +16,7 @@ public class CharaAvatar : MonoBehaviour
     bool findThePos = false;
     [Tooltip("In Seconde")]
     [SerializeField] float timeBeforeVictory;
+    public float speedOfMove;
 
     [Header("UI")]
     [SerializeField] GameObject mineCanvas;
@@ -27,7 +28,8 @@ public class CharaAvatar : MonoBehaviour
     [SerializeField] public Text buttonText;
 
     [SerializeField] Collider[] hitColliders;
-
+    [SerializeField] tileManager pathManager;
+    DG.Tweening.Sequence sequence;
     public enum CharacterState
     {
         Moving,
@@ -38,6 +40,8 @@ public class CharaAvatar : MonoBehaviour
     { get { return actualState; } set { SwitchState(value); } }
 
     private float startMiningTime;
+
+    private tileInfos resourceFocused;
 
     private void SwitchState(CharacterState focusState)
     {
@@ -52,10 +56,12 @@ public class CharaAvatar : MonoBehaviour
                 //set variables for mine
                 startMiningTime = Time.time;
 
-                Collider[] hitColliders = Physics.OverlapSphere(transform.position, rangeWorkZone / 2, 1 << 8);
+                //Collider[] hitColliders = Physics.OverlapSphere(transform.position, rangeWorkZone / 2, 1 << 8);
                 //get resources around & set mine text & check level validation
-                List<ResourceInGame> resourcesInRange = GetResourcesAround(hitColliders);
-                if (resourcesInRange.Count > 0)
+
+                List<tileInfos> neighbours = tileStandingOn.neighbours;
+                List<tileInfos> resourcesInRange = GetResourcesAround(neighbours);
+                if (neighbours.Count > 0)
                 {
                     SetMineText(resourcesInRange);
                     CheckLevelValidation(resourcesInRange);
@@ -71,7 +77,6 @@ public class CharaAvatar : MonoBehaviour
         }
         
     }
-    private ResourceInGame resourceFocused;
 
     private void CheckState(CharacterState characterState)
     {
@@ -88,12 +93,13 @@ public class CharaAvatar : MonoBehaviour
         }
     }
 
-    private void SetMineText(List<ResourceInGame> resourceInRange)
+    private void SetMineText(List<tileInfos> resourceInRange)
     {
         float wood = 0;
         float chicken = 0;
         float corn = 0;
         float rock = 0;
+
         for (int i = 0; i < resourceInRange.Count; i++)
         {
             findThePos = false;
@@ -130,6 +136,9 @@ public class CharaAvatar : MonoBehaviour
     void Start()
     {
         PlayerInput.InputUp += Move;
+
+        CheckTileUnder();
+            
     }
 
     private void OnDestroy()
@@ -142,19 +151,20 @@ public class CharaAvatar : MonoBehaviour
         CheckState(State);
     }
 
-    private List<ResourceInGame> GetResourcesAround(Collider[] hitColliders)
+    private List<tileInfos> GetResourcesAround(List<tileInfos> neighbours)
     {
-        List<ResourceInGame> resourcesInRange = new List<ResourceInGame>();
-        for (int i = 0; i < hitColliders.Length; i++)
+        List<tileInfos> resourcesInRange = new List<tileInfos>();
+        for (int i = 0; i < neighbours.Count; i++)
         {
-            ResourceInGame resource = hitColliders[i].transform.GetComponent<ResourceInGame>();
-            if (resource != null)
-                resourcesInRange.Add(resource);
+            if (neighbours[i].resourcesInfos != null)
+            {
+                resourcesInRange.Add(neighbours[i]);
+            }
         }
         return resourcesInRange;
     }
 
-    private void CheckLevelValidation(List<ResourceInGame> resourcesAround)
+    private void CheckLevelValidation(List<tileInfos> resourcesAround)
     {
         //use to check if needs < resourcesAround
         //count tiles needed
@@ -188,12 +198,12 @@ public class CharaAvatar : MonoBehaviour
             GameManager.Instance.EndLevel(true);
     }
 
-    private ResourceInGame GetOptimalResource(List<ResourceInGame> resourcesInRange)
+    private tileInfos GetOptimalResource(List<tileInfos> resourcesInRange)
     {
         Need[] needs = new Need[GameManager.Instance.needs.Length];
         GameManager.Instance.needs.CopyTo(needs,0);
         System.Array.Sort(needs, (x, y) => x.LifeTime.CompareTo(y.LifeTime));
-        ResourceInGame firstOptimalResourceInGame = null;
+        tileInfos firstOptimalResourceInGame = null;
         for (int n = 0; n < needs.Length; n++)
         {
             Need need = needs[n];
@@ -224,12 +234,49 @@ public class CharaAvatar : MonoBehaviour
 
     private void Move(GameObject hit)
     {
+        if (State == CharacterState.Moving)
+        {
+            CheckTileUnder();
+            sequence.Kill();
+        }
+        List<Vector3> positionToGo = new List<Vector3>();
+        print(hit);
+        positionToGo = pathManager.GeneratePathTo(tileStandingOn, hit.GetComponent<tileInfos>());
+        sequence = DOTween.Sequence();
+        
         State = CharacterState.Moving;
         stopped = false;
         workZone.SetActive(false);
-        transform.DOKill();
-        float distance = Vector3.Distance(transform.position, hit.transform.position);
-        transform.DOMove(hit.transform.position, distance).SetEase(Ease.Linear).onComplete += EndMove;
+
+        Vector3 start = transform.position;
+        for (int i = 0; i < positionToGo.Count; i++)
+        {
+            Vector3 point = positionToGo[i];
+            float time = Vector3.Distance(start, point);
+            sequence.AppendCallback(() => transform.LookAt(new Vector3(transform.position.x, point.y, transform.position.z)));
+            sequence.Append(transform.DOMove(point, time).SetEase(Ease.Linear));
+            start = positionToGo[i];
+        }
+        
+
+        sequence.timeScale = speedOfMove;
+        sequence.onComplete += EndMove;
+        sequence.onComplete += CheckTileUnder;
+
+        //transform.DOMove(hit.transform.position, distance).SetEase(Ease.Linear).onComplete += EndMove;
+    }
+
+    private void CheckTileUnder()
+    {
+
+        RaycastHit hitTile;
+        LayerMask layerMask = 1 << 10;
+        // new vector 3 est ici pour empecher les bugs. Offset!
+        Debug.DrawRay(transform.position - new Vector3 (0, -0.5f, 0), -Vector3.up, Color.red, 10);
+        if (Physics.Raycast(transform.position - new Vector3(0, -0.5f, 0), -Vector3.up, out hitTile, 3, layerMask))
+        {
+            tileStandingOn = hitTile.transform.GetComponent<tileInfos>();
+        }
     }
 
     private void EndMove()
@@ -238,7 +285,7 @@ public class CharaAvatar : MonoBehaviour
         stopped = true;
     }
 
-    private void SetResourceInStock(ResourceInGame resourceFocused)
+    private void SetResourceInStock(tileInfos resourceFocused)
     {
         GameManager.Instance.GetResourceInStock(resourceFocused.resourcesInfos.resourceType).NumberInStock += resourceFocused.resourcesInfos.resourcesAmount;
         resourceFocused.gameObject.SetActive(false);
