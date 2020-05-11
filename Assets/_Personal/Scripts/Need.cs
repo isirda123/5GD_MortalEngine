@@ -70,7 +70,7 @@ public class Need : MonoBehaviour
                     wastOfEnergyUsed = resourceUsed.resourcesInfos.wastForBuildPerMinute;
                     break;
             }
-            print("Need " + Mathf.CeilToInt(wastOfEnergyUsed / resourceUsed.resourcesInfos.ResourcesPerMinute)+ "of " + resourceUsed.resourceType);
+            //print("Need " + Mathf.CeilToInt(wastOfEnergyUsed / resourceUsed.resourcesInfos.ResourcesPerMinute)+ "of " + resourceUsed.resourceType);
             return Mathf.CeilToInt( wastOfEnergyUsed / resourceUsed.resourcesInfos.ResourcesPerMinute);
         }
     }
@@ -103,7 +103,8 @@ public class Need : MonoBehaviour
                     }
                     else
                     {
-                        GameManager.Instance.EndLevel(false);
+                        if(multiplicateur > 0)
+                            GameManager.Instance.EndLevel(false);
                     }
                 }
             }
@@ -118,4 +119,5 @@ public class Need : MonoBehaviour
     {
         ResourceInStock.ResourceEmpty -= ChangeUsingRessource;
     }
+
 }

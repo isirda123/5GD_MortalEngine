@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourceType: 3
   resourcesTimeToMine: 1
-  resourcesTimeToRespawn: 5
-  resourcesAmount: 2
-  wastForEnergyPerMinute: 20
+  resourcesTimeToRespawn: 4
+  resourcesAmount: 4
+  wastForEnergyPerMinute: 40
   wastForBuildPerMinute: 0
-  wastForFoodPerMinute: 20
+  wastForFoodPerMinute: 40

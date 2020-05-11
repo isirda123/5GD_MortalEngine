@@ -85,6 +85,9 @@ public class GameManager : Singleton<GameManager>
                     needs[i].multiplicateur = ressourcesStartDatas.needFoodStart;
                     break;
             }
+            //desable viwer if no need
+            if (needs[i].multiplicateur == 0)
+                needs[i].needViewer.gameObject.SetActive(false);
         }
     }
 
