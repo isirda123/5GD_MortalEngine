@@ -9,6 +9,7 @@ public class Tile : MonoBehaviour
 {
     public static event Action<Tile> TileTouched;
 
+
     public void OnMouseDown()
     {
         TileTouched?.Invoke(this);
@@ -68,18 +69,21 @@ public class Tile : MonoBehaviour
 
     void ReloadTheResource()
     {
-        visualResource.SetActive(false);
-        if (avatarOnMe == false)
+        if (visualResource != null)
         {
-            if (timerRespawn < resourcesInfos.resourcesRoundsToRespawn)
+            visualResource.SetActive(false);
+            if (avatarOnMe == false)
             {
-                timerRespawn += Time.deltaTime;
-            }
-            else
-            {
-                stateResources = stateOfResources.Available;
-                VisualRespawnResource();
-                timerRespawn = 0;
+                if (timerRespawn < resourcesInfos.resourcesRoundsToRespawn)
+                {
+                    timerRespawn += Time.deltaTime;
+                }
+                else
+                {
+                    stateResources = stateOfResources.Available;
+                    VisualRespawnResource();
+                    timerRespawn = 0;
+                }
             }
         }
     }

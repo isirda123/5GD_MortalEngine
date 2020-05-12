@@ -24,6 +24,7 @@ public class PlayerInput : MonoBehaviour
         layerMask = ~layerMask;
         if (Physics.Raycast(ray, out hit, Mathf.Infinity,layerMask))
         {
+
         }
 
         return hit;

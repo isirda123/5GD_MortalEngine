@@ -5,6 +5,9 @@ using System;
 
 public class GameManager : Singleton<GameManager>
 {
+    int numberOfRound = 0;
+
+
     public enum ResourceType
     {
         None,
@@ -139,11 +142,18 @@ public class GameManager : Singleton<GameManager>
         SetNeedsMultiplicateur();
         ActionsButtons.Move += SetMakingAction;
         CharaAvatar.EndAction += SetResolveRound;
+        CharaAvatar.EndAction += AddRound;
     }
 
     private void OnDestroy()
     {
         ActionsButtons.Move -= SetMakingAction;
         CharaAvatar.EndAction -= SetResolveRound;
+        CharaAvatar.EndAction -= AddRound;
+    }
+
+    private void AddRound()
+    {
+        numberOfRound += 1;
     }
 }

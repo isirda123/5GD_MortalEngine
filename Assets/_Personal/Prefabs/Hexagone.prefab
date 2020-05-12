@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 1951047842152219967}
   - component: {fileID: 1429330835575669025}
   - component: {fileID: 1012823997509327946}
-  - component: {fileID: 1331564681706010978}
   m_Layer: 10
   m_Name: Hexagone
   m_TagString: Hexagone
@@ -108,8 +107,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f291e1cfd1963ab4bb191d007fc953d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resourcesInfos: {fileID: 11400000, guid: b2bf0ac074881f242a365fe7a0e21330, type: 2}
-  tileType: 5
+  resourcesInfos: {fileID: 0}
+  tileType: 0
   stateResources: 0
   neighbours:
   - {fileID: 0}
@@ -118,18 +117,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   visualResource: {fileID: 0}
   avatarOnMe: 0
---- !u!135 &1331564681706010978
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 229496253159092707}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.51
-  m_Center: {x: 0, y: -0.049999993, z: 0}
