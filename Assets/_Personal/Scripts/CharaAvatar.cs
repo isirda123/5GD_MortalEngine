@@ -31,7 +31,7 @@ public class CharaAvatar : MonoBehaviour
     [SerializeField] Collider[] hitColliders;
     [SerializeField] TilesManager pathManager;
     DG.Tweening.Sequence sequence;
-    public static event Action MoveEnd;
+    public static event Action EndAction;
 
     public enum CharacterState
     {
@@ -106,21 +106,30 @@ public class CharaAvatar : MonoBehaviour
 
     private void HarvestTilesAround()
     {
-         GetResourcesAround(GetTileUnder().neighbours);
-         
+        List<Tile> tiles = GetResourcesAround(GetTileUnder().neighbours);
+        print(tiles);
+        for (int i = 0; i < tiles.Count; i++)
+        {
+            SetResourceInStock(tiles[i]);
+        }
+        Sequence sequence = DOTween.Sequence();
+        sequence.AppendInterval(2);
+        sequence.OnComplete(() => EndAction?.Invoke());
     }
 
     void Start()
     {
         Tile.TileTouched += Move;
         ActionsButtons.Move += SetWaitForMoving;
-       // ActionsButtons.Harvest += Mine;
+        ActionsButtons.Harvest += HarvestTilesAround;
     }
 
     private void OnDestroy()
     {
         Tile.TileTouched -= Move;
         ActionsButtons.Move -= SetWaitForMoving;
+        ActionsButtons.Harvest -= HarvestTilesAround;
+
     }
 
     private void Update()
@@ -259,7 +268,7 @@ public class CharaAvatar : MonoBehaviour
     {
         workZone.SetActive(true);
         stopped = true;
-        MoveEnd?.Invoke();
+        EndAction?.Invoke();
     }
 
     private void SetResourceInStock(Tile resourceFocused)
@@ -276,9 +285,11 @@ public class CharaAvatar : MonoBehaviour
 
     void OnTriggerEnter (Collider collider)
     {
-        if (collider.transform.tag == "Resources")
+        if (collider.transform.tag == "Hexagone")
         {
-            collider.GetComponent<Tile>().stateResources = Tile.stateOfResources.Reloading;
+            Tile tile = collider.GetComponent<Tile>();
+            if (tile != null)
+                tile.stateResources = Tile.stateOfResources.Reloading;
         }
     }
 }

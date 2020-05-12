@@ -47,7 +47,7 @@ public class UIManager : Singleton<UIManager>
         ActionsButtons.Pass += HideButtons;
         ActionsButtons.Harvest += HideButtons;
         ActionsButtons.Vote += HideButtons;
-        CharaAvatar.MoveEnd += DrawButtons;
+        CharaAvatar.EndAction += DrawButtons;
     }
 
     private void OnDestroy()
@@ -57,6 +57,6 @@ public class UIManager : Singleton<UIManager>
         ActionsButtons.Pass -= HideButtons;
         ActionsButtons.Harvest -= HideButtons;
         ActionsButtons.Vote -= HideButtons;
-        CharaAvatar.MoveEnd -= DrawButtons;
+        CharaAvatar.EndAction -= DrawButtons;
     }
 }

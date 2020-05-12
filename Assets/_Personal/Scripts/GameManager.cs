@@ -138,12 +138,12 @@ public class GameManager : Singleton<GameManager>
         SetStartingStock();
         SetNeedsMultiplicateur();
         ActionsButtons.Move += SetMakingAction;
-        CharaAvatar.MoveEnd += SetResolveRound;
+        CharaAvatar.EndAction += SetResolveRound;
     }
 
     private void OnDestroy()
     {
         ActionsButtons.Move -= SetMakingAction;
-        CharaAvatar.MoveEnd -= SetResolveRound;
+        CharaAvatar.EndAction -= SetResolveRound;
     }
 }
