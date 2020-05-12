@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1951047842152219967}
   - component: {fileID: 1429330835575669025}
   - component: {fileID: 1012823997509327946}
+  - component: {fileID: 7020151577608623838}
   m_Layer: 10
   m_Name: Hexagone
   m_TagString: Hexagone
@@ -92,7 +93,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 675060902385462148, guid: 2c9bab1085c1eb24481330a084d3b981, type: 3}
 --- !u!114 &1012823997509327946
@@ -109,6 +110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourcesInfos: {fileID: 11400000, guid: b2bf0ac074881f242a365fe7a0e21330, type: 2}
   tileType: 5
+  stateResources: 0
   neighbours:
   - {fileID: 0}
   - {fileID: 0}
@@ -116,3 +118,33 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  visualResource: {fileID: 0}
+  avatarOnMe: 0
+--- !u!114 &7020151577608623838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 229496253159092707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1012823997509327946}
+          m_MethodName: Touch
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2

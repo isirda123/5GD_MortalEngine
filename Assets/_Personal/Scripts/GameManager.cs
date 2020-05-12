@@ -30,6 +30,28 @@ public class GameManager : Singleton<GameManager>
         Playing,
         Score
     }
+
+    public enum RoundState
+    {
+        ChoosingAction,
+        MakingAction,
+        ResolvingRound
+    }
+    private RoundState roundState;
+
+    private void SwitchRoundState(RoundState roundStateFocused)
+    {
+        switch (roundStateFocused)
+        {
+            case RoundState.ChoosingAction:
+                break;
+            case RoundState.MakingAction:
+                break;
+            case RoundState.ResolvingRound:
+                break;
+        }
+    }
+
     private GameState gameState;
     public ResourceInStock GetResourceInStock(ResourceType resourceType)
     {
@@ -54,21 +76,22 @@ public class GameManager : Singleton<GameManager>
         {
             switch (stock[i].resourceType)
             {
-                case GameManager.ResourceType.Mouflu:
+                case ResourceType.Mouflu:
                     stock[i].NumberInStock = ressourcesStartDatas.mouflu;
                     break;
-                case GameManager.ResourceType.Berry:
+                case ResourceType.Berry:
                     stock[i].NumberInStock = ressourcesStartDatas.berry;
                     break;
-                case GameManager.ResourceType.Wood:
+                case ResourceType.Wood:
                     stock[i].NumberInStock = ressourcesStartDatas.wood;
                     break;
-                case GameManager.ResourceType.Rock:
+                case ResourceType.Rock:
                     stock[i].NumberInStock = ressourcesStartDatas.rock;
                     break;
             }
         }
     }
+
     private void SetNeedsMultiplicateur()
     {
         for (int i = 0; i < needs.Length; i++)
@@ -97,10 +120,30 @@ public class GameManager : Singleton<GameManager>
         objectToRespawn.SetActive(true);
     }
 
+    private void SetMakingAction()
+    {
+        SwitchRoundState(RoundState.MakingAction);
+    }
+    private void SetResolveRound()
+    {
+        SwitchRoundState(RoundState.ResolvingRound);
+    }
+    private void SetChoosingForAction()
+    {
+        SwitchRoundState(RoundState.ChoosingAction);
+    }
+
     private void Start()
     {
         SetStartingStock();
         SetNeedsMultiplicateur();
+        ActionsButtons.Move += SetMakingAction;
+        CharaAvatar.MoveEnd += SetResolveRound;
     }
 
+    private void OnDestroy()
+    {
+        ActionsButtons.Move -= SetMakingAction;
+        CharaAvatar.MoveEnd -= SetResolveRound;
+    }
 }
