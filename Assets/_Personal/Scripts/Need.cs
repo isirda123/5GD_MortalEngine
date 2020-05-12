@@ -61,17 +61,17 @@ public class Need : MonoBehaviour
             switch (needType)
             {
                 case NeedType.Energy:
-                    wastOfEnergyUsed = resourceUsed.resourcesInfos.wastForEnergyPerMinute;
+                    wastOfEnergyUsed = resourceUsed.resourcesInfos.wastForEnergyPerRound;
                     break;
                 case NeedType.Food:
-                    wastOfEnergyUsed = resourceUsed.resourcesInfos.wastForFoodPerMinute;
+                    wastOfEnergyUsed = resourceUsed.resourcesInfos.wastForFoodPerRound;
                     break;
                 case NeedType.Build:
-                    wastOfEnergyUsed = resourceUsed.resourcesInfos.wastForBuildPerMinute;
+                    wastOfEnergyUsed = resourceUsed.resourcesInfos.wastForBuildPerRound;
                     break;
             }
             //print("Need " + Mathf.CeilToInt(wastOfEnergyUsed / resourceUsed.resourcesInfos.ResourcesPerMinute)+ "of " + resourceUsed.resourceType);
-            return Mathf.CeilToInt( wastOfEnergyUsed / resourceUsed.resourcesInfos.ResourcesPerMinute);
+            return Mathf.CeilToInt( wastOfEnergyUsed / resourceUsed.resourcesInfos.WonPerRound);
         }
     }
 

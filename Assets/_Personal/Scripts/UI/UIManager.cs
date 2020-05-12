@@ -8,6 +8,7 @@ public class UIManager : Singleton<UIManager>
     public StockViewer stockViewer;
     [SerializeField] private GameObject winPopUp;
     [SerializeField] private GameObject loosePopUp;
+    [SerializeField] ActionsButtons[] actionsButtons;
 
     private void DrawWinPopUp()
     {
@@ -24,12 +25,38 @@ public class UIManager : Singleton<UIManager>
         else
             DrawLoosePopUp();
     }
+
+    private void HideButtons()
+    {
+        for (int i = 0; i < actionsButtons.Length; i++)
+        {
+            actionsButtons[i].gameObject.SetActive(false);
+        }
+    }
+    private void DrawButtons()
+    {
+        for (int i = 0; i < actionsButtons.Length; i++)
+        {
+            actionsButtons[i].gameObject.SetActive(true);
+        }
+    }
     private void Start()
     {
         GameManager.LevelEnd += DrawEndLevelPopUp;
+        ActionsButtons.Move += HideButtons;
+        ActionsButtons.Pass += HideButtons;
+        ActionsButtons.Harvest += HideButtons;
+        ActionsButtons.Vote += HideButtons;
+        CharaAvatar.EndAction += DrawButtons;
     }
+
     private void OnDestroy()
     {
         GameManager.LevelEnd -= DrawEndLevelPopUp;
+        ActionsButtons.Move -= HideButtons;
+        ActionsButtons.Pass -= HideButtons;
+        ActionsButtons.Harvest -= HideButtons;
+        ActionsButtons.Vote -= HideButtons;
+        CharaAvatar.EndAction -= DrawButtons;
     }
 }

@@ -5,31 +5,28 @@ using UnityEngine;
 public class ResourcesInfos : ScriptableObject
 {
     public GameManager.ResourceType resourceType;
-    public float resourcesTimeToMine;
-    public float resourcesTimeToRespawn;
+    public float resourcesRoundsToRespawn;
     public float resourcesAmount;
-    public float ResourcesPerMinute
+    public float wastForEnergyPerRound;
+    public float wastForBuildPerRound;
+    public float wastForFoodPerRound;
+    public float WonPerRound
     {
-        get { float wonPerMinute = resourcesAmount / (resourcesTimeToMine + resourcesTimeToRespawn) * 60;
-            return wonPerMinute;}
+        get { float wonPerRound; wonPerRound = resourcesAmount / resourcesRoundsToRespawn; return wonPerRound; }
     }
-    public float wastForEnergyPerMinute;
-    public float wastForBuildPerMinute;
-    public float wastForFoodPerMinute;
-
     public float ReturnEnergyUseFor(Need.NeedType needType)
     {
         float amount = -1;
         switch (needType)
         {
             case Need.NeedType.Energy:
-                amount = wastForEnergyPerMinute;
+                amount = wastForEnergyPerRound;
                 break;
             case Need.NeedType.Food:
-                amount = wastForFoodPerMinute;
+                amount = wastForFoodPerRound;
                 break;
             case Need.NeedType.Build:
-                amount = wastForBuildPerMinute;
+                amount = wastForBuildPerRound;
                 break;
         }
         return amount;

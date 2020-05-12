@@ -88,7 +88,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1427285764530921095}
   - component: {fileID: 151045331318821934}
-  - component: {fileID: 7216129734613667512}
   m_Layer: 8
   m_Name: Rock
   m_TagString: Resources
@@ -124,16 +123,3 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7216129734613667512
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8838705919768711685}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72817e63813046c4d82612d0b5170782, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  resourcesInfos: {fileID: 11400000, guid: 5cd3135e6fce66c479a4c696d2c3c0e0, type: 2}

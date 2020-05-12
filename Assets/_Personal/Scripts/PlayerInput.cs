@@ -15,9 +15,6 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] float speedOfCamera;
 
     [SerializeField] LayerMask myMask;
-    public static event Action<GameObject> InputUp;
-
-    private GameObject lastItemClicked;
 
     private RaycastHit ReturnRaycastHit()
     {
@@ -37,7 +34,6 @@ public class PlayerInput : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             startTime = Time.time;
-            lastItemClicked = GetItemClicked();
         }
 
         if (Input.GetMouseButton(0))
@@ -48,20 +44,5 @@ public class PlayerInput : MonoBehaviour
                     * speedOfCamera, 0.0f, Input.GetAxisRaw("Mouse Y") * Time.deltaTime * speedOfCamera);
             }
         }
-
-        if (Input.GetMouseButtonUp(0))
-        {
-            if (Time.time - startTime <= lenghtOfAClick)
-            {
-                if (lastItemClicked.CompareTag("Hexagone"))
-                    InputUp?.Invoke(lastItemClicked);
-            }
-        }
-    }
-
-    private GameObject GetItemClicked()
-    {
-        RaycastHit hit = ReturnRaycastHit();
-        return hit.collider.gameObject;
     }
 }
