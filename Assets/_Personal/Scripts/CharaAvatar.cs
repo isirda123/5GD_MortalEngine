@@ -323,7 +323,7 @@ public class CharaAvatar : MonoBehaviour
         {
             //collider.gameObject.SetActive(false);
             //StartCoroutine(GameManager.Instance.RespawnOfRessources(collider.GetComponent<ResourceInGame>().resourcesInfos.resourcesTimeToRespawn, collider.gameObject));
-            collider.GetComponent<tileInfos>().stateResources = tileInfos.stateOfResources.Reloading;
+            collider.transform.parent.GetComponent<tileInfos>().stateResources = tileInfos.stateOfResources.Reloading;
         }
     }
 }
