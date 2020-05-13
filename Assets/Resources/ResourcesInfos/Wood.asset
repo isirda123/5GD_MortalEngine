@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: Wood
   m_EditorClassIdentifier: 
   resourceType: 1
-  resourcesTimeToMine: 3
-  resourcesTimeToRespawn: 10
+  resourcesRoundsToRespawn: 0
   resourcesAmount: 9
-  wastForEnergyPerMinute: 40
-  wastForBuildPerMinute: 40
-  wastForFoodPerMinute: 0
+  wastForEnergyPerRound: 4
+  wastForBuildPerRound: 4
+  wastForFoodPerRound: 0

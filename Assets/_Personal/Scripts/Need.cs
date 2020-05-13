@@ -78,13 +78,9 @@ public class Need : MonoBehaviour
     private void UseResources()
     {
         GameManager.Instance.GetResourceInStock(resourceUsed.resourceType).NumberInStock
-                    -= resourceUsed.resourcesInfos.ReturnEnergyUseFor(needType) * Time.deltaTime / 60f * multiplicateur;
+                    -= resourceUsed.resourcesInfos.ReturnEnergyUseFor(needType) * multiplicateur;
         needViewer.SetResourceUsedText((int)Mathf.Round(GameManager.Instance.GetResourceInStock(resourceUsed.resourceType).NumberInStock));
-    }
-
-    private void Update()
-    {
-        UseResources();
+        needViewer.SetResourceUsedPerRoundText((int)GameManager.Instance.GetResourceInStock(resourceUsed.resourceType).resourcesInfos.ReturnEnergyUseFor(needType));
     }
 
     private void ChangeUsingRessource(GameManager.ResourceType currentRessource)
@@ -114,10 +110,12 @@ public class Need : MonoBehaviour
     private void Start()
     {
         ResourceInStock.ResourceEmpty += ChangeUsingRessource;
+        GameManager.RoundEnd += UseResources;
     }
     private void OnDestroy()
     {
         ResourceInStock.ResourceEmpty -= ChangeUsingRessource;
+        GameManager.RoundEnd -= UseResources;
     }
 
 }

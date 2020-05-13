@@ -21,6 +21,8 @@ public class GameManager : Singleton<GameManager>
     [HideInInspector] public Need needSelected;
     public Need[] needs;
     public static event Action<bool> LevelEnd;
+    public static event Action RoundEnd;
+
     public struct ResourceUsage
     {
         public ResourceInStock resourceInStock;
@@ -117,6 +119,11 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    public void LunchEndRound()
+    {
+        RoundEnd?.Invoke();
+    }
+
     public IEnumerator RespawnOfRessources(float timeToRespawn, GameObject objectToRespawn)
     {
         yield return new WaitForSeconds(timeToRespawn);
@@ -127,7 +134,7 @@ public class GameManager : Singleton<GameManager>
     {
         SwitchRoundState(RoundState.MakingAction);
     }
-    private void SetResolveRound()
+    private void SetRoundStateResolving()
     {
         SwitchRoundState(RoundState.ResolvingRound);
     }
@@ -141,15 +148,15 @@ public class GameManager : Singleton<GameManager>
         SetStartingStock();
         SetNeedsMultiplicateur();
         ActionsButtons.Move += SetMakingAction;
-        CharaAvatar.EndAction += SetResolveRound;
-        CharaAvatar.EndAction += AddRound;
+        RoundEnd += SetRoundStateResolving;
+        RoundEnd += AddRound;
     }
 
     private void OnDestroy()
     {
         ActionsButtons.Move -= SetMakingAction;
-        CharaAvatar.EndAction -= SetResolveRound;
-        CharaAvatar.EndAction -= AddRound;
+        RoundEnd -= SetRoundStateResolving;
+        RoundEnd -= AddRound;
     }
 
     private void AddRound()

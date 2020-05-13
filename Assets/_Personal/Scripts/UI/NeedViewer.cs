@@ -11,12 +11,19 @@ public class NeedViewer : MonoBehaviour, IPointerDownHandler
     [SerializeField] private StockViewer stockViewer;
     [SerializeField] private Image ressourceUsedImage;
     [SerializeField] private TextMeshProUGUI resourceUsed_tmp;
+    [SerializeField] private TextMeshProUGUI resourceUsedPerRound;
+
     public Need.NeedType needType;
     public Need need;
 
     public void SetResourceUsedText(int nbr)
     {
         resourceUsed_tmp.text = nbr.ToString();
+    }
+
+    public void SetResourceUsedPerRoundText(int nbr)
+    {
+        resourceUsedPerRound.text = "- " + nbr.ToString();
     }
 
     public void SetImageResourceUsed(Sprite ressourceUsedImage)

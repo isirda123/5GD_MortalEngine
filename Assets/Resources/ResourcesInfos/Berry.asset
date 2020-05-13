@@ -15,6 +15,6 @@ MonoBehaviour:
   resourceType: 3
   resourcesRoundsToRespawn: 20
   resourcesAmount: 4
-  wastForEnergyPerRound: 0
+  wastForEnergyPerRound: 4
   wastForBuildPerRound: 0
-  wastForFoodPerRound: 0
+  wastForFoodPerRound: 4

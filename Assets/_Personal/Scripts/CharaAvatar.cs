@@ -114,7 +114,7 @@ public class CharaAvatar : MonoBehaviour
         }
         Sequence sequence = DOTween.Sequence();
         sequence.AppendInterval(2);
-        sequence.OnComplete(() => EndAction?.Invoke());
+        sequence.OnComplete(() => GameManager.Instance.LunchEndRound());
     }
 
     void Start()
@@ -268,7 +268,7 @@ public class CharaAvatar : MonoBehaviour
     {
         workZone.SetActive(true);
         stopped = true;
-        EndAction?.Invoke();
+        GameManager.Instance.LunchEndRound();
     }
 
     private void SetResourceInStock(Tile resourceFocused)

@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: Rock
   m_EditorClassIdentifier: 
   resourceType: 4
-  resourcesTimeToMine: 5
-  resourcesTimeToRespawn: 1000
+  resourcesRoundsToRespawn: 0
   resourcesAmount: 3
-  wastForEnergyPerMinute: 0
-  wastForBuildPerMinute: 10
-  wastForFoodPerMinute: 0
+  wastForEnergyPerRound: 0
+  wastForBuildPerRound: 1
+  wastForFoodPerRound: 0
