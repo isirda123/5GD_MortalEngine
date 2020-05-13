@@ -10,13 +10,9 @@ public class Tile : MonoBehaviour
     public static event Action<Tile> TileTouched;
 
 
-    public void OnMouseDown()
+    public void OnMouseUp()
     {
         TileTouched?.Invoke(this);
-    }
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
     }
     public enum typeOfTile
     {
@@ -46,7 +42,7 @@ public class Tile : MonoBehaviour
 
     [SerializeField] GameObject visualResource;
 
-    [HideInInspector] public bool avatarOnMe = false;
+    public bool avatarOnMe = false;
 
     // Start is called before the first frame update
     void Start()
@@ -189,6 +185,34 @@ public class Tile : MonoBehaviour
 
     #endif
     }
+
+
+    public void SetNormalColor()
+    {
+        switch (tileType)
+        {
+
+            case typeOfTile.None:
+                GetComponent<MeshRenderer>().materials[1].color = (Resources.Load("MaterialTiles/None", typeof(Material)) as Material).color;
+                break;
+            case typeOfTile.Blocker:
+                GetComponent<MeshRenderer>().materials[1].color = (Resources.Load("MaterialTiles/Blocker", typeof(Material)) as Material).color;
+                break;
+            case typeOfTile.Mouflu:
+                GetComponent<MeshRenderer>().materials[1].color = (Resources.Load("MaterialTiles/Mouflu", typeof(Material)) as Material).color;
+                break;
+            case typeOfTile.Rock:
+                GetComponent<MeshRenderer>().materials[1].color = (Resources.Load("MaterialTiles/Rock", typeof(Material)) as Material).color;
+                break;
+            case typeOfTile.Wood:
+                GetComponent<MeshRenderer>().materials[1].color = (Resources.Load("MaterialTiles/Wood", typeof(Material)) as Material).color;
+                break;
+            case typeOfTile.Berry:
+                GetComponent<MeshRenderer>().materials[1].color = (Resources.Load("MaterialTiles/Berry", typeof(Material)) as Material).color;
+                break;
+        }
+    }
+
 
     public void SetTypeOfTile()
     {

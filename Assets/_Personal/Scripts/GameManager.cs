@@ -6,7 +6,8 @@ using System;
 public class GameManager : Singleton<GameManager>
 {
     int numberOfRound = 0;
-
+    public int numberOfMouvement = 3;
+    [HideInInspector] public int mouvementRemain;
 
     public enum ResourceType
     {
@@ -138,6 +139,7 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
+        mouvementRemain = numberOfMouvement;
         SetStartingStock();
         SetNeedsMultiplicateur();
         ActionsButtons.Move += SetMakingAction;
