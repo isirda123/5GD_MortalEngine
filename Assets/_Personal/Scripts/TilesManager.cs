@@ -7,7 +7,7 @@ using System.Linq;
 [ExecuteInEditMode]
 public class TilesManager : Singleton<TilesManager>
 {
-
+    [SerializeField] List<Tile> tileReachable = new List<Tile>();
 
     [Tooltip("Launch the start of the code")]
     [SerializeField] bool startOrAwake;
@@ -21,6 +21,18 @@ public class TilesManager : Singleton<TilesManager>
 
     [SerializeField]List<Tile> currentPath = null;
 
+
+
+    void Start()
+    {
+        ActionsButtons.Move += WhereYouCanGo;
+    }
+
+
+    void OnDestroy()
+    {
+        ActionsButtons.Move -= WhereYouCanGo;
+    }
 
     // Update is called once per frame
     void Update()
@@ -71,6 +83,14 @@ public class TilesManager : Singleton<TilesManager>
         checkAround = false;
     }
 
+    public void SetNormalColorOfTiles()
+    {
+        foreach (Tile tile in myChild)
+        {
+            tile.SetNormalColor();
+        }
+    }
+
 
     void StartOrAwake()
     {
@@ -81,7 +101,7 @@ public class TilesManager : Singleton<TilesManager>
         }
     }
 
-    public List<Vector3> GeneratePathTo(Tile start, Tile target)
+    public List<Tile> GeneratePathTo(Tile start, Tile target)
     {
         Dictionary<Tile, float> distance = new Dictionary<Tile, float>();
         Dictionary<Tile, Tile> previous = new Dictionary<Tile, Tile>();
@@ -125,7 +145,7 @@ public class TilesManager : Singleton<TilesManager>
 
             foreach (Tile go in unvisitedGO.GetComponent<Tile>().neighbours)
             {
-                if (go.GetComponent<Tile>().tileType != Tile.typeOfTile.Blocker)
+                if (go.tileType != Tile.typeOfTile.Blocker)
                 {
                     float alt = distance[unvisitedGO] + Vector3.Distance(unvisitedGO.transform.position, go.transform.position);
                     if (alt < distance[go])
@@ -158,12 +178,123 @@ public class TilesManager : Singleton<TilesManager>
 
         //The path is invert. Going from Target to Start. Change it.
         currentPath.Reverse();
-        List<Vector3> positionToGo = new List<Vector3>();
+        List<Tile> positionToGo = new List<Tile>();
         for (int i = 0; i < currentPath.Count; i++)
         {
-            positionToGo.Add(currentPath[i].transform.position);
+            positionToGo.Add(currentPath[i]);
         }
 
         return positionToGo;
+    }
+
+
+    Tile CheckWhereAvatarIs()
+    {
+        foreach(Tile tile in myChild)
+        {
+            if (tile.avatarOnMe == true)
+            {
+                return tile;
+            }
+        }
+
+        return null;
+    }
+
+    public void WhereYouCanGo()
+    {
+        print("Go");
+        tileReachable.Clear();
+        Tile start = CheckWhereAvatarIs();
+        tileReachable.Add(start);
+        foreach (Tile go in start.neighbours)
+        {
+            if (go.tileType != Tile.typeOfTile.Blocker)
+            {
+                tileReachable.Add(go);
+            }
+        }
+
+        for (int i =0; i <GameManager.Instance.mouvementRemain -1; i++)
+        {
+            int lenghtOfArrayNow = tileReachable.Count;
+            for (int j =0; j< lenghtOfArrayNow; j++)
+            {
+                foreach(Tile go in tileReachable[j].neighbours)
+                {
+                    if (go.tileType != Tile.typeOfTile.Blocker)
+                    {
+                        bool noEntry = true;
+                        for (int k =0; k <tileReachable.Count; k++)
+                        {
+                            if (tileReachable[k] == go)
+                            {
+                                noEntry = false;
+                                break;
+                            }
+                        }
+                        if (noEntry == true)
+                        {
+                            tileReachable.Add(go);
+                        }
+                    }
+                }
+            }
+        }
+
+        foreach(Tile tile in tileReachable)
+        {
+            tile.GetComponent<MeshRenderer>().materials[1].color = Color.cyan;
+        }
+
+
+        Dictionary<Tile, float> distance = new Dictionary<Tile, float>();
+        Dictionary<Tile, Tile> previous = new Dictionary<Tile, Tile>();
+
+        //Setup the GameObject Not Visited Yet
+        List<Tile> unvisitedTiles = new List<Tile>();
+
+        distance[start] = 0;
+        previous[start] = null;
+
+        //Initialize everything to have inifity distance
+        foreach (Tile go in myChild)
+        {
+            if (go != start)
+            {
+                distance[go] = Mathf.Infinity;
+                previous[go] = null;
+            }
+
+            unvisitedTiles.Add(go);
+        }
+        while (unvisitedTiles.Count > 0)
+        {
+            //UnvisitedGO will be the Gameobject as close as the start as possible
+            Tile unvisitedGO = null;
+
+            foreach (Tile possibleUnvisitedGO in unvisitedTiles)
+            {
+
+                if (unvisitedGO == null || distance[possibleUnvisitedGO] < distance[unvisitedGO])
+                {
+                    unvisitedGO = possibleUnvisitedGO;
+                }
+            }
+            unvisitedTiles.Remove(unvisitedGO);
+
+            foreach (Tile go in unvisitedGO.GetComponent<Tile>().neighbours)
+            {
+                if (go.GetComponent<Tile>().tileType != Tile.typeOfTile.Blocker)
+                {
+                    float alt = distance[unvisitedGO] + Vector3.Distance(unvisitedGO.transform.position, go.transform.position);
+                    if (alt < distance[go])
+                    {
+                        distance[go] = alt;
+                        previous[go] = unvisitedGO;
+                    }
+                }
+            }
+        }
     }
 }

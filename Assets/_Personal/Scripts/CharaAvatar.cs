@@ -12,7 +12,6 @@ public class CharaAvatar : MonoBehaviour
     [SerializeField] public GameObject workZone;
     [SerializeField] float rangeWorkZone;
     float timeToMineAll;
-    [HideInInspector] public bool stopped;
     [SerializeField] public bool doItOneTime = false;
     bool findThePos = false;
     [Tooltip("In Seconde")]
@@ -29,7 +28,7 @@ public class CharaAvatar : MonoBehaviour
     [SerializeField] public Text buttonText;
 
     [SerializeField] Collider[] hitColliders;
-    [SerializeField] TilesManager pathManager;
+    Tile tileSelectedForMove = null;
     DG.Tweening.Sequence sequence;
     public static event Action EndAction;
 
@@ -114,7 +113,7 @@ public class CharaAvatar : MonoBehaviour
         }
         Sequence sequence = DOTween.Sequence();
         sequence.AppendInterval(2);
-        sequence.OnComplete(() => GameManager.Instance.LunchEndRound());
+        sequence.OnComplete(() => EndAction?.Invoke());
     }
 
     void Start()
@@ -122,6 +121,7 @@ public class CharaAvatar : MonoBehaviour
         Tile.TileTouched += Move;
         ActionsButtons.Move += SetWaitForMoving;
         ActionsButtons.Harvest += HarvestTilesAround;
+        GetTileUnder().avatarOnMe = true;
     }
 
     private void OnDestroy()
@@ -220,55 +220,102 @@ public class CharaAvatar : MonoBehaviour
 
     private void Move(Tile tileHit)
     {
-        if (tileHit.tileType == Tile.typeOfTile.Blocker || State != CharacterState.WaitForMoving)
+        workZone.SetActive(false);
+        if (State != CharacterState.WaitForMoving)
         {
+            print("return");
             return;
         }
-
-        if (State == CharacterState.Moving)
+        if (tileHit == tileSelectedForMove)
         {
-            sequence.Kill();
+            tileSelectedForMove = null;
+            TilesManager.Instance.SetNormalColorOfTiles();
+            print("oui");
+            if (tileHit.tileType == Tile.typeOfTile.Blocker)
+            {
+                return;
+            }
+
+            if (State == CharacterState.Moving)
+            {
+                sequence.Kill();
+            }
+            List<Tile> positionToGo = new List<Tile>();
+            GetTileUnder().avatarOnMe = false;
+            positionToGo = TilesManager.Instance.GeneratePathTo(GetTileUnder(), tileHit);
+            sequence = DOTween.Sequence();
+
+            State = CharacterState.Moving;
+            workZone.SetActive(false);
+
+            Vector3 start = transform.position;
+            for (int i = 0; i < positionToGo.Count; i++)
+            {
+                Vector3 point = positionToGo[i].transform.position;
+                float time = Vector3.Distance(start, point);
+                sequence.AppendCallback(() => transform.LookAt(point));
+                sequence.Append(transform.DOMove(point, time).SetEase(Ease.Linear));
+                start = positionToGo[i].transform.position;
+            }
+            GameManager.Instance.mouvementRemain -= positionToGo.Count - 1;
+            sequence.timeScale = speedOfMove;
+            sequence.onComplete += EndMove;
         }
-        List<Vector3> positionToGo = new List<Vector3>();
-        positionToGo = pathManager.GeneratePathTo(GetTileUnder(), tileHit);
-        sequence = DOTween.Sequence();
-
-        State = CharacterState.Moving;
-        stopped = false;
-        workZone.SetActive(false);
-
-        Vector3 start = transform.position;
-        for (int i = 0; i < positionToGo.Count; i++)
+        else
         {
-            Vector3 point = positionToGo[i];
-            float time = Vector3.Distance(start, point);
-            sequence.AppendCallback(() => transform.LookAt(point));
-            sequence.Append(transform.DOMove(point, time).SetEase(Ease.Linear));
-            start = positionToGo[i];
+            if (tileHit.tileType == Tile.typeOfTile.Blocker)
+            {
+                return;
+            }
+            if (tileSelectedForMove != null)
+            {
+                List<Tile>resetTiles = TilesManager.Instance.GeneratePathTo(GetTileUnder(), tileSelectedForMove);
+                foreach (Tile tile in resetTiles)
+                {
+                    tile.SetNormalColor();
+                }
+            }
+            TilesManager.Instance.WhereYouCanGo();
+            tileSelectedForMove = tileHit;
+            List<Tile> preview = TilesManager.Instance.GeneratePathTo(GetTileUnder(), tileHit);
+            for (int i = 0; i < preview.Count; i++)
+            {
+                Color colorLerped = Color.Lerp(Color.yellow, Color.green, ((float)(i + 1) / (float)preview.Count));
+                preview[i].GetComponent<MeshRenderer>().materials[1].color = colorLerped;
+            }
         }
-
-        sequence.timeScale = speedOfMove;
-        sequence.onComplete += EndMove;
-        //sequence.onComplete += CheckTileUnder;
     }
 
-    private Tile GetTileUnder()
+    public Tile GetTileUnder()
     {
         Tile tileUnder = null;
         RaycastHit hitTile;
         LayerMask layerMask = 1 << 10;
+        Debug.DrawRay(transform.position - new Vector3(0, -0.5f, 0), -Vector3.up, Color.red, 10);
         if (Physics.Raycast(transform.position - new Vector3(0, -0.5f, 0), -Vector3.up, out hitTile, 3, layerMask))
         {
+            
             tileUnder = hitTile.transform.GetComponent<Tile>();
         }
+        print("TileUnder : " + tileUnder);
         return tileUnder;
     }
 
     private void EndMove()
     {
-        workZone.SetActive(true);
-        stopped = true;
-        GameManager.Instance.LunchEndRound();
+        GetTileUnder().avatarOnMe = true;
+        if (GameManager.Instance.mouvementRemain == 0)
+        {
+            workZone.SetActive(true);
+            GameManager.Instance.mouvementRemain = GameManager.Instance.numberOfMouvement;
+            TilesManager.Instance.SetNormalColorOfTiles();
+            EndAction?.Invoke();
+        }
+        else
+        {
+            TilesManager.Instance.WhereYouCanGo();
+            State = CharacterState.WaitForMoving;
+        }
     }
 
     private void SetResourceInStock(Tile resourceFocused)
