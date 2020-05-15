@@ -706,7 +706,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stockViewer: {fileID: 0}
   ressourceUsedImage: {fileID: 538734518}
-  resourceUsed_tmp: {fileID: 449153070}
+  resourceUsedSotck: {fileID: 449153070}
   resourceUsedPerRound: {fileID: 476198498832259886}
   needType: 0
   need: {fileID: 0}

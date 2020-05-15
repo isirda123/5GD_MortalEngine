@@ -75,11 +75,10 @@ public class Need : MonoBehaviour
         }
     }
 
-    private void UseResources()
+    public void UseResources()
     {
         GameManager.Instance.GetResourceInStock(resourceUsed.resourceType).NumberInStock
                     -= resourceUsed.resourcesInfos.ReturnEnergyUseFor(needType) * multiplicateur;
-        SetViewerText(resourceUsed.resourcesInfos);
     }
 
     private void ChangeUsingRessource(GameManager.ResourceType currentRessource)
@@ -94,8 +93,7 @@ public class Need : MonoBehaviour
                     if (otherResourceUsable.NumberInStock > 0)
                     {
                         resourceUsed = otherResourceUsable;
-                        SetViewerText(resourceUsed.resourcesInfos);
-                        needViewer.SetImageResourceUsed(resourceUsed.resourcesInfos.sprite);
+                        SetViewerTextAndImage(resourceUsed.resourcesInfos);
                     }
                     else
                     {
@@ -107,24 +105,23 @@ public class Need : MonoBehaviour
         }
     }
 
-    private void SetViewerText(ResourcesInfos resourceInfos)
+    public void SetViewerTextAndImage(ResourcesInfos resourceInfos)
     {
         needViewer.SetResourceUsedText((int)Mathf.Round(GameManager.Instance.GetResourceInStock(resourceUsed.resourceType).NumberInStock));
         needViewer.SetResourceUsedPerRoundText((int)GameManager.Instance.GetResourceInStock(resourceUsed.resourceType).resourcesInfos.ReturnEnergyUseFor(needType));
+        needViewer.SetImageResourceUsed(resourceUsed.resourcesInfos.sprite);
     }
 
     private void Start()
     {
-        SetViewerText(resourceUsed.resourcesInfos);
+        SetViewerTextAndImage(resourceUsed.resourcesInfos);
         ResourceInStock.ResourceEmpty += ChangeUsingRessource;
-        GameManager.RoundEnd += UseResources;
-        ResourceViewer.ChangeResourceUsed += SetViewerText;
+        ResourceViewer.ChangeResourceUsed += SetViewerTextAndImage;
     }
     private void OnDestroy()
     {
         ResourceInStock.ResourceEmpty -= ChangeUsingRessource;
-        GameManager.RoundEnd -= UseResources;
-        ResourceViewer.ChangeResourceUsed -= SetViewerText;
+        ResourceViewer.ChangeResourceUsed -= SetViewerTextAndImage;
     }
 
 }

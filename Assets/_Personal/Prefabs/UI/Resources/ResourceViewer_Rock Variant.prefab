@@ -12,10 +12,16 @@ PrefabInstance:
       propertyPath: resourceType
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 8177813058137672601, guid: 3002fe2cac5824c4a9b14097cb700d08,
+        type: 3}
+      propertyPath: resourcesInfos
+      value: 
+      objectReference: {fileID: 11400000, guid: 5cd3135e6fce66c479a4c696d2c3c0e0,
+        type: 2}
     - target: {fileID: 8177813058137672606, guid: 3002fe2cac5824c4a9b14097cb700d08,
         type: 3}
       propertyPath: m_Name
-      value: ResourceViewer_Rock Variant
+      value: ResourceViewer_Rock
       objectReference: {fileID: 0}
     - target: {fileID: 8177813058137672607, guid: 3002fe2cac5824c4a9b14097cb700d08,
         type: 3}
@@ -75,12 +81,12 @@ PrefabInstance:
     - target: {fileID: 8177813058137672607, guid: 3002fe2cac5824c4a9b14097cb700d08,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 35.8
+      value: 11.599987
       objectReference: {fileID: 0}
     - target: {fileID: 8177813058137672607, guid: 3002fe2cac5824c4a9b14097cb700d08,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -28.300003
       objectReference: {fileID: 0}
     - target: {fileID: 8177813058137672607, guid: 3002fe2cac5824c4a9b14097cb700d08,
         type: 3}

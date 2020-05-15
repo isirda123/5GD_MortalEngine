@@ -32,6 +32,7 @@ public class GameManager : Singleton<GameManager>
         public float resourceUsedPerMinute;
     }
 
+    #region States
     public enum GameState
     {
         Playing,
@@ -61,6 +62,7 @@ public class GameManager : Singleton<GameManager>
     }
 
     private GameState gameState;
+    #endregion
 
     public ResourceInStock GetResourceInStock(ResourceType resourceType)
     {
@@ -80,8 +82,6 @@ public class GameManager : Singleton<GameManager>
         if(gameState == GameState.Playing)
             LevelEnd?.Invoke(win);
     }
-
-
 
     private void SetStartingStock()
     {
@@ -105,7 +105,7 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    private void SetNeedsMultiplicateur()
+    private void SetStartNeedsMultiplicateur()
     {
         for (int i = 0; i < needs.Length; i++)
         {
@@ -156,30 +156,54 @@ public class GameManager : Singleton<GameManager>
         SwitchRoundState(RoundState.ChoosingAction);
     }
 
+    private void UseResourcesInStock()
+    {
+        for (int i = 0; i < needs.Length; i++)
+        {
+            needs[i].UseResources();
+        }
+        for (int i = 0; i < needs.Length; i++)
+        {
+            needs[i].SetViewerTextAndImage(needs[i].resourceUsed.resourcesInfos);
+        }
+    }
+
     private void Start()
     {
         SetStartingStock();
-        SetNeedsMultiplicateur();
+        SetStartNeedsMultiplicateur();
+    }
 
-        ActionsButtons.Move += SetMakingAction;
-        ActionsButtons.Pass += LunchEndRound;
-        ActionsButtons.Harvest += SetMakingAction;
-
-        RoundEnd += SetRoundStateResolving;
-        RoundEnd += AddRound;
-
-        ResourceViewer.ChangeResourceUsed += SetResourceUsed;
+    private void OnEnable()
+    {
+        AssignEvents();
     }
 
     private void OnDestroy()
     {
+        UnassignEvents();
+    }
+
+    private void AssignEvents()
+    {
+        ActionsButtons.Move += SetMakingAction;
+        ActionsButtons.Pass += LunchEndRound;
+        ActionsButtons.Harvest += SetMakingAction;
+        RoundEnd += UseResourcesInStock;
+        RoundEnd += SetRoundStateResolving;
+        RoundEnd += AddRound;
+        ResourceViewer.ChangeResourceUsed += SetResourceUsed;
+    }
+
+
+    private void UnassignEvents()
+    {
         ActionsButtons.Move -= SetMakingAction;
         ActionsButtons.Pass -= LunchEndRound;
         ActionsButtons.Harvest -= SetMakingAction;
-
+        RoundEnd -= UseResourcesInStock;
         RoundEnd -= SetRoundStateResolving;
         RoundEnd -= AddRound;
-
         ResourceViewer.ChangeResourceUsed -= SetResourceUsed;
     }
 

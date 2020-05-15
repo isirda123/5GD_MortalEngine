@@ -4,83 +4,57 @@ using UnityEngine;
 using System;
 using System.Linq;
 
-[ExecuteInEditMode]
+
 public class TilesManager : Singleton<TilesManager>
 {
     [SerializeField] List<Tile> tileReachable = new List<Tile>();
 
-    [Tooltip("Launch the start of the code")]
-    [SerializeField] bool startOrAwake;
-    [Tooltip("Set To True if you want to set up tile around all tiles")]
-    [SerializeField] bool checkAround = false;
-
-    [Tooltip ("Set to true if you want to set up type of tiles")]
-    [SerializeField] bool setTypeOfTiles = false;
-
-    public List<Tile> myChild = new List<Tile>();
+    public List<Tile> Tiles = new List<Tile>();
 
     [SerializeField]List<Tile> currentPath = null;
 
-    void Update()
+    [ContextMenu("Set Tiles Types")]
+    void SetTilesTypes()
     {
-        if (setTypeOfTiles == true)
+        for (int i = 0; i < Tiles.Count; i++)
         {
-            CallAllTilesGetTypes();
-        }
-
-        if (startOrAwake == true)
-        {
-            startOrAwake = false;
-            StartOrAwake();
-        }
-
-        if (checkAround == true)
-        {
-            CallAllTilesGetTylesAround();
+            if (Tiles[i].tag == "Hexagone")
+            {
+                Tiles[i].GetComponent<Tile>().SetTypeOfTile();
+            }
         }
     }
 
-    void CallAllTilesGetTypes()
+    [ContextMenu("Set Tiles Neighbors")]
+    void SetTilesNeighbors()
     {
-        for (int i = 0; i < myChild.Count; i++)
+        for (int i = 0; i < Tiles.Count; i++)
         {
-            if (myChild[i].tag == "Hexagone")
+            if (Tiles[i].tag == "Hexagone")
             {
-                myChild[i].GetComponent<Tile>().SetTypeOfTile();
+                Tiles[i].GetComponent<Tile>().GetTileAround();
             }
         }
-        setTypeOfTiles = false;
-    }
-
-    void CallAllTilesGetTylesAround()
-    {
-        for (int i = 0; i < myChild.Count; i++)
-        {
-            if (myChild[i].tag == "Hexagone")
-            {
-                myChild[i].GetComponent<Tile>().GetTileAround();
-            }
-        }
-        checkAround = false;
     }
 
     public void SetNormalColorOfTiles()
     {
-        foreach (Tile tile in myChild)
+        foreach (Tile tile in Tiles)
         {
             tile.SetNormalColor();
         }
     }
 
-
-    void StartOrAwake()
+    [ContextMenu("Get tiles")]
+    void GetTiles()
     {
-        myChild.Clear();
+        Tiles.Clear();
         for (int i = 0; i < transform.childCount; i++)
         {
-            myChild.Add(transform.GetChild(i).GetComponent<Tile>());
+            Tiles.Add(transform.GetChild(i).GetComponent<Tile>());
         }
     }
+
 
     public List<Tile> GeneratePathTo(Tile start, Tile target)
     {
@@ -94,7 +68,7 @@ public class TilesManager : Singleton<TilesManager>
         previous[start] = null;
 
         //Initialize everything to have inifity distance
-        foreach (Tile go in myChild)
+        foreach (Tile go in Tiles)
         {
             if (go != start)
             {
@@ -164,14 +138,12 @@ public class TilesManager : Singleton<TilesManager>
         {
             positionToGo.Add(currentPath[i]);
         }
-
         return positionToGo;
     }
 
-
     Tile CheckWhereAvatarIs()
     {
-        foreach(Tile tile in myChild)
+        foreach(Tile tile in Tiles)
         {
             if (tile.avatarOnMe == true)
             {
@@ -238,7 +210,7 @@ public class TilesManager : Singleton<TilesManager>
         previous[start] = null;
 
         //Initialize everything to have inifity distance
-        foreach (Tile go in myChild)
+        foreach (Tile go in Tiles)
         {
             if (go != start)
             {

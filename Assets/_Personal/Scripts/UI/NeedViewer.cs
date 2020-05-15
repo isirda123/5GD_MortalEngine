@@ -10,7 +10,7 @@ public class NeedViewer : MonoBehaviour, IPointerDownHandler
 {
     [SerializeField] private StockViewer stockViewer;
     [SerializeField] private Image ressourceUsedImage;
-    [SerializeField] private TextMeshProUGUI resourceUsed_tmp;
+    [SerializeField] private TextMeshProUGUI resourceUsedSotck;
     [SerializeField] private TextMeshProUGUI resourceUsedPerRound;
 
     public Need.NeedType needType;
@@ -18,7 +18,7 @@ public class NeedViewer : MonoBehaviour, IPointerDownHandler
 
     public void SetResourceUsedText(int nbr)
     {
-        resourceUsed_tmp.text = nbr.ToString();
+        resourceUsedSotck.text = nbr.ToString();
     }
 
     public void SetResourceUsedPerRoundText(int nbr)
@@ -34,7 +34,6 @@ public class NeedViewer : MonoBehaviour, IPointerDownHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         DrawStockViewer();
-        ResetResourcesUsableViewer();
         SetResourcesUsableViewer();
         SetNeedViewerSelected();
         SetNeedSelected();
@@ -44,6 +43,10 @@ public class NeedViewer : MonoBehaviour, IPointerDownHandler
 
     private void SetResourcesUsableViewer()
     {
+        for (int j = 0; j < stockViewer.resourcesViewers.Length; j++)
+        {
+            stockViewer.resourcesViewers[j].background.color = Color.red;
+        }
         for (int i = 0; i < stockViewer.resourcesViewers.Length; i++)
         {
             for (int j = 0; j < need.resourcesUsable.Length; j++)
@@ -53,14 +56,6 @@ public class NeedViewer : MonoBehaviour, IPointerDownHandler
                     stockViewer.resourcesViewers[i].background.color = Color.green;
                 }
             }
-        }
-    }
-
-    private void ResetResourcesUsableViewer()
-    {
-        for (int j = 0; j < stockViewer.resourcesViewers.Length; j++)
-        {
-            stockViewer.resourcesViewers[j].background.color = Color.red;
         }
     }
 

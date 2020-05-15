@@ -12,6 +12,12 @@ PrefabInstance:
       propertyPath: resourceType
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8177813058137672601, guid: 3002fe2cac5824c4a9b14097cb700d08,
+        type: 3}
+      propertyPath: resourcesInfos
+      value: 
+      objectReference: {fileID: 11400000, guid: e424dd937ad32a54fa2578e580611f2e,
+        type: 2}
     - target: {fileID: 8177813058137672606, guid: 3002fe2cac5824c4a9b14097cb700d08,
         type: 3}
       propertyPath: m_Name
@@ -75,7 +81,7 @@ PrefabInstance:
     - target: {fileID: 8177813058137672607, guid: 3002fe2cac5824c4a9b14097cb700d08,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -55.999985
+      value: -24.200012
       objectReference: {fileID: 0}
     - target: {fileID: 8177813058137672607, guid: 3002fe2cac5824c4a9b14097cb700d08,
         type: 3}
