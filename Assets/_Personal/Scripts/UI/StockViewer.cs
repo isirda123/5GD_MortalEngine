@@ -19,7 +19,7 @@ public class StockViewer : MonoBehaviour
         {
             for (int j = 0; j < stock.Length; j++)
             {
-                if(stock[j].resourceType == resourcesViewers[i].resourceType)
+                if(stock[j].resourceType == resourcesViewers[i].resourcesInfos.resourceType)
                 {
                     int nbr = (int)Mathf.Round(stock[j].NumberInStock);
                     resourcesViewers[i].tmp.text = nbr.ToString();

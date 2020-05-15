@@ -18,3 +18,4 @@ MonoBehaviour:
   wastForEnergyPerRound: 4
   wastForBuildPerRound: 4
   wastForFoodPerRound: 0
+  sprite: {fileID: 21300000, guid: ee62c1ff8829e0443ab7e83b4f9c6c9a, type: 3}

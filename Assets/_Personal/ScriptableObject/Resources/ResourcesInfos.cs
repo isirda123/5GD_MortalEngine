@@ -10,6 +10,7 @@ public class ResourcesInfos : ScriptableObject
     public float wastForEnergyPerRound;
     public float wastForBuildPerRound;
     public float wastForFoodPerRound;
+    public Sprite sprite;
     public float WonPerRound
     {
         get { float wonPerRound; wonPerRound = resourcesAmount / resourcesRoundsToRespawn; return wonPerRound; }

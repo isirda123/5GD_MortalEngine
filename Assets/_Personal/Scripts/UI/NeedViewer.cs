@@ -48,7 +48,7 @@ public class NeedViewer : MonoBehaviour, IPointerDownHandler
         {
             for (int j = 0; j < need.resourcesUsable.Length; j++)
             {
-                if (stockViewer.resourcesViewers[i].resourceType == need.resourcesUsable[j])
+                if (stockViewer.resourcesViewers[i].resourcesInfos.resourceType == need.resourcesUsable[j])
                 {
                     stockViewer.resourcesViewers[i].background.color = Color.green;
                 }

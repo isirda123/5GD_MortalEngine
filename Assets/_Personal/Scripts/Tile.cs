@@ -9,11 +9,11 @@ public class Tile : MonoBehaviour
 {
     public static event Action<Tile> TileTouched;
 
-
     public void OnMouseUp()
     {
         TileTouched?.Invoke(this);
     }
+
     public enum typeOfTile
     {
         None,
@@ -24,17 +24,37 @@ public class Tile : MonoBehaviour
         Berry
     }
 
-    public enum stateOfResources
+    public enum StateOfResources
     {
         Available,
-        Reloading
+        Reloading,
     }
 
      public ResourcesInfos resourcesInfos = null;
 
     public typeOfTile tileType;
 
-    public stateOfResources stateResources;
+    private StateOfResources stateResources;
+    public StateOfResources State { get { return stateResources; } set { SwitchState(value); } }
+    private void SwitchState(StateOfResources stateFocused)
+    {
+        switch(stateFocused)
+        {
+            case StateOfResources.Available:
+                break;
+            case StateOfResources.Reloading:
+                break;
+        }
+        stateResources = stateFocused;
+    }
+
+    public void DrawResourceHarvest()
+    {
+        GameObject popUpGo = Instantiate(GameManager.Instance.gameAssets.popUpResourceHarvest.gameObject, transform.position + transform.up, Quaternion.identity) as GameObject;
+        PopUpResourceHarvest popUp = popUpGo.GetComponent<PopUpResourceHarvest>();
+        popUp.SetImage(resourcesInfos);
+        popUp.SetText((int)resourcesInfos.resourcesAmount);
+    }
 
     public List<Tile> neighbours;
 
@@ -44,20 +64,14 @@ public class Tile : MonoBehaviour
 
     public bool avatarOnMe = false;
 
-    // Start is called before the first frame update
-    void Start()
-    { 
-    }
-
-    // Update is called once per frame
     void Update()
     {
         CheckState(stateResources);
     }
 
-    void CheckState(stateOfResources sR)
+    void CheckState(StateOfResources sR)
     {
-        if (sR == stateOfResources.Reloading)
+        if (sR == StateOfResources.Reloading)
         {
             ReloadTheResource();
         }
@@ -76,7 +90,7 @@ public class Tile : MonoBehaviour
                 }
                 else
                 {
-                    stateResources = stateOfResources.Available;
+                    stateResources = StateOfResources.Available;
                     VisualRespawnResource();
                     timerRespawn = 0;
                 }

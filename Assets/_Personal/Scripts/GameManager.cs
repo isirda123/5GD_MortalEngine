@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using DG.Tweening;
 
 public class GameManager : Singleton<GameManager>
 {
     int numberOfRound = 0;
-    public int numberOfMouvement = 3;
-    [HideInInspector] public int mouvementRemain;
 
+    [SerializeField] public GameAssets gameAssets;
     public enum ResourceType
     {
         None,
@@ -23,6 +23,7 @@ public class GameManager : Singleton<GameManager>
     public Need[] needs;
     public static event Action<bool> LevelEnd;
     public static event Action RoundEnd;
+    public static event Action RoundStart;
 
     public struct ResourceUsage
     {
@@ -43,6 +44,7 @@ public class GameManager : Singleton<GameManager>
         MakingAction,
         ResolvingRound
     }
+
     private RoundState roundState;
 
     private void SwitchRoundState(RoundState roundStateFocused)
@@ -59,6 +61,7 @@ public class GameManager : Singleton<GameManager>
     }
 
     private GameState gameState;
+
     public ResourceInStock GetResourceInStock(ResourceType resourceType)
     {
         ResourceInStock resourceInStockNeeded = null;
@@ -71,11 +74,15 @@ public class GameManager : Singleton<GameManager>
         }
         return resourceInStockNeeded;
     }
+
     public void EndLevel(bool win)
     {
         if(gameState == GameState.Playing)
             LevelEnd?.Invoke(win);
     }
+
+
+
     private void SetStartingStock()
     {
         for (int i = 0; i < stock.Length; i++)
@@ -114,7 +121,6 @@ public class GameManager : Singleton<GameManager>
                     needs[i].multiplicateur = ressourcesStartDatas.needFoodStart;
                     break;
             }
-            //desable viwer if no need
             if (needs[i].multiplicateur == 0)
                 needs[i].needViewer.gameObject.SetActive(false);
         }
@@ -123,8 +129,14 @@ public class GameManager : Singleton<GameManager>
     public void LunchEndRound()
     {
         RoundEnd?.Invoke();
+        Sequence sequence = DOTween.Sequence();
+        sequence.AppendInterval(2);
+        sequence.OnComplete(() => RoundStart?.Invoke());
     }
-
+    public void LunchStartRound()
+    {
+        RoundStart?.Invoke();
+    }
     public IEnumerator RespawnOfRessources(float timeToRespawn, GameObject objectToRespawn)
     {
         yield return new WaitForSeconds(timeToRespawn);
@@ -146,19 +158,34 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
-        mouvementRemain = numberOfMouvement;
         SetStartingStock();
         SetNeedsMultiplicateur();
+
         ActionsButtons.Move += SetMakingAction;
+        ActionsButtons.Pass += LunchEndRound;
+        ActionsButtons.Harvest += SetMakingAction;
+
         RoundEnd += SetRoundStateResolving;
         RoundEnd += AddRound;
+
+        ResourceViewer.ChangeResourceUsed += SetResourceUsed;
     }
 
     private void OnDestroy()
     {
         ActionsButtons.Move -= SetMakingAction;
+        ActionsButtons.Pass -= LunchEndRound;
+        ActionsButtons.Harvest -= SetMakingAction;
+
         RoundEnd -= SetRoundStateResolving;
         RoundEnd -= AddRound;
+
+        ResourceViewer.ChangeResourceUsed -= SetResourceUsed;
+    }
+
+    private void SetResourceUsed(ResourcesInfos resourcesInfos)
+    {
+        needSelected.resourceUsed = GetResourceInStock(resourcesInfos.resourceType);
     }
 
     private void AddRound()

@@ -25,13 +25,13 @@ public class TilesManager : Singleton<TilesManager>
 
     void Start()
     {
-        ActionsButtons.Move += WhereYouCanGo;
+        //ActionsButtons.Move += WhereYouCanGo;
     }
 
 
     void OnDestroy()
     {
-        ActionsButtons.Move -= WhereYouCanGo;
+        //ActionsButtons.Move -= WhereYouCanGo;
     }
 
     // Update is called once per frame
@@ -201,9 +201,8 @@ public class TilesManager : Singleton<TilesManager>
         return null;
     }
 
-    public void WhereYouCanGo()
+    public void DrawMoveRange(int mouvementRemain)
     {
-        print("Go");
         tileReachable.Clear();
         Tile start = CheckWhereAvatarIs();
         tileReachable.Add(start);
@@ -215,7 +214,7 @@ public class TilesManager : Singleton<TilesManager>
             }
         }
 
-        for (int i =0; i <GameManager.Instance.mouvementRemain -1; i++)
+        for (int i =0; i < mouvementRemain -1; i++)
         {
             int lenghtOfArrayNow = tileReachable.Count;
             for (int j =0; j< lenghtOfArrayNow; j++)

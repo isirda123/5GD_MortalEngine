@@ -8,11 +8,11 @@ using System;
 
 public class ResourceViewer : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
 {
-    public GameManager.ResourceType resourceType;
     public TextMeshProUGUI tmp;
     public Image background;
-    [SerializeField] private Image resourceImage;
-    
+    public static event Action<ResourcesInfos> ChangeResourceUsed;
+    public ResourcesInfos resourcesInfos;
+
     public void OnPointerDown (PointerEventData eventData)
     {
     }
@@ -21,20 +21,9 @@ public class ResourceViewer : MonoBehaviour, IPointerUpHandler, IPointerDownHand
     {
         if (CheckResourceType())
         {
-            SetImageResourceUsed();
+            ChangeResourceUsed?.Invoke(resourcesInfos);
             UIManager.Instance.stockViewer.DesableStockViewer();
-            SetResourceUsed();
         }
-    }
-
-    private void SetImageResourceUsed()
-    {
-        UIManager.Instance.needViewerSelected.SetImageResourceUsed(resourceImage.sprite);
-    }
-
-    private void SetResourceUsed()
-    {
-        GameManager.Instance.needSelected.resourceUsed = GameManager.Instance.GetResourceInStock(resourceType);
     }
 
     private bool CheckResourceType()
@@ -42,7 +31,7 @@ public class ResourceViewer : MonoBehaviour, IPointerUpHandler, IPointerDownHand
         bool canIUseThisResource = false;
         for (int i = 0; i < UIManager.Instance.needViewerSelected.need.resourcesUsable.Length; i++)
         {
-            if (resourceType == UIManager.Instance.needViewerSelected.need.resourcesUsable[i])
+            if (resourcesInfos.resourceType == UIManager.Instance.needViewerSelected.need.resourcesUsable[i])
                 canIUseThisResource = true;
         }
         return canIUseThisResource;

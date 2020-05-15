@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334a6dab1d6de00448ae9410f0f50830, type: 3}
+  m_Name: GameAssets
+  m_EditorClassIdentifier: 
+  popUpResourceHarvest: {fileID: 7251040416737649290, guid: 95a00285144a44a468eaa9b0c465c2f0,
+    type: 3}
+  popUpResourceStock: {fileID: 676407465981247386, guid: bf3f3c62d0c77db4a83f6078b8096f50,
+    type: 3}

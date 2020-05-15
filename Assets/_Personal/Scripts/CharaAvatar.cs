@@ -17,7 +17,7 @@ public class CharaAvatar : MonoBehaviour
     [Tooltip("In Seconde")]
     [SerializeField] float timeBeforeVictory;
     public float speedOfMove;
-
+    [SerializeField] int maxMouvement;
     [Header("UI")]
     [SerializeField] GameObject mineCanvas;
     [SerializeField] Text woodText;
@@ -30,8 +30,9 @@ public class CharaAvatar : MonoBehaviour
     [SerializeField] Collider[] hitColliders;
     Tile tileSelectedForMove = null;
     DG.Tweening.Sequence sequence;
-    public static event Action EndAction;
+    //public static event Action EndAction;
 
+    private int mouvementRemain;
     public enum CharacterState
     {
         Moving,
@@ -56,7 +57,7 @@ public class CharaAvatar : MonoBehaviour
                 actualState = CharacterState.WaitForAction;
                 break;
             case CharacterState.WaitForMoving:
-                print("DRAW MOVE RANGE");
+                TilesManager.Instance.DrawMoveRange(mouvementRemain);
                 actualState = CharacterState.WaitForMoving;
                 //draw deplacement range
                 break;
@@ -74,11 +75,11 @@ public class CharaAvatar : MonoBehaviour
 
                 List<Tile> neighbours = new List<Tile>();
                 List<Tile> neighboursTwo = GetTileUnder().neighbours;
-                foreach (Tile tI in neighboursTwo)
+                foreach (Tile tile in neighboursTwo)
                 {
-                    if (tI.stateResources == Tile.stateOfResources.Available && tI.tileType != Tile.typeOfTile.Blocker && tI.tileType != Tile.typeOfTile.None)
+                    if (tile.State == Tile.StateOfResources.Available && tile.tileType != Tile.typeOfTile.Blocker && tile.tileType != Tile.typeOfTile.None)
                     {
-                        neighbours.Add(tI);
+                        neighbours.Add(tile);
                     }
                 }
                 print(neighbours.Count);
@@ -103,38 +104,50 @@ public class CharaAvatar : MonoBehaviour
         State = CharacterState.WaitForMoving;
     }
 
+    private void SetMaxMouvementRemain() => mouvementRemain = maxMouvement;
+
     private void HarvestTilesAround()
     {
         List<Tile> tiles = GetResourcesAround(GetTileUnder().neighbours);
-        print(tiles);
         for (int i = 0; i < tiles.Count; i++)
         {
             SetResourceInStock(tiles[i]);
         }
         Sequence sequence = DOTween.Sequence();
         sequence.AppendInterval(2);
-        sequence.OnComplete(() => EndAction?.Invoke());
+        sequence.OnComplete(()=> GameManager.Instance.LunchEndRound());
     }
 
     void Start()
     {
-        Tile.TileTouched += Move;
-        ActionsButtons.Move += SetWaitForMoving;
-        ActionsButtons.Harvest += HarvestTilesAround;
+        SetMaxMouvementRemain();
         GetTileUnder().avatarOnMe = true;
     }
 
-    private void OnDestroy()
+    private void OnEnable()
+    {
+        AssignActions();
+    }
+
+    private void OnDesable()
+    {
+        UnassignActions();
+    }
+
+    private void AssignActions()
+    {
+        Tile.TileTouched += Move;
+        ActionsButtons.Move += SetWaitForMoving;
+        ActionsButtons.Harvest += HarvestTilesAround;
+        ActionsButtons.Pass += UseAllMovement;
+    }
+
+    private void UnassignActions()
     {
         Tile.TileTouched -= Move;
         ActionsButtons.Move -= SetWaitForMoving;
         ActionsButtons.Harvest -= HarvestTilesAround;
-
-    }
-
-    private void Update()
-    {
-        //CheckState(State);
+        ActionsButtons.Pass -= UseAllMovement;
     }
 
     private List<Tile> GetResourcesAround(List<Tile> neighbours)
@@ -257,7 +270,7 @@ public class CharaAvatar : MonoBehaviour
                 sequence.Append(transform.DOMove(point, time).SetEase(Ease.Linear));
                 start = positionToGo[i].transform.position;
             }
-            GameManager.Instance.mouvementRemain -= positionToGo.Count - 1;
+            mouvementRemain -= positionToGo.Count - 1;
             sequence.timeScale = speedOfMove;
             sequence.onComplete += EndMove;
         }
@@ -275,7 +288,7 @@ public class CharaAvatar : MonoBehaviour
                     tile.SetNormalColor();
                 }
             }
-            TilesManager.Instance.WhereYouCanGo();
+            TilesManager.Instance.DrawMoveRange(mouvementRemain);
             tileSelectedForMove = tileHit;
             List<Tile> preview = TilesManager.Instance.GeneratePathTo(GetTileUnder(), tileHit);
             for (int i = 0; i < preview.Count; i++)
@@ -301,27 +314,35 @@ public class CharaAvatar : MonoBehaviour
         return tileUnder;
     }
 
+    private void UseAllMovement()
+    {
+        mouvementRemain = 0;
+        State = CharacterState.WaitForAction;
+        EndMove();
+    }
+
     private void EndMove()
     {
         GetTileUnder().avatarOnMe = true;
-        if (GameManager.Instance.mouvementRemain == 0)
+        if (mouvementRemain == 0)
         {
             workZone.SetActive(true);
-            GameManager.Instance.mouvementRemain = GameManager.Instance.numberOfMouvement;
+            mouvementRemain = maxMouvement;
             TilesManager.Instance.SetNormalColorOfTiles();
-            EndAction?.Invoke();
+            GameManager.Instance.LunchEndRound();
         }
         else
         {
-            TilesManager.Instance.WhereYouCanGo();
+            TilesManager.Instance.DrawMoveRange(mouvementRemain);
             State = CharacterState.WaitForMoving;
         }
     }
 
     private void SetResourceInStock(Tile resourceFocused)
     {
+        resourceFocused.DrawResourceHarvest();
         GameManager.Instance.GetResourceInStock(resourceFocused.resourcesInfos.resourceType).NumberInStock += resourceFocused.resourcesInfos.resourcesAmount;
-        resourceFocused.stateResources = Tile.stateOfResources.Reloading;
+        resourceFocused.State = Tile.StateOfResources.Reloading;
     }
 
     public void BeginMining()
@@ -336,7 +357,7 @@ public class CharaAvatar : MonoBehaviour
         {
             Tile tile = collider.GetComponent<Tile>();
             if (tile != null)
-                tile.stateResources = Tile.stateOfResources.Reloading;
+                tile.State = Tile.StateOfResources.Reloading;
         }
     }
 }
