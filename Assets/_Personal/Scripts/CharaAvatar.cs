@@ -68,7 +68,7 @@ public class CharaAvatar : MonoBehaviour
         sequence.OnComplete(()=> GameManager.Instance.LunchEndRound());
     }
     //EVENTS
-    private void AssignActions()
+    private void AssignEvents()
     {
         Tile.TileTouched += Move;
         ActionsButtons.Move += SetWaitForMoving;
@@ -76,7 +76,7 @@ public class CharaAvatar : MonoBehaviour
         ActionsButtons.Pass += UseAllMovement;
     }
 
-    private void UnassignActions()
+    private void UnassignEvents()
     {
         Tile.TileTouched -= Move;
         ActionsButtons.Move -= SetWaitForMoving;
@@ -85,11 +85,11 @@ public class CharaAvatar : MonoBehaviour
     }
     private void OnEnable()
     {
-        AssignActions();
+        AssignEvents();
     }
     private void OnDesable()
     {
-        UnassignActions();
+        UnassignEvents();
     }
 
     void Start()

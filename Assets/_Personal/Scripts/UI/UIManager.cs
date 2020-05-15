@@ -88,7 +88,8 @@ public class UIManager : Singleton<UIManager>
             popUp.SetText(+(int)needViewers[i].need.resourceUsed.resourcesInfos.ReturnEnergyUseFor(needViewers[i].need.needType));
         }
     }
-    private void Start()
+
+    private void AssignEvents()
     {
         GameManager.LevelEnd += DrawEndLevelPopUp;
         GameManager.RoundStart += DrawButtons;
@@ -102,7 +103,7 @@ public class UIManager : Singleton<UIManager>
         ResourceViewer.ChangeResourceUsed += SetImageResourceUsed;
     }
 
-    private void OnDestroy()
+    private void UnassignEvents()
     {
         GameManager.LevelEnd -= DrawEndLevelPopUp;
         GameManager.RoundStart -= DrawButtons;
@@ -114,5 +115,15 @@ public class UIManager : Singleton<UIManager>
         ActionsButtons.Vote -= HideButtons;
 
         ResourceViewer.ChangeResourceUsed -= SetImageResourceUsed;
+    }
+
+    private void OnEnable()
+    {
+        AssignEvents();
+    }
+
+    private void OnDestroy()
+    {
+        UnassignEvents();
     }
 }

@@ -21,20 +21,6 @@ public class TilesManager : Singleton<TilesManager>
 
     [SerializeField]List<Tile> currentPath = null;
 
-
-
-    void Start()
-    {
-        //ActionsButtons.Move += WhereYouCanGo;
-    }
-
-
-    void OnDestroy()
-    {
-        //ActionsButtons.Move -= WhereYouCanGo;
-    }
-
-    // Update is called once per frame
     void Update()
     {
         if (setTypeOfTiles == true)
@@ -52,11 +38,6 @@ public class TilesManager : Singleton<TilesManager>
         {
             CallAllTilesGetTylesAround();
         }
-    }
-
-    void OnValidate()
-    {
-       
     }
 
     void CallAllTilesGetTypes()
