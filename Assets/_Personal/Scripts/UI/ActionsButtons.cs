@@ -14,12 +14,14 @@ public class ActionsButtons : MonoBehaviour, IPointerUpHandler, IPointerDownHand
         Move,
         Harvest,
         Pass,
-        Vote
+        Vote,
+        PassDurigMove
     }
     public static event Action Move;
     public static event Action Pass;
     public static event Action Harvest;
     public static event Action Vote;
+    public static event Action PassDurigMove;
 
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -28,7 +30,6 @@ public class ActionsButtons : MonoBehaviour, IPointerUpHandler, IPointerDownHand
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        print(playerAction);
         switch (playerAction)
         {
             case PlayerAction.Move:
@@ -42,6 +43,9 @@ public class ActionsButtons : MonoBehaviour, IPointerUpHandler, IPointerDownHand
                 break;
             case PlayerAction.Vote:
                 Vote?.Invoke();
+                break;
+            case PlayerAction.PassDurigMove:
+                PassDurigMove?.Invoke();
                 break;
         }
     }

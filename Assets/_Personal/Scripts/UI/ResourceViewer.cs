@@ -10,7 +10,6 @@ public class ResourceViewer : MonoBehaviour, IPointerUpHandler, IPointerDownHand
 {
     public TextMeshProUGUI tmp;
     public Image background;
-    public static event Action<ResourcesInfos> ChangeResourceUsed;
     public ResourcesInfos resourcesInfos;
 
     public void OnPointerDown (PointerEventData eventData)
@@ -21,7 +20,7 @@ public class ResourceViewer : MonoBehaviour, IPointerUpHandler, IPointerDownHand
     {
         if (CheckResourceType())
         {
-            ChangeResourceUsed?.Invoke(resourcesInfos);
+            PlayerInput.Instance.ChangeNeedSelectedResourceUse(resourcesInfos);
             UIManager.Instance.stockViewer.DesableStockViewer();
         }
     }
@@ -36,4 +35,26 @@ public class ResourceViewer : MonoBehaviour, IPointerUpHandler, IPointerDownHand
         }
         return canIUseThisResource;
     }
+
+    private void SetViewerText(ResourceInStock resourcesInStock)
+    {
+        if (resourcesInfos.resourceType == resourcesInStock.resourcesInfos.resourceType)
+        {
+            int nbr = (int)Mathf.Round(resourcesInStock.NumberInStock);
+            if (resourcesInStock.NumberInStock > 0)
+                tmp.text = nbr.ToString();
+            else
+                tmp.text = "0";
+        }
+    }
+
+    private void OnEnable()
+    {
+        ResourceInStock.ChangeStock += SetViewerText;
+    }
+    private void OnDestroy()
+    {
+        ResourceInStock.ChangeStock -= SetViewerText;
+    }
+
 }

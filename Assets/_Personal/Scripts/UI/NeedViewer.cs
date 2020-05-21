@@ -12,24 +12,33 @@ public class NeedViewer : MonoBehaviour, IPointerDownHandler
     [SerializeField] private Image ressourceUsedImage;
     [SerializeField] private TextMeshProUGUI resourceUsedSotck;
     [SerializeField] private TextMeshProUGUI resourceUsedPerRound;
+    [SerializeField] private Need.NeedType needType;
+    [HideInInspector] public Need need;
 
-    public Need.NeedType needType;
-    public Need need;
-
-    public void SetResourceUsedText(int nbr)
+    public void SetResourceUsedAmontText(Need need)
     {
-        resourceUsedSotck.text = nbr.ToString();
+        if (need == this.need)
+        {
+            resourceUsedSotck.text = ((int)(need.ResourceUsed.NumberInStock)).ToString();
+        }
     }
 
-    public void SetResourceUsedPerRoundText(int nbr)
+    public void SetResourceUsedPerRoundText(Need need)
     {
-        resourceUsedPerRound.text = "- " + nbr.ToString();
+        if (need == this.need)
+        {
+            resourceUsedPerRound.text = "- " + ((int)need.ResourceUsed.resourcesInfos.GetAmontUseFor(needType) * need.multiplicator).ToString();
+        }
     }
 
-    public void SetImageResourceUsed(Sprite ressourceUsedImage)
+    public void SetImageResourceUsed(Need need)
     {
-        this.ressourceUsedImage.sprite = ressourceUsedImage;
+        if (need == this.need)
+        {
+            ressourceUsedImage.sprite = need.ResourceUsed.resourcesInfos.sprite;
+        }
     }
+    
 
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -60,6 +69,24 @@ public class NeedViewer : MonoBehaviour, IPointerDownHandler
     }
 
     private void SetNeedViewerSelected() => UIManager.Instance.needViewerSelected = this;
-    private void SetNeedSelected() => GameManager.Instance.needSelected = need;
+    private void SetNeedSelected() => PlayerInput.Instance.needSelected = need;
 
+    private void SetNewResourceUsed(Need need)
+    {
+        SetImageResourceUsed(need);
+        SetResourceUsedAmontText(need);
+        SetResourceUsedPerRoundText(need);
+    }
+
+    private void OnEnable()
+    {
+        Need.ResourceUsedChange += SetNewResourceUsed;
+        CharaAvatar.ResourceUsed += SetResourceUsedAmontText;
+    }
+
+    private void OnDestroy()
+    {
+        Need.ResourceUsedChange -= SetNewResourceUsed;
+        CharaAvatar.ResourceUsed -= SetResourceUsedAmontText;
+    }
 }

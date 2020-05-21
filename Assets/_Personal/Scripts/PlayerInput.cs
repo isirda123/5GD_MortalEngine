@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using System;
 
-public class PlayerInput : MonoBehaviour
+public class PlayerInput : Singleton<PlayerInput>
 {
     [Header("Click")]
     float startTime;
@@ -15,6 +15,8 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] float speedOfCamera;
 
     [SerializeField] LayerMask myMask;
+    [HideInInspector] public Need needSelected;
+    [SerializeField] CharaAvatar cityPlayer;
 
     private RaycastHit ReturnRaycastHit()
     {
@@ -26,8 +28,12 @@ public class PlayerInput : MonoBehaviour
         {
 
         }
-
         return hit;
+    }
+
+    public void ChangeNeedSelectedResourceUse(ResourcesInfos resourceToSet)
+    {
+        needSelected.ResourceUsed = cityPlayer.GetResourceInStock(resourceToSet.resourceType);
     }
 
     void Update()

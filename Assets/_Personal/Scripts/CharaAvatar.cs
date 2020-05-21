@@ -8,15 +8,15 @@ using System;
 
 public class CharaAvatar : MonoBehaviour
 {
-    [SerializeField] private GameObject workZone;
-
-    //MOUVEMENT
+    #region MOUVEMENT
     private Sequence mouvementSequence;
     [SerializeField] private float mouvementAnimationSpeed;
     [SerializeField] private int mouvementRange;
     private Tile tileSelectedForMove = null;
     private int mouvementRemain;
+    #endregion
 
+    #region STATE MACHINE
     //CHARACTER STATE MACHINE
     public enum CharacterState
     {
@@ -46,8 +46,123 @@ public class CharaAvatar : MonoBehaviour
                 break;
         }
     }
+    #endregion
+
+    #region EVENTS
+    public static event Action<Need> ResourceUsed;
+    private void AssignEvents()
+    {
+        Tile.TileTouched += Move;
+        ActionsButtons.Move += SetWaitForMoving;
+        ActionsButtons.Harvest += HarvestTilesAround;
+        ActionsButtons.PassDurigMove += UseAllMovement;
+        RoundManager.RoundEnd += UseResourcesInStock;
+        ResourceInStock.ResourceEmpty += ChangeUsingRessource;
+    }
+
+    private void UnassignEvents()
+    {
+        Tile.TileTouched -= Move;
+        ActionsButtons.Move -= SetWaitForMoving;
+        ActionsButtons.Harvest -= HarvestTilesAround;
+        ActionsButtons.PassDurigMove -= UseAllMovement;
+        RoundManager.RoundEnd -= UseResourcesInStock;
+        ResourceInStock.ResourceEmpty -= ChangeUsingRessource;
+    }
+
+    private void OnEnable()
+    {
+        AssignEvents();
+    }
+    private void OnDesable()
+    {
+        UnassignEvents();
+    }
+
+    #endregion
+
+    #region START SETTINGS
+    void Start()
+    {
+        SetStartingValues();
+        SetMaxMouvementRemain();
+        GetTileUnder().avatarOnMe = true;
+    }
+
+    private void SetStartingValues()
+    {
+        SetStartingStock();
+        SetStartNeedsMultiplicateur();
+        SetNeeds();
+    }
+    private void SetStartingStock()
+    {
+        for (int i = 0; i < stock.Length; i++)
+        {
+            switch (stock[i].resourcesInfos.resourceType)
+            {
+                case GameManager.ResourceType.Mouflu:
+                    stock[i].NumberInStock = resourcesNeedsStartDatas.mouflu;
+                    break;
+                case GameManager.ResourceType.Berry:
+                    stock[i].NumberInStock = resourcesNeedsStartDatas.berry;
+                    break;
+                case GameManager.ResourceType.Wood:
+                    stock[i].NumberInStock = resourcesNeedsStartDatas.wood;
+                    break;
+                case GameManager.ResourceType.Rock:
+                    stock[i].NumberInStock = resourcesNeedsStartDatas.rock;
+                    break;
+            }
+        }
+    }
+    private void SetStartNeedsMultiplicateur()
+    {
+        for (int i = 0; i < needs.Length; i++)
+        {
+            switch (needs[i].needType)
+            {
+                case Need.NeedType.Build:
+                    needs[i].multiplicator = resourcesNeedsStartDatas.needBuildsStart;
+                    break;
+                case Need.NeedType.Energy:
+                    needs[i].multiplicator = resourcesNeedsStartDatas.needEnergyStart;
+                    break;
+                case Need.NeedType.Food:
+                    needs[i].multiplicator = resourcesNeedsStartDatas.needFoodStart;
+                    break;
+            }
+        }
+    }
+    private void SetNeeds()
+    {
+        for (int i = 0; i < needs.Length; i++)
+        {
+            ResourceInStock firstResourceUsable = null;
+            for (int j = 0; j < needs[i].resourcesUsable.Length; j++)
+            {
+                ResourceInStock resourceInStock = GetResourceInStock(needs[i].resourcesUsable[j]);
+                if (resourceInStock.NumberInStock > 0)
+                    firstResourceUsable = resourceInStock;
+            }
+            needs[i].ResourceUsed = firstResourceUsable;
+        }
+    }
+    #endregion
+
+    [SerializeField] private GameObject workZone;
+    [SerializeField] private Need[] needs;
+    [SerializeField] public ResourceInStock[] stock;
+    [SerializeField] ResourcesNeedsStartDatas resourcesNeedsStartDatas;
 
     private Tile resourceFocused;
+
+
+    private void SetResourceUsed(ResourcesInfos resourceToUseInfos,Need need)
+    {
+        ResourceInStock resourceInStock = GetResourceInStock(resourceToUseInfos.resourceType);
+        PlayerInput.Instance.needSelected.ResourceUsed = resourceInStock;
+    }
 
     private void SetWaitForMoving()
     {
@@ -65,37 +180,63 @@ public class CharaAvatar : MonoBehaviour
         }
         Sequence sequence = DOTween.Sequence();
         sequence.AppendInterval(2);
-        sequence.OnComplete(()=> GameManager.Instance.LunchEndRound());
-    }
-    //EVENTS
-    private void AssignEvents()
-    {
-        Tile.TileTouched += Move;
-        ActionsButtons.Move += SetWaitForMoving;
-        ActionsButtons.Harvest += HarvestTilesAround;
-        ActionsButtons.Pass += UseAllMovement;
+        sequence.OnComplete(()=> RoundManager.Instance.LunchEndRound());
     }
 
-    private void UnassignEvents()
+    public ResourceInStock GetResourceInStock(GameManager.ResourceType resourceType)
     {
-        Tile.TileTouched -= Move;
-        ActionsButtons.Move -= SetWaitForMoving;
-        ActionsButtons.Harvest -= HarvestTilesAround;
-        ActionsButtons.Pass -= UseAllMovement;
-    }
-    private void OnEnable()
-    {
-        AssignEvents();
-    }
-    private void OnDesable()
-    {
-        UnassignEvents();
+        ResourceInStock resourceInStockNeeded = null;
+        for (int i = 0; i < stock.Length; i++)
+        {
+            if (resourceType == stock[i].resourcesInfos.resourceType)
+            {
+                resourceInStockNeeded = stock[i];
+            }
+        }
+        return resourceInStockNeeded;
     }
 
-    void Start()
+    private void ChangeUsingRessource(GameManager.ResourceType emptyResource)
     {
-        SetMaxMouvementRemain();
-        GetTileUnder().avatarOnMe = true;
+        for (int i = 0; i < needs.Length; i++)
+        {
+            if (needs[i].ResourceUsed == null)
+            {
+                ResourceInStock firstResourceUsable = GetResourceInStock(needs[i].resourcesUsable[0]);
+                needs[i].ResourceUsed = firstResourceUsable;
+            }
+            else
+            {
+                if (emptyResource == needs[i].ResourceUsed.resourcesInfos.resourceType)
+                {
+                    for (int j = 0; j < needs[i].resourcesUsable.Length; j++)
+                    {
+                        if (needs[i].resourcesUsable[j] != emptyResource)
+                        {
+                            ResourceInStock otherResourceUsable = GetResourceInStock(needs[i].resourcesUsable[j]);
+                            if (otherResourceUsable.NumberInStock > 0)
+                            {
+                                needs[i].ResourceUsed = otherResourceUsable;
+                            }
+                            else
+                            {
+                                if (needs[i].multiplicator > 0)
+                                    RoundManager.Instance.EndLevel(false);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private void UseResourcesInStock()
+    {
+        print("resource use");
+        for (int i = 0; i < needs.Length; i++)
+            needs[i].UseResources();
+        for (int i = 0; i < needs.Length; i++)
+            ResourceUsed?.Invoke(needs[i]);
     }
 
     private List<Tile> GetResourcesAround(List<Tile> neighbours)
@@ -115,13 +256,13 @@ public class CharaAvatar : MonoBehaviour
     {
         int woodTilesNeeded = 0;
         int berryTilesNeeded = 0;
-        for (int i = 0; i < GameManager.Instance.needs.Length; i++)
+        for (int i = 0; i < needs.Length; i++)
         {
-            if (GameManager.Instance.needs[i].resourceUsed.resourceType == GameManager.ResourceType.Wood)
-                woodTilesNeeded += GameManager.Instance.needs[i].TilesNeeded;
+            if (needs[i].ResourceUsed.resourcesInfos.resourceType == GameManager.ResourceType.Wood)
+                woodTilesNeeded += needs[i].TilesNeeded;
             else
-            if (GameManager.Instance.needs[i].resourceUsed.resourceType == GameManager.ResourceType.Berry)
-                berryTilesNeeded += GameManager.Instance.needs[i].TilesNeeded;
+            if (needs[i].ResourceUsed.resourcesInfos.resourceType == GameManager.ResourceType.Berry)
+                berryTilesNeeded += needs[i].TilesNeeded;
             //protection pour que le joueur mette des resources renouvlables pour le check de son lvl
             else
                 woodTilesNeeded += 10;
@@ -140,7 +281,7 @@ public class CharaAvatar : MonoBehaviour
 
         //compare both
         if (woodAround >= woodTilesNeeded && berryAround >= berryTilesNeeded)
-            GameManager.Instance.EndLevel(true);
+            RoundManager.Instance.EndLevel(true);
     }
 
     private void Move(Tile tileHit)
@@ -220,7 +361,6 @@ public class CharaAvatar : MonoBehaviour
             
             tileUnder = hitTile.transform.GetComponent<Tile>();
         }
-        print("TileUnder : " + tileUnder);
         return tileUnder;
     }
 
@@ -239,7 +379,7 @@ public class CharaAvatar : MonoBehaviour
             workZone.SetActive(true);
             mouvementRemain = mouvementRange;
             TilesManager.Instance.SetNormalColorOfTiles();
-            GameManager.Instance.LunchEndRound();
+            RoundManager.Instance.LunchEndRound();
         }
         else
         {
@@ -251,7 +391,7 @@ public class CharaAvatar : MonoBehaviour
     private void SetResourceInStock(Tile resourceFocused)
     {
         resourceFocused.DrawResourceHarvest();
-        GameManager.Instance.GetResourceInStock(resourceFocused.resourcesInfos.resourceType).NumberInStock += resourceFocused.resourcesInfos.resourcesAmount;
+        GetResourceInStock(resourceFocused.resourcesInfos.resourceType).NumberInStock += resourceFocused.resourcesInfos.resourcesAmount;
         resourceFocused.State = Tile.StateOfResources.Reloading;
     }
 

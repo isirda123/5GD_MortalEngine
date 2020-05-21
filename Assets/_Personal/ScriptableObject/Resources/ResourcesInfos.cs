@@ -15,7 +15,7 @@ public class ResourcesInfos : ScriptableObject
     {
         get { float wonPerRound; wonPerRound = resourcesAmount / resourcesRoundsToRespawn; return wonPerRound; }
     }
-    public float ReturnEnergyUseFor(Need.NeedType needType)
+    public float GetAmontUseFor(Need.NeedType needType)
     {
         float amount = -1;
         switch (needType)
