@@ -252,38 +252,6 @@ public class CharaAvatar : MonoBehaviour
         return resourcesInRange;
     }
 
-    private void CheckLevelValidation(List<Tile> resourcesAround)
-    {
-        int woodTilesNeeded = 0;
-        int berryTilesNeeded = 0;
-        for (int i = 0; i < needs.Length; i++)
-        {
-            if (needs[i].ResourceUsed.resourcesInfos.resourceType == GameManager.ResourceType.Wood)
-                woodTilesNeeded += needs[i].TilesNeeded;
-            else
-            if (needs[i].ResourceUsed.resourcesInfos.resourceType == GameManager.ResourceType.Berry)
-                berryTilesNeeded += needs[i].TilesNeeded;
-            //protection pour que le joueur mette des resources renouvlables pour le check de son lvl
-            else
-                woodTilesNeeded += 10;
-        }
-
-        //count resources around
-        int woodAround = 0;
-        int berryAround = 0;
-        for (int i = 0; i < resourcesAround.Count; i++)
-        {
-            if (resourcesAround[i].resourcesInfos.resourceType == GameManager.ResourceType.Wood)
-                woodAround++;
-            if (resourcesAround[i].resourcesInfos.resourceType == GameManager.ResourceType.Berry)
-                berryAround++;
-        }
-
-        //compare both
-        if (woodAround >= woodTilesNeeded && berryAround >= berryTilesNeeded)
-            RoundManager.Instance.EndLevel(true);
-    }
-
     private void Move(Tile tileHit)
     {
         workZone.SetActive(false);
