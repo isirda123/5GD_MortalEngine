@@ -284,6 +284,7 @@ public class TilesManager : Singleton<TilesManager>
     }
 
     Tile.TypeOfTile[] spawnResourceTypes = { Tile.TypeOfTile.Wood, Tile.TypeOfTile.Berry, Tile.TypeOfTile.Mouflu };
+    public AnimationCurve curve;
     public void SpawnResourcesEndOfTurn()
     {
         foreach (Tile.TypeOfTile tileType in spawnResourceTypes)
@@ -302,7 +303,9 @@ public class TilesManager : Singleton<TilesManager>
                         print(emptyTileAround.Count);
                         foreach (Tile emptyTile in emptyTileAround)
                         {
-                            if (Random.value < 0.1f)
+                            float percent = curve.Evaluate((float)allNeighbours.Count / (float)9) * 0.3f;
+                            print("Percent : " + percent);
+                            if (Random.value < percent)
                             {
                                 emptyTile.tileType = tileType;
                                 emptyTile.checkedForRespawn = true;
