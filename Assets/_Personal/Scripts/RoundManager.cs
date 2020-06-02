@@ -15,7 +15,7 @@ public class RoundManager : Singleton<RoundManager>
     private void AssignEvents()
     {
         ActionsButtons.Move += SetMakingAction;
-        ActionsButtons.Pass += LunchEndRound;
+        ActionsButtons.Pass += LaunchEndRound;
         ActionsButtons.Harvest += SetMakingAction;
         RoundEnd += SetRoundStateResolving;
         RoundEnd += AddRound;
@@ -24,7 +24,7 @@ public class RoundManager : Singleton<RoundManager>
     private void UnassignEvents()
     {
         ActionsButtons.Move -= SetMakingAction;
-        ActionsButtons.Pass -= LunchEndRound;
+        ActionsButtons.Pass -= LaunchEndRound;
         ActionsButtons.Harvest -= SetMakingAction;
         RoundEnd -= SetRoundStateResolving;
         RoundEnd -= AddRound;
@@ -87,7 +87,7 @@ public class RoundManager : Singleton<RoundManager>
             LevelEnd?.Invoke(win);
     }
 
-    public void LunchEndRound()
+    public void LaunchEndRound()
     {
         RoundEnd?.Invoke();
         Sequence sequence = DOTween.Sequence();

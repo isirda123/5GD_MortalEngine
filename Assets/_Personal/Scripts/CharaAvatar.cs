@@ -57,6 +57,7 @@ public class CharaAvatar : MonoBehaviour
         ActionsButtons.Harvest += HarvestTilesAround;
         ActionsButtons.PassDurigMove += UseAllMovement;
         RoundManager.RoundEnd += UseResourcesInStock;
+        RoundManager.RoundEnd += TilesManager.Instance.SpawnResourcesEndOfTurn;
         ResourceInStock.ResourceEmpty += ChangeUsingRessource;
     }
 
@@ -67,6 +68,7 @@ public class CharaAvatar : MonoBehaviour
         ActionsButtons.Harvest -= HarvestTilesAround;
         ActionsButtons.PassDurigMove -= UseAllMovement;
         RoundManager.RoundEnd -= UseResourcesInStock;
+        RoundManager.RoundEnd -= TilesManager.Instance.SpawnResourcesEndOfTurn;
         ResourceInStock.ResourceEmpty -= ChangeUsingRessource;
     }
 
@@ -180,7 +182,7 @@ public class CharaAvatar : MonoBehaviour
         }
         Sequence sequence = DOTween.Sequence();
         sequence.AppendInterval(2);
-        sequence.OnComplete(()=> RoundManager.Instance.LunchEndRound());
+        sequence.OnComplete(()=> RoundManager.Instance.LaunchEndRound());
     }
 
     public ResourceInStock GetResourceInStock(GameManager.ResourceType resourceType)
@@ -263,7 +265,7 @@ public class CharaAvatar : MonoBehaviour
         {
             tileSelectedForMove = null;
             TilesManager.Instance.SetNormalColorOfTiles();
-            if (tileHit.tileType == Tile.typeOfTile.Blocker)
+            if (tileHit.tileType == Tile.TypeOfTile.Blocker)
             {
                 return;
             }
@@ -295,7 +297,7 @@ public class CharaAvatar : MonoBehaviour
         }
         else
         {
-            if (tileHit.tileType == Tile.typeOfTile.Blocker)
+            if (tileHit.tileType == Tile.TypeOfTile.Blocker)
             {
                 return;
             }
@@ -347,7 +349,7 @@ public class CharaAvatar : MonoBehaviour
             workZone.SetActive(true);
             mouvementRemain = mouvementRange;
             TilesManager.Instance.SetNormalColorOfTiles();
-            RoundManager.Instance.LunchEndRound();
+            RoundManager.Instance.LaunchEndRound();
         }
         else
         {
