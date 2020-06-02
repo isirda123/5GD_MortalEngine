@@ -285,6 +285,7 @@ public class TilesManager : Singleton<TilesManager>
 
     Tile.TypeOfTile[] spawnResourceTypes = { Tile.TypeOfTile.Wood, Tile.TypeOfTile.Berry, Tile.TypeOfTile.Mouflu };
     public AnimationCurve curve;
+
     public void SpawnResourcesEndOfTurn()
     {
         foreach (Tile.TypeOfTile tileType in spawnResourceTypes)
@@ -298,17 +299,17 @@ public class TilesManager : Singleton<TilesManager>
                         tile.checkedForRespawn = true;
                         List<Tile> allNeighbours = AllNeighboursType(tile);
                         GetGo(allNeighbours);
-                        print(allNeighbours.Count);
                         List<Tile> emptyTileAround = allEmptyTileAround(allNeighbours);
-                        print(emptyTileAround.Count);
                         foreach (Tile emptyTile in emptyTileAround)
                         {
-                            float percent = curve.Evaluate((float)allNeighbours.Count / (float)9) * 0.3f;
-                            print("Percent : " + percent);
-                            if (Random.value < percent)
+                            if (emptyTile.avatarOnMe == false)
                             {
-                                emptyTile.tileType = tileType;
-                                emptyTile.checkedForRespawn = true;
+                                float percent = curve.Evaluate((float)allNeighbours.Count / (float)9) * 0.3f;
+                                if (Random.value < percent)
+                                {
+                                    emptyTile.tileType = tileType;
+                                    emptyTile.checkedForRespawn = true;
+                                }
                             }
                         }
                     }

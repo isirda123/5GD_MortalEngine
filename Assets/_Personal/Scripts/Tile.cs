@@ -205,7 +205,7 @@ public class Tile : MonoBehaviour
     {
         if (transform.childCount > 0)
         {
-            DestroyImmediate(transform.GetChild(0).gameObject);
+            Destroy(transform.GetChild(0).gameObject);
         }
         switch (tileType)
         {

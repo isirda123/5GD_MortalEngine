@@ -77,16 +77,6 @@ public class DecretsValidate : MonoBehaviour
             effect += "Consommation construction : " + dS.decretsInfos.consumptionBuildPercent + "%";
             EnterKey();
         }
-        if (dS.decretsInfos.speedPercent != 0)
-        {
-            effect += "Vitesse de déplacement : " + dS.decretsInfos.speedPercent + "%";
-            EnterKey();
-        }
-        if (dS.decretsInfos.collectSpeedPercent != 0)
-        {
-            effect += "Vitesse de collecte : " + dS.decretsInfos.collectSpeedPercent + "%";
-            EnterKey();
-        }
 
         if (dS.decretsInfos.collectRangeMax != 0)
         {
@@ -139,30 +129,6 @@ public class DecretsValidate : MonoBehaviour
         if (dS.decretsInfos.collectQuantityBerry != 0)
         {
             effect += "Collecte baie : " + dS.decretsInfos.collectQuantityBerry;
-            EnterKey();
-        }
-
-        if (dS.decretsInfos.speedRespawnMoufluPercent != 0)
-        {
-            effect += "Temps respawn Bouflu : " + dS.decretsInfos.collectQuantityBerry + "%";
-            EnterKey();
-        }
-
-        if (dS.decretsInfos.speedRespawnRockPercent != 0)
-        {
-            effect += "Temps respawn pierre : " + dS.decretsInfos.speedRespawnRockPercent + "%";
-            EnterKey();
-        }
-
-        if (dS.decretsInfos.speedRespawnWoodPercent != 0)
-        {
-            effect += "Temps respawn bois : " + dS.decretsInfos.speedRespawnWoodPercent + "%";
-            EnterKey();
-        }
-
-        if (dS.decretsInfos.speedRespawnBerryPercent != 0)
-        {
-            effect += "Temps respawn baie : " + dS.decretsInfos.speedRespawnBerryPercent + "%";
             EnterKey();
         }
     }
