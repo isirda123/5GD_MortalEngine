@@ -17,6 +17,14 @@ public class TilesManager : Singleton<TilesManager>
 
     [SerializeField]List<Tile> currentPath = null;
 
+    [ContextMenu("Set All Tiles")]
+    public void SetAllTiles()
+    {
+        GetTiles();
+        SetTilesNeighbors();
+        SetTilesTypes();
+    }
+
     [ContextMenu("Set Tiles Types")]
     void SetTilesTypes()
     {
@@ -59,6 +67,17 @@ public class TilesManager : Singleton<TilesManager>
         }
     }
 
+#if UNITY_EDITOR
+    [ExecuteInEditMode]
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            SetAllTiles();
+            print("coucou");
+        }
+    }
+#endif
 
     public List<Tile> GeneratePathTo(Tile start, Tile target)
     {
