@@ -58,7 +58,22 @@ public class Tile : MonoBehaviour
         GameObject popUpGo = Instantiate(GameManager.Instance.gameAssets.popUpResourceHarvest.gameObject, transform.position + transform.up, Quaternion.identity) as GameObject;
         PopUpResourceHarvest popUp = popUpGo.GetComponent<PopUpResourceHarvest>();
         popUp.SetImage(resourcesInfos);
-        popUp.SetText((int)resourcesInfos.resourcesAmount);
+        if (resourcesInfos.resourceType == GameManager.ResourceType.Mouflu)
+        {
+            popUp.SetText((int)resourcesInfos.resourcesAmount + DecretManager.Instance.totalDecreeInfos.collectQuantityMouflu);
+        }
+        else if (resourcesInfos.resourceType == GameManager.ResourceType.Rock)
+        {
+            popUp.SetText((int)resourcesInfos.resourcesAmount + DecretManager.Instance.totalDecreeInfos.collectQuantityRock);
+        }
+        else if (resourcesInfos.resourceType == GameManager.ResourceType.Wood)
+        {
+            popUp.SetText((int)resourcesInfos.resourcesAmount + DecretManager.Instance.totalDecreeInfos.collectQuantityWood);
+        }
+        else if (resourcesInfos.resourceType == GameManager.ResourceType.Berry)
+        {
+            popUp.SetText((int)resourcesInfos.resourcesAmount + DecretManager.Instance.totalDecreeInfos.collectQuantityBerry);
+        }
     }
 
     public List<Tile> neighbours;

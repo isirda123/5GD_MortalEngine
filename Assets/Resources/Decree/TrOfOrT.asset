@@ -17,14 +17,13 @@ MonoBehaviour:
     myTypeOfDecree: 0
     title: C'est fort
     flavorText: Vraiment fort
-    maxFoodPercent: 0
-    maxEnergyPercent: 0
-    maxConstructionPercent: 5
-    consumptionFoodPercent: 0
-    consumptionEnergyPercent: 0
-    consumptionBuildPercent: 0
-    speedPercent: 0
-    collectSpeedPercent: 10
+    maxMouffluFlat: 0
+    maxRockFlat: 0
+    maxWoodFlat: 0
+    maxBerryFlat: 0
+    consumptionFoodFlat: 0
+    consumptionEnergyFlat: 0
+    consumptionBuildFlat: 0
     collectRangeMax: 0
     giveMouflu: 0
     giveRock: 0
@@ -34,8 +33,7 @@ MonoBehaviour:
     collectQuantityRock: 0
     collectQuantityWood: 0
     collectQuantityBerry: 0
-    speedRespawnMoufluPercent: 0
-    speedRespawnRockPercent: 10
-    speedRespawnWoodPercent: 0
-    speedRespawnBerryPercent: 0
-  targetField: 2130983
+    numberOfMove: 5
+    fly: 0
+    roundBetweenDecree: 0
+  targetField: 2655271

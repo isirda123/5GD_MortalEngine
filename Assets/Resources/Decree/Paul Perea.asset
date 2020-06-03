@@ -29,11 +29,11 @@ MonoBehaviour:
     giveRock: 0
     giveWood: 0
     giveBerry: 0
-    collectQuantityMouflu: 0
-    collectQuantityRock: 0
-    collectQuantityWood: 0
-    collectQuantityBerry: 0
-    numberOfMove: 0
+    collectQuantityMouflu: 50
+    collectQuantityRock: 50
+    collectQuantityWood: 50
+    collectQuantityBerry: 50
+    numberOfMove: 5
     fly: 0
     roundBetweenDecree: 0
-  targetField: 127
+  targetField: 1015935

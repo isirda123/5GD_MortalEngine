@@ -33,32 +33,32 @@ public class DecretsUI : MonoBehaviour
         EnterKey();
         if (dS.decretsInfos.maxMouffluFlat != 0)
         {
-            effect.text += "Nourriture max: " + dS.decretsInfos.maxMouffluFlat + "%";
+            effect.text += "Nourriture max: " + dS.decretsInfos.maxMouffluFlat;
             EnterKey();
         }
         if (dS.decretsInfos.maxRockFlat != 0)
         {
-            effect.text += "Energie max : " + dS.decretsInfos.maxRockFlat + "%";
+            effect.text += "Energie max : " + dS.decretsInfos.maxRockFlat;
             EnterKey();
         }
         if (dS.decretsInfos.maxWoodFlat != 0)
         {
-            effect.text += "Construction max : " + dS.decretsInfos.maxWoodFlat + "%";
+            effect.text += "Construction max : " + dS.decretsInfos.maxWoodFlat;
             EnterKey();
         }
         if (dS.decretsInfos.consumptionFoodFlat != 0)
         {
-            effect.text += "Consommation nourriture : " + dS.decretsInfos.consumptionFoodFlat + "%";
+            effect.text += "Consommation nourriture : " + dS.decretsInfos.consumptionFoodFlat;
             EnterKey();
         }
         if (dS.decretsInfos.consumptionEnergyFlat != 0)
         {
-            effect.text += "Consommation energie : " + dS.decretsInfos.consumptionEnergyFlat + "%";
+            effect.text += "Consommation energie : " + dS.decretsInfos.consumptionEnergyFlat;
             EnterKey();
         }
         if (dS.decretsInfos.consumptionBuildFlat != 0)
         {
-            effect.text += "Consommation construction : " + dS.decretsInfos.consumptionBuildFlat + "%";
+            effect.text += "Consommation construction : " + dS.decretsInfos.consumptionBuildFlat;
             EnterKey();
         }
         if (dS.decretsInfos.collectRangeMax != 0)
@@ -112,6 +112,21 @@ public class DecretsUI : MonoBehaviour
         if (dS.decretsInfos.collectQuantityBerry != 0)
         {
             effect.text += "Collecte baie : " + dS.decretsInfos.collectQuantityBerry;
+            EnterKey();
+        }
+        if (dS.decretsInfos.numberOfMove != 0)
+        {
+            effect.text += "Number of Move : " + dS.decretsInfos.numberOfMove;
+            EnterKey();
+        }
+        if (dS.decretsInfos.fly != 0)
+        {
+            effect.text += "You can fly now";
+            EnterKey();
+        }
+        if (dS.decretsInfos.roundBetweenDecree != 0)
+        {
+            effect.text += "Round between Decree : " + dS.decretsInfos.roundBetweenDecree;
             EnterKey();
         }
     }

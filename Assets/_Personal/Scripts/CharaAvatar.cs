@@ -57,6 +57,8 @@ public class CharaAvatar : MonoBehaviour
         ActionsButtons.Harvest += HarvestTilesAround;
         ActionsButtons.PassDurigMove += UseAllMovement;
         RoundManager.RoundEnd += UseResourcesInStock;
+        RoundManager.RoundEnd += TilesManager.Instance.SpawnResourcesEndOfTurn;
+        RoundManager.RoundEnd += SetMaxMouvementRemain;
         ResourceInStock.ResourceEmpty += ChangeUsingRessource;
     }
 
@@ -67,6 +69,8 @@ public class CharaAvatar : MonoBehaviour
         ActionsButtons.Harvest -= HarvestTilesAround;
         ActionsButtons.PassDurigMove -= UseAllMovement;
         RoundManager.RoundEnd -= UseResourcesInStock;
+        RoundManager.RoundEnd -= TilesManager.Instance.SpawnResourcesEndOfTurn;
+        RoundManager.RoundEnd -= SetMaxMouvementRemain;
         ResourceInStock.ResourceEmpty -= ChangeUsingRessource;
     }
 
@@ -168,7 +172,7 @@ public class CharaAvatar : MonoBehaviour
         State = CharacterState.WaitForMoving;
     }
 
-    private void SetMaxMouvementRemain() => mouvementRemain = mouvementRange;
+    private void SetMaxMouvementRemain() => mouvementRemain = mouvementRange + DecretManager.Instance.totalDecreeInfos.numberOfMove;
 
     private void HarvestTilesAround()
     {
@@ -177,7 +181,7 @@ public class CharaAvatar : MonoBehaviour
         {
             SetResourceInStock(tiles[i]);
             tiles[i].tileType = Tile.TypeOfTile.None;
-            tiles[i].State = Tile.StateOfResources.Reloading;
+            tiles[i].SetTypeOfTile();
         }
         Sequence sequence = DOTween.Sequence();
         sequence.AppendInterval(2);
@@ -345,7 +349,7 @@ public class CharaAvatar : MonoBehaviour
         if (mouvementRemain == 0)
         {
             workZone.SetActive(true);
-            mouvementRemain = mouvementRange;
+            SetMaxMouvementRemain();
             TilesManager.Instance.SetNormalColorOfTiles();
             RoundManager.Instance.LaunchEndRound();
             State = CharacterState.WaitForAction;
@@ -359,14 +363,36 @@ public class CharaAvatar : MonoBehaviour
 
     private void SetResourceInStock(Tile resourceFocused)
     {
-        GetResourceInStock(resourceFocused.resourcesInfos.resourceType).NumberInStock += resourceFocused.resourcesInfos.resourcesAmount;
+        resourceFocused.DrawResourceHarvest();
+        if (resourceFocused.tileType == Tile.TypeOfTile.Mouflu)
+        {
+            GetResourceInStock(resourceFocused.resourcesInfos.resourceType).NumberInStock += resourceFocused.resourcesInfos.resourcesAmount + DecretManager.Instance.totalDecreeInfos.collectQuantityMouflu;
+        }
+        else if (resourceFocused.tileType == Tile.TypeOfTile.Rock)
+        {
+            GetResourceInStock(resourceFocused.resourcesInfos.resourceType).NumberInStock += resourceFocused.resourcesInfos.resourcesAmount + DecretManager.Instance.totalDecreeInfos.collectQuantityRock;
+        }
+        else if (resourceFocused.tileType == Tile.TypeOfTile.Wood)
+        {
+            GetResourceInStock(resourceFocused.resourcesInfos.resourceType).NumberInStock += resourceFocused.resourcesInfos.resourcesAmount + DecretManager.Instance.totalDecreeInfos.collectQuantityWood;
+        }
+        else if (resourceFocused.tileType == Tile.TypeOfTile.Berry)
+        {
+            GetResourceInStock(resourceFocused.resourcesInfos.resourceType).NumberInStock += resourceFocused.resourcesInfos.resourcesAmount + DecretManager.Instance.totalDecreeInfos.collectQuantityBerry;
+        }
+
         resourceFocused.State = Tile.StateOfResources.Reloading;
+    }
+    public void SetResourceInStock(GameManager.ResourceType typeOfResource, int amount)
+    {
+        GetResourceInStock(typeOfResource).NumberInStock += amount;
     }
 
     public void BeginMining()
     {
         if(State != CharacterState.Mining)
             State = CharacterState.Mining;
+
     }
 
     void OnTriggerEnter (Collider collider)
@@ -376,7 +402,8 @@ public class CharaAvatar : MonoBehaviour
             Tile tile = collider.GetComponent<Tile>();
             if (tile != null && tile.tileType != Tile.TypeOfTile.None)
             {
-                tile.State = Tile.StateOfResources.Reloading;
+                tile.tileType = Tile.TypeOfTile.None;
+                tile.SetTypeOfTile();
             }
                 
         }
