@@ -178,6 +178,8 @@ public class CharaAvatar : MonoBehaviour
         for (int i = 0; i < tiles.Count; i++)
         {
             SetResourceInStock(tiles[i]);
+            tiles[i].tileType = Tile.TypeOfTile.None;
+            tiles[i].SetTypeOfTile();
         }
         Sequence sequence = DOTween.Sequence();
         sequence.AppendInterval(2);
@@ -375,8 +377,12 @@ public class CharaAvatar : MonoBehaviour
         if (collider.transform.tag == "Hexagone")
         {
             Tile tile = collider.GetComponent<Tile>();
-            if (tile != null)
-                tile.State = Tile.StateOfResources.Reloading;
+            if (tile != null && tile.tileType != Tile.TypeOfTile.None)
+            {
+                tile.tileType = Tile.TypeOfTile.None;
+                tile.SetTypeOfTile();
+            }
+                
         }
     }
 }

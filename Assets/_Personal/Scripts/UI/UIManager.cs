@@ -88,6 +88,7 @@ public class UIManager : Singleton<UIManager>
     {
         RoundManager.LevelEnd += DrawEndLevelPopUp;
         RoundManager.RoundStart += DrawButtons;
+        
         RoundManager.RoundEnd += DrawPopUpResourceStockUsed;
 
         ActionsButtons.Move += HideButtonsMoving;
@@ -95,6 +96,7 @@ public class UIManager : Singleton<UIManager>
         ActionsButtons.PassDurigMove += HideButtons;
         ActionsButtons.Harvest += HideButtons;
         ActionsButtons.Vote += HideButtons;
+        ActionsButtons.ReturnMenu += DrawButtons;
     }
 
     private void UnassignEvents()
@@ -108,6 +110,8 @@ public class UIManager : Singleton<UIManager>
         ActionsButtons.PassDurigMove -= HideButtons;
         ActionsButtons.Harvest -= HideButtons;
         ActionsButtons.Vote -= HideButtons;
+        ActionsButtons.ReturnMenu -= DrawButtons;
+
     }
 
     private void OnEnable()

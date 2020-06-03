@@ -15,13 +15,15 @@ public class ActionsButtons : MonoBehaviour, IPointerUpHandler, IPointerDownHand
         Harvest,
         Pass,
         Vote,
-        PassDurigMove
+        PassDurigMove,
+        ReturnMenu
     }
     public static event Action Move;
     public static event Action Pass;
     public static event Action Harvest;
     public static event Action Vote;
     public static event Action PassDurigMove;
+    public static event Action ReturnMenu;
 
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -51,6 +53,9 @@ public class ActionsButtons : MonoBehaviour, IPointerUpHandler, IPointerDownHand
             case PlayerAction.PassDurigMove:
                 if (PlayerInput.Instance.cityPlayer.State == CharaAvatar.CharacterState.WaitForMoving)
                     PassDurigMove?.Invoke();
+                break;
+            case PlayerAction.ReturnMenu:
+                ReturnMenu?.Invoke();
                 break;
         }
     }

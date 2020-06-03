@@ -15,8 +15,6 @@ public class DecretsInfos
     public int consumptionFoodPercent;
     public int consumptionEnergyPercent;
     public int consumptionBuildPercent;
-    public int speedPercent;
-    public int collectSpeedPercent;
     public int collectRangeMax;
     public int giveMouflu;
     public int giveRock;
@@ -26,10 +24,6 @@ public class DecretsInfos
     public int collectQuantityRock;
     public int collectQuantityWood;
     public int collectQuantityBerry;
-    public int speedRespawnMoufluPercent;
-    public int speedRespawnRockPercent;
-    public int speedRespawnWoodPercent;
-    public int speedRespawnBerryPercent;
 
 
     public enum typeOfDecree

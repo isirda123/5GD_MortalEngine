@@ -5,10 +5,9 @@ using UnityEngine.UI;
 using System.Linq;
 public class DecretManager : MonoBehaviour
 {
+    [SerializeField] int numberOfRoundBetweenDecree;
     int numberOfDecreeAvailable = 0;
     [SerializeField] int timeBetweenTwoDecree;
-    [SerializeField] GameObject canvasMinage;
-    [SerializeField] GameObject canvasResources;
     [SerializeField] GameObject canvasDecree;
     [SerializeField] GameObject availableDecree;
     [SerializeField] GameObject textNoDecreeAvailable;
@@ -38,8 +37,21 @@ public class DecretManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(NewDecree());
+        numberOfDecreeGO = GameObject.Find("Nb Decret");
         allDecree = Resources.LoadAll<DecreeScriptable>("Decree").ToList();
+        numberOfDecreeGO.SetActive(false);
+    }
+
+    void OnEnable()
+    {
+        ActionsButtons.Vote += ChangeDecreeInterface;
+        RoundManager.RoundEnd += addRound;
+    }
+
+    void OnDisable()
+    {
+        ActionsButtons.Vote -= ChangeDecreeInterface;
+        RoundManager.RoundEnd -= addRound;
     }
 
     // Update is called once per frame
@@ -56,17 +68,22 @@ public class DecretManager : MonoBehaviour
         }
     }
 
-
-    IEnumerator NewDecree()
+    void addRound()
     {
-        yield return new WaitForSeconds(timeBetweenTwoDecree);
-        numberOfDecreeAvailable += 1;
-        print("New Decree Available");
-        StartCoroutine(NewDecree());
+        if (RoundManager.Instance.numberOfRound != 0)
+        {
+            if (RoundManager.Instance.numberOfRound % numberOfRoundBetweenDecree == 0)
+            {
+                NewDecree();
+            }
+        }
     }
 
-
-
+    void NewDecree()
+    {
+        numberOfDecreeAvailable += 1;
+        print("New Decree Available");
+    }
 
     public void ChangeDecreeInterface()
     {
@@ -121,16 +138,12 @@ public class DecretManager : MonoBehaviour
 
     void ShowNormalUI()
     {
-        canvasMinage.SetActive(true);
-        canvasResources.SetActive(true);
         decreeCanvasOpen = false;
         UnSelectAllDecree();
         print("Show Game");
     }
     void HideItAll()
     {
-        canvasMinage.SetActive(false);
-        canvasResources.SetActive(false);
         canvasDecree.SetActive(false);
         textNoDecreeAvailable.SetActive(false);
         availableDecree.SetActive(false);
@@ -209,7 +222,7 @@ public class DecretManager : MonoBehaviour
             HideItAll();
             ShowNormalUI();
         }
-
+        RoundManager.Instance.LaunchEndRound();
     }
 
 
@@ -221,8 +234,6 @@ public class DecretManager : MonoBehaviour
         totalDecreeInfos.consumptionFoodPercent += dS.decretsInfos.consumptionFoodPercent;
         totalDecreeInfos.consumptionEnergyPercent += dS.decretsInfos.consumptionEnergyPercent;
         totalDecreeInfos.consumptionBuildPercent += dS.decretsInfos.consumptionBuildPercent;
-        totalDecreeInfos.speedPercent += dS.decretsInfos.speedPercent;
-        totalDecreeInfos.collectSpeedPercent += dS.decretsInfos.collectSpeedPercent;
         totalDecreeInfos.collectRangeMax += dS.decretsInfos.collectRangeMax;
         totalDecreeInfos.giveMouflu += dS.decretsInfos.giveMouflu;
         totalDecreeInfos.giveRock += dS.decretsInfos.giveRock;

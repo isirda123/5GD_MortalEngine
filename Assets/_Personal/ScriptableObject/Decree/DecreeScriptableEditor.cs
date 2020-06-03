@@ -24,8 +24,6 @@ public class DecreeScriptableEditor : Editor
         consumptionFoodPercentFolder,
         consumptionEnergyPercentFolder,
         consumptionBuildPercentFolder,
-        speedPercentFolder,
-        collectSpeedPercentFolder,
         collectRangeMaxFolder,
         giveMoufluFolder,
         giveRockFolder,
@@ -34,11 +32,7 @@ public class DecreeScriptableEditor : Editor
         collectQuantityMoufluFolder,
         collectQuantityRockFolder,
         collectQuantityWoodFolder,
-        collectQuantityBerryFolder,
-        speedRespawnMoufluPercentFolder,
-        speedRespawnRockPercentFolder,
-        speedRespawnWoodPercentFolder,
-        speedRespawnBerryPercentFolder = true;
+        collectQuantityBerryFolder = true;
 
 
     void OnEnable()
@@ -52,8 +46,6 @@ public class DecreeScriptableEditor : Editor
         consumptionFoodPercentFolder=
         consumptionEnergyPercentFolder=
         consumptionBuildPercentFolder=
-        speedPercentFolder=
-        collectSpeedPercentFolder=
         collectRangeMaxFolder=
         giveMoufluFolder=
         giveRockFolder=
@@ -62,11 +54,7 @@ public class DecreeScriptableEditor : Editor
         collectQuantityMoufluFolder=
         collectQuantityRockFolder=
         collectQuantityWoodFolder=
-        collectQuantityBerryFolder=
-        speedRespawnMoufluPercentFolder=
-        speedRespawnRockPercentFolder=
-        speedRespawnWoodPercentFolder=
-        speedRespawnBerryPercentFolder = true;
+        collectQuantityBerryFolder= true;
     }
 
     public override void OnInspectorGUI()
@@ -176,28 +164,6 @@ public class DecreeScriptableEditor : Editor
             EditorGUILayout.Space();
         }
 
-        if (manager.CheckField(DecreeScriptable.TargetFields.speedPercent))
-        {
-            speedPercentFolder = EditorGUILayout.BeginFoldoutHeaderGroup(speedPercentFolder, "Speed Of Avatar");
-            if (speedPercentFolder)
-            {
-                manager.decretsInfos.speedPercent = EditorGUILayout.IntField("Percent", manager.decretsInfos.speedPercent);
-            }
-            EditorGUILayout.EndFoldoutHeaderGroup();
-            EditorGUILayout.Space();
-        }
-
-        if (manager.CheckField(DecreeScriptable.TargetFields.collectSpeedPercent))
-        {
-            collectSpeedPercentFolder = EditorGUILayout.BeginFoldoutHeaderGroup(collectSpeedPercentFolder, "Speed Of Collect");
-            if (collectSpeedPercentFolder)
-            {
-                manager.decretsInfos.collectSpeedPercent = EditorGUILayout.IntField("Percent", manager.decretsInfos.collectSpeedPercent);
-            }
-            EditorGUILayout.EndFoldoutHeaderGroup();
-            EditorGUILayout.Space();
-        }
-
         if (manager.CheckField(DecreeScriptable.TargetFields.collectRangeMax))
         {
             collectRangeMaxFolder = EditorGUILayout.BeginFoldoutHeaderGroup(collectRangeMaxFolder, "Range Of Collect");
@@ -296,52 +262,6 @@ public class DecreeScriptableEditor : Editor
             EditorGUILayout.EndFoldoutHeaderGroup();
             EditorGUILayout.Space();
         }
-
-        if (manager.CheckField(DecreeScriptable.TargetFields.speedRespawnMoufluPercent))
-        {
-            speedRespawnMoufluPercentFolder = EditorGUILayout.BeginFoldoutHeaderGroup(speedRespawnMoufluPercentFolder, "Respawn Speed Mouflu");
-            if (speedRespawnMoufluPercentFolder)
-            {
-                manager.decretsInfos.speedRespawnMoufluPercent = EditorGUILayout.IntField("Percent", manager.decretsInfos.speedRespawnMoufluPercent);
-            }
-            EditorGUILayout.EndFoldoutHeaderGroup();
-            EditorGUILayout.Space();
-        }
-
-        if (manager.CheckField(DecreeScriptable.TargetFields.speedRespawnRockPercent))
-        {
-            speedRespawnRockPercentFolder = EditorGUILayout.BeginFoldoutHeaderGroup(speedRespawnRockPercentFolder, "Respawn Speed Rock");
-            if (speedRespawnRockPercentFolder)
-            {
-                manager.decretsInfos.speedRespawnRockPercent = EditorGUILayout.IntField("Percent", manager.decretsInfos.speedRespawnRockPercent);
-            }
-            EditorGUILayout.EndFoldoutHeaderGroup();
-            EditorGUILayout.Space();
-        }
-
-        if (manager.CheckField(DecreeScriptable.TargetFields.speedRespawnWoodPercent))
-        {
-            speedRespawnWoodPercentFolder = EditorGUILayout.BeginFoldoutHeaderGroup(speedRespawnWoodPercentFolder, "Respawn Speed Wood");
-            if (speedRespawnWoodPercentFolder)
-            {
-                manager.decretsInfos.speedRespawnWoodPercent = EditorGUILayout.IntField("Percent", manager.decretsInfos.speedRespawnWoodPercent);
-            }
-            EditorGUILayout.EndFoldoutHeaderGroup();
-            EditorGUILayout.Space();
-        }
-
-        if (manager.CheckField(DecreeScriptable.TargetFields.speedRespawnBerryPercent))
-        {
-            speedRespawnBerryPercentFolder = EditorGUILayout.BeginFoldoutHeaderGroup(speedRespawnBerryPercentFolder, "Respawn Speed Berry");
-            if (speedRespawnBerryPercentFolder)
-            {
-                manager.decretsInfos.speedRespawnBerryPercent = EditorGUILayout.IntField("Percent", manager.decretsInfos.speedRespawnBerryPercent);
-            }
-            EditorGUILayout.EndFoldoutHeaderGroup();
-            EditorGUILayout.Space();
-        }
-
-
 
         serializedObject.ApplyModifiedProperties();
         AssetDatabase.SaveAssets();
