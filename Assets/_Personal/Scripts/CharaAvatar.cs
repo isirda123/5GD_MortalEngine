@@ -20,10 +20,10 @@ public class CharaAvatar : MonoBehaviour
     //CHARACTER STATE MACHINE
     public enum CharacterState
     {
+        WaitForAction,
         Moving,
         Mining,
         WaitForMoving,
-        WaitForAction
     }
     private CharacterState actualState;
     public CharacterState State
@@ -158,7 +158,6 @@ public class CharaAvatar : MonoBehaviour
     [SerializeField] ResourcesNeedsStartDatas resourcesNeedsStartDatas;
 
     private Tile resourceFocused;
-
 
     private void SetResourceUsed(ResourcesInfos resourceToUseInfos,Need need)
     {
@@ -330,8 +329,7 @@ public class CharaAvatar : MonoBehaviour
         Debug.DrawRay(transform.position - new Vector3(0, -0.5f, 0), -Vector3.up, Color.red, 10);
         if (Physics.Raycast(transform.position - new Vector3(0, -0.5f, 0), -Vector3.up, out hitTile, 3, layerMask))
         {
-            
-            tileUnder = hitTile.transform.GetComponent<Tile>();
+           tileUnder = hitTile.transform.GetComponent<Tile>();
         }
         return tileUnder;
     }
@@ -352,6 +350,7 @@ public class CharaAvatar : MonoBehaviour
             mouvementRemain = mouvementRange;
             TilesManager.Instance.SetNormalColorOfTiles();
             RoundManager.Instance.LaunchEndRound();
+            State = CharacterState.WaitForAction;
         }
         else
         {

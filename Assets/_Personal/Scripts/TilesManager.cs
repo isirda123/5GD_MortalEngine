@@ -285,7 +285,6 @@ public class TilesManager : Singleton<TilesManager>
 
     Tile.TypeOfTile[] spawnResourceTypes = { Tile.TypeOfTile.Wood, Tile.TypeOfTile.Berry, Tile.TypeOfTile.Mouflu };
     public AnimationCurve curve;
-
     public void SpawnResourcesEndOfTurn()
     {
         foreach (Tile.TypeOfTile tileType in spawnResourceTypes)
@@ -299,24 +298,26 @@ public class TilesManager : Singleton<TilesManager>
                         tile.checkedForRespawn = true;
                         List<Tile> allNeighbours = AllNeighboursType(tile);
                         GetGo(allNeighbours);
+                        print(allNeighbours.Count);
                         List<Tile> emptyTileAround = allEmptyTileAround(allNeighbours);
-                        foreach (Tile emptyTile in emptyTileAround)
+                        print(emptyTileAround.Count);
+
+                        if(RoundManager.Instance.numberOfRound % tile.resourcesInfos.nbrOfTurnsToRegrow == 0)
                         {
-                            if (emptyTile.avatarOnMe == false)
+                            int nbrOfTilesToSpawn = Mathf.Clamp(allNeighbours.Count / 3, 0, 2);
+
+                            for (int i = nbrOfTilesToSpawn; i > 0; i--)
                             {
-                                float percent = curve.Evaluate((float)allNeighbours.Count / (float)9) * 0.3f;
-                                if (Random.value < percent)
-                                {
-                                    emptyTile.tileType = tileType;
-                                    emptyTile.checkedForRespawn = true;
-                                }
+                                int randomTileIndex = Random.Range(0, emptyTileAround.Count);
+                                emptyTileAround[randomTileIndex].tileType = tileType;
+                                emptyTileAround[randomTileIndex].checkedForRespawn = true;
+                                emptyTileAround.RemoveAt(randomTileIndex);
                             }
                         }
                     }
                 }
             }
         }
-        print("Spawn");
         
         SetTilesTypes();
         ResetCheckedBool();
