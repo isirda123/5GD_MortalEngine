@@ -16,7 +16,7 @@ public class PlayerInput : Singleton<PlayerInput>
 
     [SerializeField] LayerMask myMask;
     [HideInInspector] public Need needSelected;
-    [SerializeField] CharaAvatar cityPlayer;
+    [SerializeField] public CharaAvatar cityPlayer;
 
     private RaycastHit ReturnRaycastHit()
     {
