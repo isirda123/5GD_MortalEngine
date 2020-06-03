@@ -21,8 +21,8 @@ public class TilesManager : Singleton<TilesManager>
     public void SetAllTiles()
     {
         GetTiles();
-        SetTilesNeighbors();
         SetTilesTypes();
+        SetTilesNeighbors();
     }
 
     [ContextMenu("Set Tiles Types")]
@@ -301,21 +301,23 @@ public class TilesManager : Singleton<TilesManager>
                         print(allNeighbours.Count);
                         List<Tile> emptyTileAround = allEmptyTileAround(allNeighbours);
                         print(emptyTileAround.Count);
-                        foreach (Tile emptyTile in emptyTileAround)
+
+                        if(RoundManager.Instance.numberOfRound % tile.resourcesInfos.nbrOfTurnsToRegrow == 0)
                         {
-                            float percent = curve.Evaluate((float)allNeighbours.Count / (float)9) * 0.3f;
-                            print("Percent : " + percent);
-                            if (Random.value < percent)
+                            int nbrOfTilesToSpawn = Mathf.Clamp(allNeighbours.Count / 3, 0, 2);
+
+                            for (int i = nbrOfTilesToSpawn; i > 0; i--)
                             {
-                                emptyTile.tileType = tileType;
-                                emptyTile.checkedForRespawn = true;
+                                int randomTileIndex = Random.Range(0, emptyTileAround.Count);
+                                emptyTileAround[randomTileIndex].tileType = tileType;
+                                emptyTileAround[randomTileIndex].checkedForRespawn = true;
+                                emptyTileAround.RemoveAt(randomTileIndex);
                             }
                         }
                     }
                 }
             }
         }
-        print("Spawn");
         
         SetTilesTypes();
         ResetCheckedBool();

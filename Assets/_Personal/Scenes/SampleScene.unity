@@ -4771,6 +4771,8 @@ MonoBehaviour:
   myMask:
     serializedVersion: 2
     m_Bits: 544
+  needSelected: {fileID: 0}
+  cityPlayer: {fileID: 0}
 --- !u!4 &330741589
 Transform:
   m_ObjectHideFlags: 0
@@ -16796,6 +16798,11 @@ MonoBehaviour:
   stockViewer: {fileID: 1563956499}
   winPopUp: {fileID: 0}
   loosePopUp: {fileID: 0}
+  actionsButtons: []
+  needViewers: []
+  popUpResourceStock: {fileID: 0}
+  popUpResourceHarvest: {fileID: 0}
+  passDuringMove: {fileID: 0}
 --- !u!1001 &1246231501
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31232,6 +31239,11 @@ PrefabInstance:
       propertyPath: canvasResources
       value: 
       objectReference: {fileID: 546167275}
+    - target: {fileID: 7581480552131979719, guid: e0c838e993008204f8905022b26ff723,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7581480552250555279, guid: e0c838e993008204f8905022b26ff723,
         type: 3}
       propertyPath: m_LocalPosition.x

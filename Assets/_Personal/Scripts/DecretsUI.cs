@@ -31,47 +31,36 @@ public class DecretsUI : MonoBehaviour
         description.text = dS.decretsInfos.flavorText;
         effect.text = "";
         EnterKey();
-        if (dS.decretsInfos.maxFoodPercent != 0)
+        if (dS.decretsInfos.maxMouffluFlat != 0)
         {
-            effect.text += "Nourriture max: " + dS.decretsInfos.maxFoodPercent + "%";
+            effect.text += "Nourriture max: " + dS.decretsInfos.maxMouffluFlat + "%";
             EnterKey();
         }
-        if (dS.decretsInfos.maxEnergyPercent != 0)
+        if (dS.decretsInfos.maxRockFlat != 0)
         {
-            effect.text += "Energie max : " + dS.decretsInfos.maxEnergyPercent + "%";
+            effect.text += "Energie max : " + dS.decretsInfos.maxRockFlat + "%";
             EnterKey();
         }
-        if (dS.decretsInfos.maxConstructionPercent != 0)
+        if (dS.decretsInfos.maxWoodFlat != 0)
         {
-            effect.text += "Construction max : " + dS.decretsInfos.maxConstructionPercent + "%";
+            effect.text += "Construction max : " + dS.decretsInfos.maxWoodFlat + "%";
             EnterKey();
         }
-        if (dS.decretsInfos.consumptionFoodPercent != 0)
+        if (dS.decretsInfos.consumptionFoodFlat != 0)
         {
-            effect.text += "Consommation nourriture : " + dS.decretsInfos.consumptionFoodPercent + "%";
+            effect.text += "Consommation nourriture : " + dS.decretsInfos.consumptionFoodFlat + "%";
             EnterKey();
         }
-        if (dS.decretsInfos.consumptionEnergyPercent != 0)
+        if (dS.decretsInfos.consumptionEnergyFlat != 0)
         {
-            effect.text += "Consommation energie : " + dS.decretsInfos.consumptionEnergyPercent + "%";
+            effect.text += "Consommation energie : " + dS.decretsInfos.consumptionEnergyFlat + "%";
             EnterKey();
         }
-        if (dS.decretsInfos.consumptionBuildPercent != 0)
+        if (dS.decretsInfos.consumptionBuildFlat != 0)
         {
-            effect.text += "Consommation construction : " + dS.decretsInfos.consumptionBuildPercent + "%";
+            effect.text += "Consommation construction : " + dS.decretsInfos.consumptionBuildFlat + "%";
             EnterKey();
         }
-        if (dS.decretsInfos.speedPercent != 0)
-        {
-            effect.text += "Vitesse de déplacement : " + dS.decretsInfos.speedPercent + "%";
-            EnterKey();
-        }
-        if (dS.decretsInfos.collectSpeedPercent != 0)
-        {
-            effect.text += "Vitesse de collecte : " + dS.decretsInfos.collectSpeedPercent + "%";
-            EnterKey();
-        }
-
         if (dS.decretsInfos.collectRangeMax != 0)
         {
             effect.text += "Distance de collect : " + dS.decretsInfos.collectRangeMax;
@@ -123,30 +112,6 @@ public class DecretsUI : MonoBehaviour
         if (dS.decretsInfos.collectQuantityBerry != 0)
         {
             effect.text += "Collecte baie : " + dS.decretsInfos.collectQuantityBerry;
-            EnterKey();
-        }
-
-        if (dS.decretsInfos.speedRespawnMoufluPercent != 0)
-        {
-            effect.text += "Temps respawn Bouflu : " + dS.decretsInfos.collectQuantityBerry + "%";
-            EnterKey();
-        }
-
-        if (dS.decretsInfos.speedRespawnRockPercent != 0)
-        {
-            effect.text += "Temps respawn pierre : " + dS.decretsInfos.speedRespawnRockPercent + "%";
-            EnterKey();
-        }
-
-        if (dS.decretsInfos.speedRespawnWoodPercent != 0)
-        {
-            effect.text += "Temps respawn bois : " + dS.decretsInfos.speedRespawnWoodPercent + "%";
-            EnterKey();
-        }
-
-        if (dS.decretsInfos.speedRespawnBerryPercent != 0)
-        {
-            effect.text += "Temps respawn baie : " + dS.decretsInfos.speedRespawnBerryPercent + "%";
             EnterKey();
         }
     }

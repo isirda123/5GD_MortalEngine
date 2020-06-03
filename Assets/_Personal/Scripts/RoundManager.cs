@@ -5,12 +5,14 @@ using System;
 using DG.Tweening;
 public class RoundManager : Singleton<RoundManager>
 {
-    private int numberOfRound;
+    [HideInInspector]public int numberOfRound =1;
 
     #region EVENTS
     public static event Action<bool> LevelEnd;
     public static event Action RoundEnd;
     public static event Action RoundStart;
+
+
 
     private void AssignEvents()
     {

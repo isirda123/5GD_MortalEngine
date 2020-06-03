@@ -9,14 +9,13 @@ public class DecretsInfos
     public typeOfDecree myTypeOfDecree;
     public string title;
     public string flavorText;
-    public int maxFoodPercent;
-    public int maxEnergyPercent;
-    public int maxConstructionPercent;
-    public int consumptionFoodPercent;
-    public int consumptionEnergyPercent;
-    public int consumptionBuildPercent;
-    public int speedPercent;
-    public int collectSpeedPercent;
+    public int maxMouffluFlat;
+    public int maxRockFlat;
+    public int maxWoodFlat;
+    public int maxBerryFlat;
+    public int consumptionFoodFlat;
+    public int consumptionEnergyFlat;
+    public int consumptionBuildFlat;
     public int collectRangeMax;
     public int giveMouflu;
     public int giveRock;
@@ -26,10 +25,9 @@ public class DecretsInfos
     public int collectQuantityRock;
     public int collectQuantityWood;
     public int collectQuantityBerry;
-    public int speedRespawnMoufluPercent;
-    public int speedRespawnRockPercent;
-    public int speedRespawnWoodPercent;
-    public int speedRespawnBerryPercent;
+    public int numberOfMove;
+    public int fly;
+    public int roundBetweenDecree;
 
 
     public enum typeOfDecree

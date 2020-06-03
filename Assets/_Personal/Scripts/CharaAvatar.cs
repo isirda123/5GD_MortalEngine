@@ -20,10 +20,10 @@ public class CharaAvatar : MonoBehaviour
     //CHARACTER STATE MACHINE
     public enum CharacterState
     {
+        WaitForAction,
         Moving,
         Mining,
         WaitForMoving,
-        WaitForAction
     }
     private CharacterState actualState;
     public CharacterState State
@@ -159,7 +159,6 @@ public class CharaAvatar : MonoBehaviour
 
     private Tile resourceFocused;
 
-
     private void SetResourceUsed(ResourcesInfos resourceToUseInfos,Need need)
     {
         ResourceInStock resourceInStock = GetResourceInStock(resourceToUseInfos.resourceType);
@@ -179,6 +178,8 @@ public class CharaAvatar : MonoBehaviour
         for (int i = 0; i < tiles.Count; i++)
         {
             SetResourceInStock(tiles[i]);
+            tiles[i].tileType = Tile.TypeOfTile.None;
+            tiles[i].SetTypeOfTile();
         }
         Sequence sequence = DOTween.Sequence();
         sequence.AppendInterval(2);
@@ -328,8 +329,7 @@ public class CharaAvatar : MonoBehaviour
         Debug.DrawRay(transform.position - new Vector3(0, -0.5f, 0), -Vector3.up, Color.red, 10);
         if (Physics.Raycast(transform.position - new Vector3(0, -0.5f, 0), -Vector3.up, out hitTile, 3, layerMask))
         {
-            
-            tileUnder = hitTile.transform.GetComponent<Tile>();
+           tileUnder = hitTile.transform.GetComponent<Tile>();
         }
         return tileUnder;
     }
@@ -350,6 +350,7 @@ public class CharaAvatar : MonoBehaviour
             mouvementRemain = mouvementRange;
             TilesManager.Instance.SetNormalColorOfTiles();
             RoundManager.Instance.LaunchEndRound();
+            State = CharacterState.WaitForAction;
         }
         else
         {
@@ -376,8 +377,12 @@ public class CharaAvatar : MonoBehaviour
         if (collider.transform.tag == "Hexagone")
         {
             Tile tile = collider.GetComponent<Tile>();
-            if (tile != null)
-                tile.State = Tile.StateOfResources.Reloading;
+            if (tile != null && tile.tileType != Tile.TypeOfTile.None)
+            {
+                tile.tileType = Tile.TypeOfTile.None;
+                tile.SetTypeOfTile();
+            }
+                
         }
     }
 }
