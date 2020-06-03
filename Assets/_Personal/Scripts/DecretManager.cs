@@ -25,6 +25,7 @@ public class DecretManager : Singleton<DecretManager>
     [SerializeField] List<DecreeScriptable> decreeValidate = new List<DecreeScriptable>();
 
     [HideInInspector] public DecretsInfos totalDecreeInfos;
+    [HideInInspector] CharaAvatar avatar;
 
 
 
@@ -40,6 +41,7 @@ public class DecretManager : Singleton<DecretManager>
         numberOfDecreeGO = GameObject.Find("Nb Decret");
         allDecree = Resources.LoadAll<DecreeScriptable>("Decree").ToList();
         numberOfDecreeGO.SetActive(false);
+        avatar = (CharaAvatar)GameObject.FindObjectOfType(typeof(CharaAvatar));
     }
 
     void OnEnable()
@@ -235,14 +237,26 @@ public class DecretManager : Singleton<DecretManager>
         totalDecreeInfos.consumptionEnergyFlat += dS.decretsInfos.consumptionEnergyFlat;
         totalDecreeInfos.consumptionBuildFlat += dS.decretsInfos.consumptionBuildFlat;
         totalDecreeInfos.collectRangeMax += dS.decretsInfos.collectRangeMax;
+
         totalDecreeInfos.giveMouflu += dS.decretsInfos.giveMouflu;
+        avatar.SetResourceInStock(GameManager.ResourceType.Mouflu, dS.decretsInfos.giveMouflu);
+
         totalDecreeInfos.giveRock += dS.decretsInfos.giveRock;
+        avatar.SetResourceInStock(GameManager.ResourceType.Rock, dS.decretsInfos.giveRock);
+
         totalDecreeInfos.giveWood += dS.decretsInfos.giveWood;
+        avatar.SetResourceInStock(GameManager.ResourceType.Wood, dS.decretsInfos.giveWood);
+
         totalDecreeInfos.giveBerry += dS.decretsInfos.giveBerry;
+        avatar.SetResourceInStock(GameManager.ResourceType.Berry, dS.decretsInfos.giveBerry);
+
         totalDecreeInfos.collectQuantityMouflu += dS.decretsInfos.collectQuantityMouflu;
         totalDecreeInfos.collectQuantityRock += dS.decretsInfos.collectQuantityRock;
         totalDecreeInfos.collectQuantityWood += dS.decretsInfos.collectQuantityWood;
         totalDecreeInfos.collectQuantityBerry += dS.decretsInfos.collectQuantityBerry;
+        totalDecreeInfos.numberOfMove += dS.decretsInfos.numberOfMove;
+        totalDecreeInfos.fly += dS.decretsInfos.fly;
+        totalDecreeInfos.roundBetweenDecree += dS.decretsInfos.roundBetweenDecree;
     }
 
     

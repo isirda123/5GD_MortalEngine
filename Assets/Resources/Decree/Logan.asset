@@ -17,9 +17,10 @@ MonoBehaviour:
     myTypeOfDecree: 0
     title: Logan Porati
     flavorText: Ludovic Moge
-    maxFoodFlat: 0
-    maxEnergyFlat: 0
-    maxConstructionFlat: 0
+    maxMouffluFlat: 0
+    maxRockFlat: 0
+    maxWoodFlat: 0
+    maxBerryFlat: 0
     consumptionFoodFlat: 0
     consumptionEnergyFlat: 0
     consumptionBuildFlat: 0
@@ -28,11 +29,11 @@ MonoBehaviour:
     giveRock: 0
     giveWood: 0
     giveBerry: 0
-    collectQuantityMouflu: 0
-    collectQuantityRock: 0
-    collectQuantityWood: 0
-    collectQuantityBerry: 0
-    numberOfMove: 2
+    collectQuantityMouflu: 50
+    collectQuantityRock: 50
+    collectQuantityWood: 50
+    collectQuantityBerry: 50
+    numberOfMove: 5
     fly: 0
     roundBetweenDecree: 3
-  targetField: 1310727
+  targetField: 2064391
