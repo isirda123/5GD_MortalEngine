@@ -13,7 +13,7 @@ public class TilesManager : Singleton<TilesManager>
 
     [SerializeField] List<Tile> tileReachable = new List<Tile>();
 
-    public List<Tile> Tiles = new List<Tile>();
+    public List<Tile> tiles = new List<Tile>();
 
     [SerializeField]List<Tile> currentPath = null;
 
@@ -28,11 +28,11 @@ public class TilesManager : Singleton<TilesManager>
     [ContextMenu("Set Tiles Types")]
     void SetTilesTypes()
     {
-        for (int i = 0; i < Tiles.Count; i++)
+        for (int i = 0; i < tiles.Count; i++)
         {
-            if (Tiles[i].tag == "Hexagone")
+            if (tiles[i].tag == "Hexagone")
             {
-                Tiles[i].GetComponent<Tile>().DrawStateFeedBack(true);
+                tiles[i].GetComponent<Tile>().DrawVisualTile();
             }
         }
     }
@@ -40,18 +40,18 @@ public class TilesManager : Singleton<TilesManager>
     [ContextMenu("Set Tiles Neighbors")]
     void SetTilesNeighbors()
     {
-        for (int i = 0; i < Tiles.Count; i++)
+        for (int i = 0; i < tiles.Count; i++)
         {
-            if (Tiles[i].tag == "Hexagone")
+            if (tiles[i].tag == "Hexagone")
             {
-                Tiles[i].GetComponent<Tile>().GetTileAround();
+                tiles[i].GetComponent<Tile>().GetTileAround();
             }
         }
     }
 
     public void SetNormalColorOfTiles()
     {
-        foreach (Tile tile in Tiles)
+        foreach (Tile tile in tiles)
         {
             tile.SetNormalColor();
         }
@@ -60,10 +60,10 @@ public class TilesManager : Singleton<TilesManager>
     [ContextMenu("Get tiles")]
     void GetTiles()
     {
-        Tiles.Clear();
+        tiles.Clear();
         for (int i = 0; i < transform.childCount; i++)
         {
-            Tiles.Add(transform.GetChild(i).GetComponent<Tile>());
+            tiles.Add(transform.GetChild(i).GetComponent<Tile>());
         }
     }
 
@@ -91,7 +91,7 @@ public class TilesManager : Singleton<TilesManager>
         previous[start] = null;
 
         //Initialize everything to have inifity distance
-        foreach (Tile go in Tiles)
+        foreach (Tile go in tiles)
         {
             if (go != start)
             {
@@ -166,11 +166,10 @@ public class TilesManager : Singleton<TilesManager>
 
     Tile CheckWhereAvatarIs()
     {
-        foreach(Tile tile in Tiles)
+        foreach(Tile tile in tiles)
         {
             if (tile.avatarOnMe == true)
             {
-                print("find");
                 return tile;
             }
         }
@@ -234,7 +233,7 @@ public class TilesManager : Singleton<TilesManager>
         previous[start] = null;
 
         //Initialize everything to have inifity distance
-        foreach (Tile go in Tiles)
+        foreach (Tile go in tiles)
         {
             if (go != start)
             {
@@ -362,7 +361,7 @@ public class TilesManager : Singleton<TilesManager>
 
     public void ResetCheckedBool()
     {
-        foreach(Tile tile in Tiles)
+        foreach(Tile tile in tiles)
         {
             tile.checkedForRespawn = false;
         }

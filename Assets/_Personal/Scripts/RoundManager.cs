@@ -97,11 +97,6 @@ public class RoundManager : Singleton<RoundManager>
         sequence.OnComplete(() => RoundStart?.Invoke());
     }
 
-    public void LunchStartRound()
-    {
-        RoundStart?.Invoke();
-    }
-
     private void AddRound()
     {
         numberOfRound += 1;

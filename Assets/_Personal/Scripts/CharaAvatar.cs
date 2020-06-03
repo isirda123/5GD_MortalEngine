@@ -57,7 +57,6 @@ public class CharaAvatar : MonoBehaviour
         ActionsButtons.Harvest += HarvestTilesAround;
         ActionsButtons.PassDurigMove += UseAllMovement;
         RoundManager.RoundEnd += UseResourcesInStock;
-        RoundManager.RoundEnd += TilesManager.Instance.SpawnResourcesEndOfTurn;
         RoundManager.RoundEnd += SetMaxMouvementRemain;
         ResourceInStock.ResourceEmpty += ChangeUsingRessource;
     }
@@ -69,7 +68,6 @@ public class CharaAvatar : MonoBehaviour
         ActionsButtons.Harvest -= HarvestTilesAround;
         ActionsButtons.PassDurigMove -= UseAllMovement;
         RoundManager.RoundEnd -= UseResourcesInStock;
-        RoundManager.RoundEnd -= TilesManager.Instance.SpawnResourcesEndOfTurn;
         RoundManager.RoundEnd -= SetMaxMouvementRemain;
         ResourceInStock.ResourceEmpty -= ChangeUsingRessource;
     }
@@ -180,8 +178,7 @@ public class CharaAvatar : MonoBehaviour
         for (int i = 0; i < tiles.Count; i++)
         {
             SetResourceInStock(tiles[i]);
-            tiles[i].tileType = Tile.TypeOfTile.None;
-            tiles[i].SetTypeOfTile();
+            tiles[i].State = Tile.StateOfResources.Reloading;
         }
         Sequence sequence = DOTween.Sequence();
         sequence.AppendInterval(2);
@@ -237,7 +234,6 @@ public class CharaAvatar : MonoBehaviour
 
     private void UseResourcesInStock()
     {
-        print("resource use");
         for (int i = 0; i < needs.Length; i++)
             needs[i].UseResources();
         for (int i = 0; i < needs.Length; i++)
@@ -363,7 +359,6 @@ public class CharaAvatar : MonoBehaviour
 
     private void SetResourceInStock(Tile resourceFocused)
     {
-        resourceFocused.DrawResourceHarvest();
         if (resourceFocused.tileType == Tile.TypeOfTile.Mouflu)
         {
             GetResourceInStock(resourceFocused.resourcesInfos.resourceType).NumberInStock += resourceFocused.resourcesInfos.resourcesAmount + DecretManager.Instance.totalDecreeInfos.collectQuantityMouflu;
@@ -380,8 +375,6 @@ public class CharaAvatar : MonoBehaviour
         {
             GetResourceInStock(resourceFocused.resourcesInfos.resourceType).NumberInStock += resourceFocused.resourcesInfos.resourcesAmount + DecretManager.Instance.totalDecreeInfos.collectQuantityBerry;
         }
-
-        resourceFocused.State = Tile.StateOfResources.Reloading;
     }
     public void SetResourceInStock(GameManager.ResourceType typeOfResource, int amount)
     {
@@ -402,8 +395,7 @@ public class CharaAvatar : MonoBehaviour
             Tile tile = collider.GetComponent<Tile>();
             if (tile != null && tile.tileType != Tile.TypeOfTile.None)
             {
-                tile.tileType = Tile.TypeOfTile.None;
-                tile.SetTypeOfTile();
+                tile.State = Tile.StateOfResources.Reloading;
             }
                 
         }
