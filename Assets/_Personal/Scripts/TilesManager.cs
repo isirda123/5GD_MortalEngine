@@ -21,8 +21,8 @@ public class TilesManager : Singleton<TilesManager>
     public void SetAllTiles()
     {
         GetTiles();
-        SetTilesNeighbors();
         SetTilesTypes();
+        SetTilesNeighbors();
     }
 
     [ContextMenu("Set Tiles Types")]

@@ -18,12 +18,13 @@ public class DecreeScriptableEditor : Editor
     private bool typeOfDecreeFolder,
         titleFolder,
         flavorTextFolder,
-        maxFoodPercentFolder,
-        maxEnergyPercentFolder,
-        maxConstructionPercentFolder,
-        consumptionFoodPercentFolder,
-        consumptionEnergyPercentFolder,
-        consumptionBuildPercentFolder,
+        maxMouffluFlatFolder,
+        maxRockFlatFolder,
+        maxWoodFlatFolder,
+        maxBerryFlatFolder,
+        consumptionFoodFlatFolder,
+        consumptionEnergyFlatFolder,
+        consumptionBuildFlatFolder,
         collectRangeMaxFolder,
         giveMoufluFolder,
         giveRockFolder,
@@ -32,7 +33,10 @@ public class DecreeScriptableEditor : Editor
         collectQuantityMoufluFolder,
         collectQuantityRockFolder,
         collectQuantityWoodFolder,
-        collectQuantityBerryFolder = true;
+        collectQuantityBerryFolder,
+        numberOfMoveFolder,
+        flyFolder,
+        roundBetweenDecreeFolder = true;
 
 
     void OnEnable()
@@ -40,12 +44,13 @@ public class DecreeScriptableEditor : Editor
         typeOfDecreeFolder=
         titleFolder=
         flavorTextFolder=
-        maxFoodPercentFolder=
-        maxEnergyPercentFolder=
-        maxConstructionPercentFolder=
-        consumptionFoodPercentFolder=
-        consumptionEnergyPercentFolder=
-        consumptionBuildPercentFolder=
+        maxMouffluFlatFolder=
+        maxRockFlatFolder=
+        maxWoodFlatFolder=
+        maxBerryFlatFolder=
+        consumptionFoodFlatFolder =
+        consumptionEnergyFlatFolder=
+        consumptionBuildFlatFolder=
         collectRangeMaxFolder=
         giveMoufluFolder=
         giveRockFolder=
@@ -54,7 +59,10 @@ public class DecreeScriptableEditor : Editor
         collectQuantityMoufluFolder=
         collectQuantityRockFolder=
         collectQuantityWoodFolder=
-        collectQuantityBerryFolder= true;
+        collectQuantityBerryFolder=
+        numberOfMoveFolder=
+        flyFolder=
+        roundBetweenDecreeFolder=true;
     }
 
     public override void OnInspectorGUI()
@@ -98,67 +106,78 @@ public class DecreeScriptableEditor : Editor
             EditorGUILayout.Space();
         }
 
-        if (manager.CheckField(DecreeScriptable.TargetFields.maxFoodPercent))
+        if (manager.CheckField(DecreeScriptable.TargetFields.maxMouffluFlat))
         {
-            maxFoodPercentFolder = EditorGUILayout.BeginFoldoutHeaderGroup(maxFoodPercentFolder, "Max Food");
-            if (maxFoodPercentFolder)
+            maxMouffluFlatFolder = EditorGUILayout.BeginFoldoutHeaderGroup(maxMouffluFlatFolder, "Max Moufflu");
+            if (maxMouffluFlatFolder)
             {
-                manager.decretsInfos.maxFoodPercent = EditorGUILayout.IntField("Percent", manager.decretsInfos.maxFoodPercent);
+                manager.decretsInfos.maxMouffluFlat = EditorGUILayout.IntField("Flat", manager.decretsInfos.maxMouffluFlat);
             }
             EditorGUILayout.EndFoldoutHeaderGroup();
             EditorGUILayout.Space();
         }
 
-        if (manager.CheckField(DecreeScriptable.TargetFields.maxEnergyPercent))
+        if (manager.CheckField(DecreeScriptable.TargetFields.maxRockFlat))
         {
-            maxEnergyPercentFolder = EditorGUILayout.BeginFoldoutHeaderGroup(maxEnergyPercentFolder, "Max Energy");
-            if (maxEnergyPercentFolder)
+            maxRockFlatFolder = EditorGUILayout.BeginFoldoutHeaderGroup(maxRockFlatFolder, "Max Rock");
+            if (maxRockFlatFolder)
             {
-                manager.decretsInfos.maxEnergyPercent = EditorGUILayout.IntField("Percent", manager.decretsInfos.maxEnergyPercent);
+                manager.decretsInfos.maxRockFlat = EditorGUILayout.IntField("Flat", manager.decretsInfos.maxRockFlat);
             }
             EditorGUILayout.EndFoldoutHeaderGroup();
             EditorGUILayout.Space();
         }
 
-        if (manager.CheckField(DecreeScriptable.TargetFields.maxConstructionPercent))
+        if (manager.CheckField(DecreeScriptable.TargetFields.maxWoodFlat))
         {
-            maxConstructionPercentFolder = EditorGUILayout.BeginFoldoutHeaderGroup(maxConstructionPercentFolder, "Max Construction");
-            if (maxConstructionPercentFolder)
+            maxWoodFlatFolder = EditorGUILayout.BeginFoldoutHeaderGroup(maxWoodFlatFolder, "Max Wood");
+            if (maxWoodFlatFolder)
             {
-                manager.decretsInfos.maxConstructionPercent = EditorGUILayout.IntField("Percent", manager.decretsInfos.maxConstructionPercent);
+                manager.decretsInfos.maxWoodFlat = EditorGUILayout.IntField("Flat", manager.decretsInfos.maxWoodFlat);
             }
             EditorGUILayout.EndFoldoutHeaderGroup();
             EditorGUILayout.Space();
         }
 
-        if (manager.CheckField(DecreeScriptable.TargetFields.consumptionFoodPercent))
+        if (manager.CheckField(DecreeScriptable.TargetFields.maxBerryFlat))
         {
-            consumptionFoodPercentFolder = EditorGUILayout.BeginFoldoutHeaderGroup(consumptionFoodPercentFolder, "Consumption Food");
-            if (consumptionFoodPercentFolder)
+            maxBerryFlatFolder = EditorGUILayout.BeginFoldoutHeaderGroup(maxBerryFlatFolder, "Max Berry");
+            if (maxBerryFlatFolder)
             {
-                manager.decretsInfos.consumptionFoodPercent = EditorGUILayout.IntField("Percent", manager.decretsInfos.consumptionFoodPercent);
+                manager.decretsInfos.maxBerryFlat = EditorGUILayout.IntField("Flat", manager.decretsInfos.maxBerryFlat);
             }
             EditorGUILayout.EndFoldoutHeaderGroup();
             EditorGUILayout.Space();
         }
 
-        if (manager.CheckField(DecreeScriptable.TargetFields.consumptionEnergyPercent))
+        if (manager.CheckField(DecreeScriptable.TargetFields.consumptionFoodFlat))
         {
-            consumptionEnergyPercentFolder = EditorGUILayout.BeginFoldoutHeaderGroup(consumptionEnergyPercentFolder, "Consumption Energy");
-            if (consumptionEnergyPercentFolder)
+            consumptionFoodFlatFolder = EditorGUILayout.BeginFoldoutHeaderGroup(consumptionFoodFlatFolder, "Consumption Food");
+            if (consumptionFoodFlatFolder)
             {
-                manager.decretsInfos.consumptionEnergyPercent = EditorGUILayout.IntField("Percent", manager.decretsInfos.consumptionEnergyPercent);
+                manager.decretsInfos.consumptionFoodFlat = EditorGUILayout.IntField("Flat", manager.decretsInfos.consumptionFoodFlat);
             }
             EditorGUILayout.EndFoldoutHeaderGroup();
             EditorGUILayout.Space();
         }
 
-        if (manager.CheckField(DecreeScriptable.TargetFields.consumptionBuildPercent))
+        if (manager.CheckField(DecreeScriptable.TargetFields.consumptionEnergyFlat))
         {
-            consumptionBuildPercentFolder = EditorGUILayout.BeginFoldoutHeaderGroup(consumptionBuildPercentFolder, "Consumption Build");
-            if (consumptionBuildPercentFolder)
+            consumptionEnergyFlatFolder = EditorGUILayout.BeginFoldoutHeaderGroup(consumptionEnergyFlatFolder, "Consumption Energy");
+            if (consumptionEnergyFlatFolder)
             {
-                manager.decretsInfos.consumptionBuildPercent = EditorGUILayout.IntField("Percent", manager.decretsInfos.consumptionBuildPercent);
+                manager.decretsInfos.consumptionEnergyFlat = EditorGUILayout.IntField("Flat", manager.decretsInfos.consumptionEnergyFlat);
+            }
+            EditorGUILayout.EndFoldoutHeaderGroup();
+            EditorGUILayout.Space();
+        }
+
+        if (manager.CheckField(DecreeScriptable.TargetFields.consumptionBuildFlat))
+        {
+            consumptionBuildFlatFolder = EditorGUILayout.BeginFoldoutHeaderGroup(consumptionBuildFlatFolder, "Consumption Build");
+            if (consumptionBuildFlatFolder)
+            {
+                manager.decretsInfos.consumptionBuildFlat = EditorGUILayout.IntField("Flat", manager.decretsInfos.consumptionBuildFlat);
             }
             EditorGUILayout.EndFoldoutHeaderGroup();
             EditorGUILayout.Space();
@@ -169,7 +188,7 @@ public class DecreeScriptableEditor : Editor
             collectRangeMaxFolder = EditorGUILayout.BeginFoldoutHeaderGroup(collectRangeMaxFolder, "Range Of Collect");
             if (collectRangeMaxFolder)
             {
-                manager.decretsInfos.collectRangeMax = EditorGUILayout.IntField("Percent", manager.decretsInfos.collectRangeMax);
+                manager.decretsInfos.collectRangeMax = EditorGUILayout.IntField("Flat", manager.decretsInfos.collectRangeMax);
             }
             EditorGUILayout.EndFoldoutHeaderGroup();
             EditorGUILayout.Space();
@@ -262,6 +281,45 @@ public class DecreeScriptableEditor : Editor
             EditorGUILayout.EndFoldoutHeaderGroup();
             EditorGUILayout.Space();
         }
+
+        if (manager.CheckField(DecreeScriptable.TargetFields.numberOfMove))
+        {
+            numberOfMoveFolder = EditorGUILayout.BeginFoldoutHeaderGroup(numberOfMoveFolder, "Number of Move per round");
+            if (numberOfMoveFolder)
+            {
+                manager.decretsInfos.numberOfMove = EditorGUILayout.IntField("Flat", manager.decretsInfos.numberOfMove);
+            }
+            EditorGUILayout.EndFoldoutHeaderGroup();
+            EditorGUILayout.Space();
+        }
+
+        if (manager.CheckField(DecreeScriptable.TargetFields.fly))
+        {
+            flyFolder = EditorGUILayout.BeginFoldoutHeaderGroup(flyFolder, "Fly to avoid Blockers");
+            if (numberOfMoveFolder)
+            {
+                manager.decretsInfos.fly = EditorGUILayout.IntField("0 false 1 true", manager.decretsInfos.fly);
+            }
+            EditorGUILayout.EndFoldoutHeaderGroup();
+            EditorGUILayout.Space();
+        }
+
+        if (manager.CheckField(DecreeScriptable.TargetFields.roundBetweenDecree))
+        {
+            roundBetweenDecreeFolder = EditorGUILayout.BeginFoldoutHeaderGroup(roundBetweenDecreeFolder, "Decrease time between Decree");
+            if (roundBetweenDecreeFolder)
+            {
+                manager.decretsInfos.roundBetweenDecree = EditorGUILayout.IntField("0 false 1 true", manager.decretsInfos.roundBetweenDecree);
+            }
+            EditorGUILayout.EndFoldoutHeaderGroup();
+            EditorGUILayout.Space();
+        }
+
+
+
+
+
+
 
         serializedObject.ApplyModifiedProperties();
         AssetDatabase.SaveAssets();

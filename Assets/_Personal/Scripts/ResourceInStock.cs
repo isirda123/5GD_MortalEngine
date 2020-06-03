@@ -21,7 +21,22 @@ public class ResourceInStock : MonoBehaviour
         {
             if (value <= 0)
                 ResourceEmpty?.Invoke(resourcesInfos.resourceType);
-            amontInStock = Mathf.Clamp(value, 0, amontInStockMax);
+            if (resourcesInfos.resourceType == GameManager.ResourceType.Mouflu)
+            {
+                amontInStock = Mathf.Clamp(value, 0, amontInStockMax + DecretManager.Instance.totalDecreeInfos.maxMouffluFlat);
+            }
+            else if (resourcesInfos.resourceType == GameManager.ResourceType.Rock)
+            {
+                amontInStock = Mathf.Clamp(value, 0, amontInStockMax + DecretManager.Instance.totalDecreeInfos.maxRockFlat);
+            }
+            else if(resourcesInfos.resourceType == GameManager.ResourceType.Wood)
+            {
+                amontInStock = Mathf.Clamp(value, 0, amontInStockMax + DecretManager.Instance.totalDecreeInfos.maxWoodFlat);
+            }
+            else if (resourcesInfos.resourceType == GameManager.ResourceType.Berry)
+            {
+                amontInStock = Mathf.Clamp(value, 0, amontInStockMax + DecretManager.Instance.totalDecreeInfos.maxBerryFlat);
+            }
             ChangeStock?.Invoke(this);
         }
     }

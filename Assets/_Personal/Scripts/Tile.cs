@@ -85,8 +85,8 @@ public class Tile : MonoBehaviour
 
         //North
         //Le new vector3(0,-0.05f,0) c'est parce que sinon ça bug!
-        hits = Physics.RaycastAll(transform.position + new Vector3(0, -0.05f, 0), Vector3.forward, transform.localScale.x + 0.5f);
-        Debug.DrawRay(transform.position + new Vector3(0, -0.05f, 0), (Vector3.forward), Color.magenta);
+        hits = Physics.RaycastAll(transform.position + new Vector3(0, -0.05f, 0), Vector3.forward, transform.localScale.x + 1f);
+        Debug.DrawRay(transform.position + new Vector3(0, -0.05f, 0), (Vector3.forward), Color.magenta,5);
         for (int i =0; i< hits.Length; i++)
         {
             RaycastHit hit = hits[i];
@@ -98,8 +98,8 @@ public class Tile : MonoBehaviour
 
         //North East
 
-        hits = Physics.RaycastAll(transform.position + new Vector3(0, -0.05f, 0), Vector3.forward + Vector3.right, transform.localScale.x + 0.5f);
-        Debug.DrawRay(transform.position + new Vector3(0, -0.05f, 0), (Vector3.forward + Vector3.right), Color.black);
+        hits = Physics.RaycastAll(transform.position + new Vector3(0, -0.05f, 0), Vector3.forward + Vector3.right, transform.localScale.x + 1f);
+        Debug.DrawRay(transform.position + new Vector3(0, -0.05f, 0), (Vector3.forward + Vector3.right), Color.black, 5);
         for (int i = 0; i < hits.Length; i++)
         {
             RaycastHit hit = hits[i];
@@ -112,8 +112,8 @@ public class Tile : MonoBehaviour
 
         //South East
 
-        hits = Physics.RaycastAll(transform.position + new Vector3(0, -0.05f, 0), -Vector3.forward + Vector3.right, transform.localScale.x + 0.5f);
-        Debug.DrawRay(transform.position + new Vector3(0, -0.05f, 0), (-Vector3.forward + Vector3.right), Color.yellow);
+        hits = Physics.RaycastAll(transform.position + new Vector3(0, -0.05f, 0), -Vector3.forward + Vector3.right, transform.localScale.x + 1f);
+        Debug.DrawRay(transform.position + new Vector3(0, -0.05f, 0), (-Vector3.forward + Vector3.right), Color.yellow, 5);
         for (int i = 0; i < hits.Length; i++)
         {
             RaycastHit hit = hits[i];
@@ -124,8 +124,8 @@ public class Tile : MonoBehaviour
         }
 
         //South
-        hits = Physics.RaycastAll(transform.position + new Vector3(0, -0.05f, 0), -Vector3.forward, transform.localScale.x + 0.5f);
-        Debug.DrawRay(transform.position + new Vector3(0, -0.05f, 0), -Vector3.forward, Color.green);
+        hits = Physics.RaycastAll(transform.position + new Vector3(0, -0.05f, 0), -Vector3.forward, transform.localScale.x + 1f);
+        Debug.DrawRay(transform.position + new Vector3(0, -0.05f, 0), -Vector3.forward, Color.green, 5);
         for (int i = 0; i < hits.Length; i++)
         {
             RaycastHit hit = hits[i];
@@ -136,8 +136,8 @@ public class Tile : MonoBehaviour
         }
 
         //South West
-        hits = Physics.RaycastAll(transform.position + new Vector3(0,-0.05f,0), -Vector3.forward - Vector3.right, transform.localScale.x);
-        Debug.DrawRay(transform.position + new Vector3(0, -0.05f, 0), -Vector3.forward - Vector3.right, Color.red);
+        hits = Physics.RaycastAll(transform.position + new Vector3(0,-0.05f,0), -Vector3.forward - Vector3.right, transform.localScale.x +1f);
+        Debug.DrawRay(transform.position + new Vector3(0, -0.05f, 0), -Vector3.forward - Vector3.right, Color.red, 5);
         for (int i = 0; i < hits.Length; i++)
         {
             
@@ -149,8 +149,8 @@ public class Tile : MonoBehaviour
         }
 
         //North West
-        hits = Physics.RaycastAll(transform.position + new Vector3(0, -0.05f, 0), Vector3.forward - Vector3.right, transform.localScale.x);
-        Debug.DrawRay(transform.position + new Vector3(0, -0.05f, 0), (Vector3.forward - Vector3.right), Color.blue);
+        hits = Physics.RaycastAll(transform.position + new Vector3(0, -0.05f, 0), Vector3.forward - Vector3.right, transform.localScale.x +1f);
+        Debug.DrawRay(transform.position + new Vector3(0, -0.05f, 0), (Vector3.forward - Vector3.right), Color.blue, 5);
         for (int i = 0; i < hits.Length; i++)
         {
 
@@ -205,11 +205,17 @@ public class Tile : MonoBehaviour
     {
         if (transform.childCount > 0)
         {
-            Destroy(transform.GetChild(0).gameObject);
+            if (Application.isPlaying == true)
+            {
+                Destroy(transform.GetChild(0).gameObject);
+            }
+            else
+            {
+                DestroyImmediate(transform.GetChild(0).gameObject);
+            }
         }
         switch (tileType)
         {
-            
             case TypeOfTile.None:
                 GetComponent<MeshRenderer>().sharedMaterials[1].color = (Resources.Load("MaterialTiles/None", typeof(Material)) as Material).color;
                 resourcesInfos = null;

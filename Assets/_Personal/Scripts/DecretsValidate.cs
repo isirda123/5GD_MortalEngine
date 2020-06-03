@@ -47,34 +47,34 @@ public class DecretsValidate : MonoBehaviour
     {
         effect = "";
         EnterKey();
-        if (dS.decretsInfos.maxFoodPercent != 0)
+        if (dS.decretsInfos.maxMouffluFlat != 0)
         {
-            effect += "Nourriture max: " + dS.decretsInfos.maxFoodPercent + "%";
+            effect += "Nourriture max: " + dS.decretsInfos.maxMouffluFlat + "%";
             EnterKey();
         }
-        if (dS.decretsInfos.maxEnergyPercent != 0)
+        if (dS.decretsInfos.maxRockFlat != 0)
         {
-            effect += "Energie max : " + dS.decretsInfos.maxEnergyPercent + "%";
+            effect += "Energie max : " + dS.decretsInfos.maxRockFlat + "%";
             EnterKey();
         }
-        if (dS.decretsInfos.maxConstructionPercent != 0)
+        if (dS.decretsInfos.maxWoodFlat != 0)
         {
-            effect += "Construction max : " + dS.decretsInfos.maxConstructionPercent + "%";
+            effect += "Construction max : " + dS.decretsInfos.maxWoodFlat + "%";
             EnterKey();
         }
-        if (dS.decretsInfos.consumptionFoodPercent != 0)
+        if (dS.decretsInfos.consumptionFoodFlat != 0)
         {
-            effect += "Consommation nourriture : " + dS.decretsInfos.consumptionFoodPercent + "%";
+            effect += "Consommation nourriture : " + dS.decretsInfos.consumptionFoodFlat + "%";
             EnterKey();
         }
-        if (dS.decretsInfos.consumptionEnergyPercent != 0)
+        if (dS.decretsInfos.consumptionEnergyFlat != 0)
         {
-            effect += "Consommation energie : " + dS.decretsInfos.consumptionEnergyPercent + "%";
+            effect += "Consommation energie : " + dS.decretsInfos.consumptionEnergyFlat + "%";
             EnterKey();
         }
-        if (dS.decretsInfos.consumptionBuildPercent != 0)
+        if (dS.decretsInfos.consumptionBuildFlat != 0)
         {
-            effect += "Consommation construction : " + dS.decretsInfos.consumptionBuildPercent + "%";
+            effect += "Consommation construction : " + dS.decretsInfos.consumptionBuildFlat + "%";
             EnterKey();
         }
 

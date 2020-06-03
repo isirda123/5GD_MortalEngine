@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
-public class DecretManager : MonoBehaviour
+public class DecretManager : Singleton<DecretManager>
 {
     [SerializeField] int numberOfRoundBetweenDecree;
     int numberOfDecreeAvailable = 0;
@@ -24,7 +24,7 @@ public class DecretManager : MonoBehaviour
     [SerializeField] List<DecreeScriptable> decreeChoosen = new List<DecreeScriptable>();
     [SerializeField] List<DecreeScriptable> decreeValidate = new List<DecreeScriptable>();
 
-    [SerializeField] DecretsInfos totalDecreeInfos;
+    [HideInInspector] public DecretsInfos totalDecreeInfos;
 
 
 
@@ -228,12 +228,12 @@ public class DecretManager : MonoBehaviour
 
     void SetAllDecreeInfos(DecreeScriptable dS)
     {
-        totalDecreeInfos.maxFoodPercent += dS.decretsInfos.maxFoodPercent;
-        totalDecreeInfos.maxEnergyPercent += dS.decretsInfos.maxEnergyPercent;
-        totalDecreeInfos.maxConstructionPercent += dS.decretsInfos.maxConstructionPercent;
-        totalDecreeInfos.consumptionFoodPercent += dS.decretsInfos.consumptionFoodPercent;
-        totalDecreeInfos.consumptionEnergyPercent += dS.decretsInfos.consumptionEnergyPercent;
-        totalDecreeInfos.consumptionBuildPercent += dS.decretsInfos.consumptionBuildPercent;
+        totalDecreeInfos.maxMouffluFlat += dS.decretsInfos.maxMouffluFlat;
+        totalDecreeInfos.maxRockFlat += dS.decretsInfos.maxRockFlat;
+        totalDecreeInfos.maxWoodFlat += dS.decretsInfos.maxWoodFlat;
+        totalDecreeInfos.consumptionFoodFlat += dS.decretsInfos.consumptionFoodFlat;
+        totalDecreeInfos.consumptionEnergyFlat += dS.decretsInfos.consumptionEnergyFlat;
+        totalDecreeInfos.consumptionBuildFlat += dS.decretsInfos.consumptionBuildFlat;
         totalDecreeInfos.collectRangeMax += dS.decretsInfos.collectRangeMax;
         totalDecreeInfos.giveMouflu += dS.decretsInfos.giveMouflu;
         totalDecreeInfos.giveRock += dS.decretsInfos.giveRock;
