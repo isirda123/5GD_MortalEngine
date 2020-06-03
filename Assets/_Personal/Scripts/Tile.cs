@@ -217,6 +217,10 @@ public class Tile : MonoBehaviour
 
     public void DrawVisualTile()
     {
+        if (transform.childCount != 0)
+        {
+            DestroyImmediate(transform.GetChild(0).gameObject);
+        }
         switch (tileType)
         {
             case TypeOfTile.None:
