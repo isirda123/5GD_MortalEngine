@@ -32,7 +32,7 @@ public class TilesManager : Singleton<TilesManager>
         {
             if (Tiles[i].tag == "Hexagone")
             {
-                Tiles[i].GetComponent<Tile>().SetTypeOfTile();
+                Tiles[i].GetComponent<Tile>().DrawStateFeedBack(true);
             }
         }
     }
@@ -285,43 +285,6 @@ public class TilesManager : Singleton<TilesManager>
 
     Tile.TypeOfTile[] spawnResourceTypes = { Tile.TypeOfTile.Wood, Tile.TypeOfTile.Berry, Tile.TypeOfTile.Mouflu };
     public AnimationCurve curve;
-    public void SpawnResourcesEndOfTurn()
-    {
-        foreach (Tile.TypeOfTile tileType in spawnResourceTypes)
-        {
-            foreach (Tile tile in Tiles)
-            {
-                if (tile.checkedForRespawn == false)
-                {
-                    if (tile.tileType == tileType)
-                    {
-                        tile.checkedForRespawn = true;
-                        List<Tile> allNeighbours = AllNeighboursType(tile);
-                        GetGo(allNeighbours);
-                        print(allNeighbours.Count);
-                        List<Tile> emptyTileAround = allEmptyTileAround(allNeighbours);
-                        print(emptyTileAround.Count);
-
-                        if(RoundManager.Instance.numberOfRound % tile.resourcesInfos.nbrOfTurnsToRegrow == 0)
-                        {
-                            int nbrOfTilesToSpawn = Mathf.Clamp(allNeighbours.Count / 3, 0, 2);
-
-                            for (int i = nbrOfTilesToSpawn; i > 0; i--)
-                            {
-                                int randomTileIndex = Random.Range(0, emptyTileAround.Count);
-                                emptyTileAround[randomTileIndex].tileType = tileType;
-                                emptyTileAround[randomTileIndex].checkedForRespawn = true;
-                                emptyTileAround.RemoveAt(randomTileIndex);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        
-        SetTilesTypes();
-        ResetCheckedBool();
-    }
 
     private List<Tile> allEmptyTileAround (List<Tile> heap)
     {

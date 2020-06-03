@@ -57,7 +57,6 @@ public class CharaAvatar : MonoBehaviour
         ActionsButtons.Harvest += HarvestTilesAround;
         ActionsButtons.PassDurigMove += UseAllMovement;
         RoundManager.RoundEnd += UseResourcesInStock;
-        RoundManager.RoundEnd += TilesManager.Instance.SpawnResourcesEndOfTurn;
         ResourceInStock.ResourceEmpty += ChangeUsingRessource;
     }
 
@@ -68,7 +67,6 @@ public class CharaAvatar : MonoBehaviour
         ActionsButtons.Harvest -= HarvestTilesAround;
         ActionsButtons.PassDurigMove -= UseAllMovement;
         RoundManager.RoundEnd -= UseResourcesInStock;
-        RoundManager.RoundEnd -= TilesManager.Instance.SpawnResourcesEndOfTurn;
         ResourceInStock.ResourceEmpty -= ChangeUsingRessource;
     }
 
@@ -179,7 +177,7 @@ public class CharaAvatar : MonoBehaviour
         {
             SetResourceInStock(tiles[i]);
             tiles[i].tileType = Tile.TypeOfTile.None;
-            tiles[i].SetTypeOfTile();
+            tiles[i].State = Tile.StateOfResources.Reloading;
         }
         Sequence sequence = DOTween.Sequence();
         sequence.AppendInterval(2);
@@ -361,7 +359,6 @@ public class CharaAvatar : MonoBehaviour
 
     private void SetResourceInStock(Tile resourceFocused)
     {
-        resourceFocused.DrawResourceHarvest();
         GetResourceInStock(resourceFocused.resourcesInfos.resourceType).NumberInStock += resourceFocused.resourcesInfos.resourcesAmount;
         resourceFocused.State = Tile.StateOfResources.Reloading;
     }
@@ -379,8 +376,7 @@ public class CharaAvatar : MonoBehaviour
             Tile tile = collider.GetComponent<Tile>();
             if (tile != null && tile.tileType != Tile.TypeOfTile.None)
             {
-                tile.tileType = Tile.TypeOfTile.None;
-                tile.SetTypeOfTile();
+                tile.State = Tile.StateOfResources.Reloading;
             }
                 
         }

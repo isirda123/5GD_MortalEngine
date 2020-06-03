@@ -10,9 +10,7 @@ public class Tile : MonoBehaviour
     public static event Action<Tile> TileTouched;
 
     [HideInInspector] public bool checkedForRespawn = false;
-
-
-
+    private int roundNbrOfDesable;
     public void OnMouseUp()
     {
         TileTouched?.Invoke(this);
@@ -20,7 +18,6 @@ public class Tile : MonoBehaviour
 
     public enum TypeOfTile
     {
-        
         None,
         Blocker,
         Wood,
@@ -46,14 +43,17 @@ public class Tile : MonoBehaviour
         switch(stateFocused)
         {
             case StateOfResources.Available:
+                DrawStateFeedBack(true);
                 break;
             case StateOfResources.Reloading:
+                roundNbrOfDesable = RoundManager.Instance.numberOfRound;
+                DrawStateFeedBack(false);
                 break;
         }
         stateResources = stateFocused;
     }
 
-    public void DrawResourceHarvest()
+    private void DrawResourceHarvest()
     {
         GameObject popUpGo = Instantiate(GameManager.Instance.gameAssets.popUpResourceHarvest.gameObject, transform.position + transform.up, Quaternion.identity) as GameObject;
         PopUpResourceHarvest popUp = popUpGo.GetComponent<PopUpResourceHarvest>();
@@ -169,7 +169,6 @@ public class Tile : MonoBehaviour
     {
     #if UNITY_EDITOR
         EditorUtility.SetDirty(this);
-
     #endif
     }
 
@@ -201,9 +200,9 @@ public class Tile : MonoBehaviour
     }
 
 
-    public void SetTypeOfTile()
+    public void DrawStateFeedBack(bool isActive)
     {
-        if (transform.childCount > 0)
+        if (isActive)
         {
             if (Application.isPlaying == true)
             {
@@ -214,39 +213,58 @@ public class Tile : MonoBehaviour
                 DestroyImmediate(transform.GetChild(0).gameObject);
             }
         }
-        switch (tileType)
+        else
         {
-            case TypeOfTile.None:
-                GetComponent<MeshRenderer>().sharedMaterials[1].color = (Resources.Load("MaterialTiles/None", typeof(Material)) as Material).color;
-                resourcesInfos = null;
-                break;
-            case TypeOfTile.Blocker:
-                GetComponent<MeshRenderer>().sharedMaterials[1].color = (Resources.Load("MaterialTiles/Blocker", typeof(Material)) as Material).color;
-                resourcesInfos = null;
-                break;
-            case TypeOfTile.Mouflu:
-                GetComponent<MeshRenderer>().sharedMaterials[1].color = (Resources.Load("MaterialTiles/Mouflu", typeof(Material)) as Material).color;
-                resourcesInfos = Resources.Load("ResourcesInfos/Mouflu", typeof(ResourcesInfos)) as ResourcesInfos;
-                visualResource = Instantiate(Resources.Load("VisualResources/Mouflu", typeof(GameObject)) as GameObject, transform.position,Quaternion.identity, transform);
-                break;
-            case TypeOfTile.Rock:
-                GetComponent<MeshRenderer>().sharedMaterials[1].color = (Resources.Load("MaterialTiles/Rock", typeof(Material)) as Material).color;
-                resourcesInfos = Resources.Load("ResourcesInfos/Rock", typeof(ResourcesInfos)) as ResourcesInfos;
-                visualResource = Instantiate(Resources.Load("VisualResources/Rock", typeof(GameObject)) as GameObject, transform.position,Quaternion.identity, transform);
-                break;
-            case TypeOfTile.Wood:
-                GetComponent<MeshRenderer>().sharedMaterials[1].color = (Resources.Load("MaterialTiles/Wood", typeof(Material)) as Material).color;
-                resourcesInfos = Resources.Load("ResourcesInfos/Wood", typeof(ResourcesInfos)) as ResourcesInfos;
-                visualResource = Instantiate(Resources.Load("VisualResources/Wood", typeof(GameObject)) as GameObject, transform.position,Quaternion.identity, transform);
-                break;
-            case TypeOfTile.Berry:
-                GetComponent<MeshRenderer>().sharedMaterials[1].color = (Resources.Load("MaterialTiles/Berry", typeof(Material)) as Material).color;
-                resourcesInfos = Resources.Load("ResourcesInfos/Berry", typeof(ResourcesInfos)) as ResourcesInfos;
-                visualResource = Instantiate(Resources.Load("VisualResources/Berry", typeof(GameObject)) as GameObject, transform.position,Quaternion.identity, transform);
-                break;
+            switch (tileType)
+            {
+                case TypeOfTile.None:
+                    GetComponent<MeshRenderer>().sharedMaterials[1].color = (Resources.Load("MaterialTiles/None", typeof(Material)) as Material).color;
+                    resourcesInfos = null;
+                    break;
+                case TypeOfTile.Blocker:
+                    GetComponent<MeshRenderer>().sharedMaterials[1].color = (Resources.Load("MaterialTiles/Blocker", typeof(Material)) as Material).color;
+                    resourcesInfos = null;
+                    break;
+                case TypeOfTile.Mouflu:
+                    GetComponent<MeshRenderer>().sharedMaterials[1].color = (Resources.Load("MaterialTiles/Mouflu", typeof(Material)) as Material).color;
+                    resourcesInfos = Resources.Load("ResourcesInfos/Mouflu", typeof(ResourcesInfos)) as ResourcesInfos;
+                    visualResource = Instantiate(Resources.Load("VisualResources/Mouflu", typeof(GameObject)) as GameObject, transform.position, Quaternion.identity, transform);
+                    break;
+                case TypeOfTile.Rock:
+                    GetComponent<MeshRenderer>().sharedMaterials[1].color = (Resources.Load("MaterialTiles/Rock", typeof(Material)) as Material).color;
+                    resourcesInfos = Resources.Load("ResourcesInfos/Rock", typeof(ResourcesInfos)) as ResourcesInfos;
+                    visualResource = Instantiate(Resources.Load("VisualResources/Rock", typeof(GameObject)) as GameObject, transform.position, Quaternion.identity, transform);
+                    break;
+                case TypeOfTile.Wood:
+                    GetComponent<MeshRenderer>().sharedMaterials[1].color = (Resources.Load("MaterialTiles/Wood", typeof(Material)) as Material).color;
+                    resourcesInfos = Resources.Load("ResourcesInfos/Wood", typeof(ResourcesInfos)) as ResourcesInfos;
+                    visualResource = Instantiate(Resources.Load("VisualResources/Wood", typeof(GameObject)) as GameObject, transform.position, Quaternion.identity, transform);
+                    break;
+                case TypeOfTile.Berry:
+                    GetComponent<MeshRenderer>().sharedMaterials[1].color = (Resources.Load("MaterialTiles/Berry", typeof(Material)) as Material).color;
+                    resourcesInfos = Resources.Load("ResourcesInfos/Berry", typeof(ResourcesInfos)) as ResourcesInfos;
+                    visualResource = Instantiate(Resources.Load("VisualResources/Berry", typeof(GameObject)) as GameObject, transform.position, Quaternion.identity, transform);
+                    break;
+            }
         }
-
         SetDirtyEditor();
     }
 
+
+    private void Regrow()
+    {
+        if (roundNbrOfDesable - RoundManager.Instance.numberOfRound > resourcesInfos.nbrOfTurnsToRegrow)
+        {
+            State = StateOfResources.Available;
+        }
+    }
+
+    private void Start()
+    {
+        RoundManager.RoundStart += Regrow;
+    }
+    private void OnDestroy()
+    {
+        RoundManager.RoundStart -= Regrow;
+    }
 }
