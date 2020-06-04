@@ -255,11 +255,11 @@ public class CharaAvatar : MonoBehaviour
 
     private void Move(Tile tileHit)
     {
-        workZone.SetActive(false);
         if (State != CharacterState.WaitForMoving)
         {
             return;
         }
+        workZone.SetActive(false);
         if (tileHit == tileSelectedForMove)
         {
             tileSelectedForMove = null;
@@ -308,9 +308,15 @@ public class CharaAvatar : MonoBehaviour
                     tile.SetNormalColor();
                 }
             }
-            TilesManager.Instance.DrawMoveRange(mouvementRemain);
-            tileSelectedForMove = tileHit;
             List<Tile> preview = TilesManager.Instance.GeneratePathTo(GetTileUnder(), tileHit);
+            TilesManager.Instance.DrawMoveRange(mouvementRemain);
+            if (preview.Count > mouvementRemain +1)
+            {
+                print("Too Far");
+                tileSelectedForMove = null;
+                return;
+            }
+            tileSelectedForMove = tileHit;
             for (int i = 0; i < preview.Count; i++)
             {
                 Color colorLerped = Color.Lerp(Color.yellow, Color.green, ((float)(i + 1) / (float)preview.Count));

@@ -258,14 +258,33 @@ public class Tile : MonoBehaviour
 
     private void Regrow()
     {
-        if (resourcesInfos != null)
+        if (resourcesInfos != null && State != StateOfResources.Available)
         {
             print(RoundManager.Instance.numberOfRound);
             print(roundNbrOfDesable);
-
-            if (RoundManager.Instance.numberOfRound - roundNbrOfDesable > resourcesInfos.nbrOfTurnsToRegrow)
+            int numberOfNeighboursWithSameType = 0;
+            foreach (Tile tile in neighbours)
             {
-                State = StateOfResources.Available;
+                if (tile.tileType == this.tileType)
+                {
+                    if (tile.State == StateOfResources.Available)
+                        numberOfNeighboursWithSameType += 1;
+                }
+            }
+            if (numberOfNeighboursWithSameType == 0)
+            {
+                if (State == StateOfResources.Reloading)
+                {
+                    tileType = TypeOfTile.None;
+                    DrawVisualTile();
+                }
+            }
+            if (resourcesInfos != null)
+            {
+                if (RoundManager.Instance.numberOfRound - roundNbrOfDesable > resourcesInfos.nbrOfTurnsToRegrow)
+                {
+                    State = StateOfResources.Available;
+                }
             }
         }
     }
