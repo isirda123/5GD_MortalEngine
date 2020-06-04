@@ -60,7 +60,8 @@ public class NeedViewer : MonoBehaviour, IPointerDownHandler
         {
             for (int j = 0; j < need.resourcesUsable.Length; j++)
             {
-                if (stockViewer.resourcesViewers[i].resourcesInfos.resourceType == need.resourcesUsable[j])
+                if (stockViewer.resourcesViewers[i].resourcesInfos.resourceType == need.resourcesUsable[j] 
+                    && PlayerInput.Instance.cityPlayer.GetResourceInStock(stockViewer.resourcesViewers[i].resourcesInfos.resourceType).NumberInStock > 0)
                 {
                     stockViewer.resourcesViewers[i].background.color = Color.green;
                 }

@@ -179,6 +179,7 @@ public class CharaAvatar : MonoBehaviour
         {
             SetResourceInStock(tiles[i]);
             tiles[i].State = Tile.StateOfResources.Reloading;
+            tiles[i].DrawResourceHarvest();
         }
         Sequence sequence = DOTween.Sequence();
         sequence.AppendInterval(2);

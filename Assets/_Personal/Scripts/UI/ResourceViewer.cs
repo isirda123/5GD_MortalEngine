@@ -30,7 +30,8 @@ public class ResourceViewer : MonoBehaviour, IPointerUpHandler, IPointerDownHand
         bool canIUseThisResource = false;
         for (int i = 0; i < UIManager.Instance.needViewerSelected.need.resourcesUsable.Length; i++)
         {
-            if (resourcesInfos.resourceType == UIManager.Instance.needViewerSelected.need.resourcesUsable[i])
+            if (resourcesInfos.resourceType == UIManager.Instance.needViewerSelected.need.resourcesUsable[i]
+                && PlayerInput.Instance.cityPlayer.GetResourceInStock(resourcesInfos.resourceType).NumberInStock > 0)
                 canIUseThisResource = true;
         }
         return canIUseThisResource;
