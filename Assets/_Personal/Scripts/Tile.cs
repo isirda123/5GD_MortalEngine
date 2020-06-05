@@ -47,7 +47,6 @@ public class Tile : MonoBehaviour
                 break;
             case StateOfResources.Reloading:
                 roundNbrOfDesable = RoundManager.Instance.numberOfRound;
-                print(roundNbrOfDesable);
                 DrawStateFeedBack(false);
                 break;
         }
@@ -256,22 +255,31 @@ public class Tile : MonoBehaviour
 
     private void DrawStateFeedBack(bool isActive) => transform.GetChild(0).gameObject.SetActive(isActive);
 
+
+
+    public bool CheckForSameTypeAround(List<Tile>neighbours)
+    {
+        bool sameType = false;
+        foreach (Tile tile in neighbours)
+        {
+            if (tile.tileType == this.tileType)
+            {
+                if (tile.State == StateOfResources.Available)
+                    sameType = true;
+            }
+        }
+
+        return sameType;
+    }
+
     private void Regrow()
     {
         if (resourcesInfos != null && State != StateOfResources.Available)
         {
-            print(RoundManager.Instance.numberOfRound);
             print(roundNbrOfDesable);
-            int numberOfNeighboursWithSameType = 0;
-            foreach (Tile tile in neighbours)
-            {
-                if (tile.tileType == this.tileType)
-                {
-                    if (tile.State == StateOfResources.Available)
-                        numberOfNeighboursWithSameType += 1;
-                }
-            }
-            if (numberOfNeighboursWithSameType == 0)
+            bool neighbourWithSameType = CheckForSameTypeAround(neighbours);
+            
+            if (neighbourWithSameType == false)
             {
                 if (State == StateOfResources.Reloading)
                 {
