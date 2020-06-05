@@ -11,8 +11,8 @@ using UnityEditor;
 #endif
 
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(DecreeScriptable))]
-
 public class DecreeScriptableEditor : Editor
 {
     private bool typeOfDecreeFolder,
@@ -330,4 +330,4 @@ public class DecreeScriptableEditor : Editor
 
     }
 }
-
+#endif

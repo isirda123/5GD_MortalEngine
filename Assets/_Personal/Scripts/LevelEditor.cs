@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class LevelEditor : MonoBehaviour
 {
+#if UNITY_EDITOR
     [MenuItem("MyMenu/Do Something with a Shortcut Key %g")]
     static void DoSomethingWithAShortcutKey()
     {
@@ -12,4 +13,5 @@ public class LevelEditor : MonoBehaviour
         }
         Debug.Log("Set tiles");
     }
+#endif
 }
