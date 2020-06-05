@@ -5,7 +5,6 @@ using UnityEngine;
 public class ResourcesInfos : ScriptableObject
 {
     public GameManager.ResourceType resourceType;
-    public float resourcesRoundsToRespawn;
     public float resourcesAmount;
     public float wastForEnergyPerRound;
     public float wastForBuildPerRound;
@@ -15,7 +14,7 @@ public class ResourcesInfos : ScriptableObject
 
     public float WonPerRound
     {
-        get { float wonPerRound; wonPerRound = resourcesAmount / resourcesRoundsToRespawn; return wonPerRound; }
+        get { float wonPerRound; wonPerRound = resourcesAmount / nbrOfTurnsToRegrow; return wonPerRound; }
     }
     public float GetAmontUseFor(Need.NeedType needType)
     {

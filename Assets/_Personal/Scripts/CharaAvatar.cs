@@ -59,6 +59,7 @@ public class CharaAvatar : MonoBehaviour
         RoundManager.RoundEnd += UseResourcesInStock;
         RoundManager.RoundEnd += SetMaxMouvementRemain;
         ResourceInStock.ResourceEmpty += ChangeUsingRessource;
+        ActionsButtons.Harvest += CheckForVictory;
     }
 
     private void UnassignEvents()
@@ -70,6 +71,7 @@ public class CharaAvatar : MonoBehaviour
         RoundManager.RoundEnd -= UseResourcesInStock;
         RoundManager.RoundEnd -= SetMaxMouvementRemain;
         ResourceInStock.ResourceEmpty -= ChangeUsingRessource;
+        ActionsButtons.Harvest -= CheckForVictory;
     }
 
     private void OnEnable()
@@ -177,9 +179,12 @@ public class CharaAvatar : MonoBehaviour
         List<Tile> tiles = GetResourcesAround(GetTileUnder().neighbours);
         for (int i = 0; i < tiles.Count; i++)
         {
-            SetResourceInStock(tiles[i]);
-            tiles[i].State = Tile.StateOfResources.Reloading;
-            tiles[i].DrawResourceHarvest();
+            if (tiles[i].State == Tile.StateOfResources.Available)
+            {
+                SetResourceInStock(tiles[i]);
+                tiles[i].State = Tile.StateOfResources.Reloading;
+                tiles[i].DrawResourceHarvest();
+            }
         }
         Sequence sequence = DOTween.Sequence();
         sequence.AppendInterval(2);
@@ -388,12 +393,107 @@ public class CharaAvatar : MonoBehaviour
         GetResourceInStock(typeOfResource).NumberInStock += amount;
     }
 
-    public void BeginMining()
+    struct ResourceConsume
     {
-        if(State != CharacterState.Mining)
-            State = CharacterState.Mining;
-
+        public GameManager.ResourceType resourceType;
+        public float amountPerRound;
     }
+
+
+    private void CheckForVictory()
+    {
+        bool victory = true;
+        ResourceConsume[] allResourceUsedPerRound = ListToOrganize(GetResourcesUsedPerRound());
+        ResourceConsume[] allResourceGetPerRound = ListToOrganize(GetResourcePerRound());
+
+        for (int i =0; i < allResourceUsedPerRound.Length; i++)
+        {
+            if (allResourceGetPerRound[i].amountPerRound < allResourceUsedPerRound[i].amountPerRound)
+            {
+                //print("NoVictory : " + allResourceGetPerRound[i].resourceType + " :" + allResourceGetPerRound[i].amountPerRound + " - " + allResourceUsedPerRound[i].resourceType + " : " + allResourceUsedPerRound[i].amountPerRound);
+                victory = false;
+            }
+        }
+
+        if (victory)
+        {
+            RoundManager.Instance.EndLevel(true);
+        }
+    }
+
+    private ResourceConsume[] ListToOrganize(List<ResourceConsume> listToOrganize)
+    {
+        ResourceConsume[] order = new ResourceConsume[5];
+        List<ResourceConsume> buffer = new List<ResourceConsume>();
+
+        for (int i = 0; i < listToOrganize.Count; i++)
+        {
+            order[(int)listToOrganize[i].resourceType] = listToOrganize[i];
+        }
+
+        return order;
+    }
+
+    private List<ResourceConsume> GetResourcePerRound()
+    {
+        List<ResourceConsume> allResourceGetPerRound = new List<ResourceConsume>();
+        List<Tile> neighbour = GetTileUnder().neighbours;
+        foreach (Tile tile in neighbour)
+        {
+            if (tile.CheckForSameTypeAround(tile.neighbours))
+            {
+                ResourceConsume rC = new ResourceConsume();
+                if (tile.resourcesInfos != null)
+                {
+                    if (allResourceGetPerRound.Any(x => x.resourceType == tile.resourcesInfos.resourceType))
+                    {
+                        rC = allResourceGetPerRound.Find(x => x.resourceType == tile.resourcesInfos.resourceType);
+                        rC.amountPerRound += tile.resourcesInfos.WonPerRound;
+                        for (int i =0; i < allResourceGetPerRound.Count; i++)
+                        {
+                            if (allResourceGetPerRound[i].resourceType == rC.resourceType)
+                            {
+                                rC.amountPerRound += allResourceGetPerRound[i].amountPerRound;
+                                allResourceGetPerRound.RemoveAt(i);
+                                allResourceGetPerRound.Add(rC);
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        rC.resourceType = tile.resourcesInfos.resourceType;
+                        rC.amountPerRound = tile.resourcesInfos.WonPerRound;
+                        allResourceGetPerRound.Add(rC);
+                    }
+                }
+            }
+        }
+        return allResourceGetPerRound;
+    }
+
+    private List<ResourceConsume> GetResourcesUsedPerRound()
+    {
+        List<ResourceConsume> allResourceNeeded = new List<ResourceConsume>();
+        foreach (Need need in needs)
+        {
+            if (allResourceNeeded.Any(x => x.resourceType == need.ResourceUsed.resourcesInfos.resourceType))
+            {
+                ResourceConsume rC = allResourceNeeded.Find(x => x.resourceType == need.ResourceUsed.resourcesInfos.resourceType);
+                rC.amountPerRound += need.ResourceUsed.resourcesInfos.GetAmontUseFor(need.needType);
+            }
+            else
+            {
+                ResourceConsume rC = new ResourceConsume();
+                rC.resourceType = need.ResourceUsed.resourcesInfos.resourceType;
+                rC.amountPerRound = need.ResourceUsed.resourcesInfos.GetAmontUseFor(need.needType);
+                allResourceNeeded.Add(rC);
+            }
+        }
+
+        return allResourceNeeded;
+    }
+
 
     void OnTriggerEnter (Collider collider)
     {
