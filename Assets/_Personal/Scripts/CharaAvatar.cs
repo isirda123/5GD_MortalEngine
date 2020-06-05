@@ -60,6 +60,7 @@ public class CharaAvatar : MonoBehaviour
         RoundManager.RoundEnd += SetMaxMouvementRemain;
         ResourceInStock.ResourceEmpty += ChangeUsingRessource;
         ActionsButtons.Harvest += CheckForVictory;
+        RoundManager.RoundStart += CheckForNumberOfTurnWithoutDying;
     }
 
     private void UnassignEvents()
@@ -72,6 +73,7 @@ public class CharaAvatar : MonoBehaviour
         RoundManager.RoundEnd -= SetMaxMouvementRemain;
         ResourceInStock.ResourceEmpty -= ChangeUsingRessource;
         ActionsButtons.Harvest -= CheckForVictory;
+        RoundManager.RoundStart -= CheckForNumberOfTurnWithoutDying;
     }
 
     private void OnEnable()
@@ -177,18 +179,31 @@ public class CharaAvatar : MonoBehaviour
     private void HarvestTilesAround()
     {
         List<Tile> tiles = GetResourcesAround(GetTileUnder().neighbours);
-        for (int i = 0; i < tiles.Count; i++)
+        if (SomethingAroundToHarvest(tiles) == true)
         {
-            if (tiles[i].State == Tile.StateOfResources.Available)
+            for (int i = 0; i < tiles.Count; i++)
             {
-                SetResourceInStock(tiles[i]);
-                tiles[i].State = Tile.StateOfResources.Reloading;
-                tiles[i].DrawResourceHarvest();
+                if (tiles[i].State == Tile.StateOfResources.Available)
+                {
+                    SetResourceInStock(tiles[i]);
+                    tiles[i].State = Tile.StateOfResources.Reloading;
+                    tiles[i].DrawResourceHarvest();
+                }
             }
+            SoundManager.Instance.RecolteFeedBackSound();
+            Sequence sequence = DOTween.Sequence();
+            sequence.AppendInterval(2);
+            sequence.OnComplete(() => RoundManager.Instance.LaunchEndRound());
         }
-        Sequence sequence = DOTween.Sequence();
-        sequence.AppendInterval(2);
-        sequence.OnComplete(()=> RoundManager.Instance.LaunchEndRound());
+        else
+        {
+           
+        }
+    }
+
+    public bool SomethingAroundToHarvest(List<Tile>Neighbours)
+    {
+        return true;
     }
 
     public ResourceInStock GetResourceInStock(GameManager.ResourceType resourceType)
@@ -492,6 +507,48 @@ public class CharaAvatar : MonoBehaviour
         }
 
         return allResourceNeeded;
+    }
+
+    void CheckForNumberOfTurnWithoutDying()
+    {
+        bool youAreInDeepShitBro = false;
+        List<ResourceConsume> resourceNeededPerRound = GetResourcesUsedPerRound();
+        for (int i =0; i < resourceNeededPerRound.Count; i++)
+        {
+            if (resourceNeededPerRound[i].resourceType == GameManager.ResourceType.Wood)
+            {
+                if (resourceNeededPerRound[i].amountPerRound >= stock[0].NumberInStock)
+                {
+                    youAreInDeepShitBro = true;
+                }
+            }
+            else if (resourceNeededPerRound[i].resourceType == GameManager.ResourceType.Rock)
+            {
+                if (resourceNeededPerRound[i].amountPerRound >= stock[1].NumberInStock)
+                {
+                    youAreInDeepShitBro = true;
+                }
+            }
+            else if (resourceNeededPerRound[i].resourceType == GameManager.ResourceType.Berry)
+            {
+                if (resourceNeededPerRound[i].amountPerRound >= stock[2].NumberInStock)
+                {
+                    youAreInDeepShitBro = true;
+                }
+            }
+            else if (resourceNeededPerRound[i].resourceType == GameManager.ResourceType.Mouflu)
+            {
+                if (resourceNeededPerRound[i].amountPerRound >= stock[3].NumberInStock)
+                {
+                    youAreInDeepShitBro = true;
+                }
+            }
+        }
+        if (youAreInDeepShitBro == true)
+        {
+            SoundManager.Instance.LowSupplySound();
+        }
+
     }
 
 
