@@ -20,11 +20,12 @@ public class Login : MonoBehaviour
     public GameObject loginPanel;
     public GameObject registerPanel;
 
-    [SerializeField] private string playerUsername;
-    [SerializeField] private string playerEmail;
-    [SerializeField] private string playerPassword;
+    [SerializeField] public string playerUsername;
+    [SerializeField] public string playerEmail;
+    [SerializeField] public string playerPassword;
 
     private static Login instance;
+    public EconomyManager _economyManager;
 
     public void OnEnable() //Singleton Call when the object is enable
     {
@@ -41,7 +42,11 @@ public class Login : MonoBehaviour
     }
     public void Start()
     {
-        //PlayerPrefs.DeleteAll();
+        
+        PlayFabSettings.TitleId = "BFD0A";
+
+        Debug.Log(PlayerPrefs.GetString("EMAIL"));
+        Debug.Log(PlayerPrefs.GetString("PASSWORD"));
 
         if (PlayerPrefs.HasKey("EMAIL")) //If I already logged
         {
@@ -65,8 +70,10 @@ public class Login : MonoBehaviour
     {
         PlayerPrefs.SetString("EMAIL", playerEmail);
         PlayerPrefs.SetString("PASSWORD", playerPassword);
+
         //Disable the panel and go to game
         Debug.Log("logged");
+        _economyManager.GetPlayerData();
     }
 
     private void OnLoginFailure(PlayFabError error)
@@ -82,12 +89,11 @@ public class Login : MonoBehaviour
 
     public void OnClickRegister() //Register button
     {
-        GetUserEmail();
-        GetUserPassword();
-        Debug.Log(playerEmail);
-        Debug.Log(playerPassword);
+        GetPlayerEmail();
+        GetPlayerPassword();
+        GetPlayerUsername();
 
-        var registerRequest = new RegisterPlayFabUserRequest { Email = playerEmail, Password = playerPassword, RequireBothUsernameAndEmail = true, Username = "dev" };
+        var registerRequest = new RegisterPlayFabUserRequest { Email = playerEmail, Password = playerPassword, RequireBothUsernameAndEmail = true, Username = playerUsername };
         PlayFabClientAPI.RegisterPlayFabUser(registerRequest, OnRegisterSuccess, OnRegisterFailure);
     }
     private void OnRegisterSuccess(RegisterPlayFabUserResult result)
@@ -103,14 +109,19 @@ public class Login : MonoBehaviour
     }
 
     #region Get
-    public void GetUserEmail()
+    public void GetPlayerEmail()
     {        
         playerEmail = playerEmailTxt.text;
     }
 
-    public void GetUserPassword()
+    public void GetPlayerPassword()
     {
         playerPassword = playerPasswordTxt.text;
+    }
+
+    public void GetPlayerUsername()
+    {
+        playerUsername = playerUsernameTxt.text;
     }
 
     #endregion
