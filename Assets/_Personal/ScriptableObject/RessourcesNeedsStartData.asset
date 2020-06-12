@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be9148915dcf4c243acb49ecef861d46, type: 3}
   m_Name: RessourcesNeedsStartData
   m_EditorClassIdentifier: 
-  wood: 20
-  berry: 20
+  wood: 200
+  berry: 200
   rock: 0
   mouflu: 0
-  needEnergyStart: 0.5
-  needFoodStart: 0.5
-  needBuildsStart: 0.5
+  needEnergyStart: 1
+  needFoodStart: 1
+  needBuildsStart: 1

@@ -393,19 +393,26 @@ public class CharaAvatar : MonoBehaviour
         GetResourceInStock(typeOfResource).NumberInStock += amount;
     }
 
-    struct ResourceConsume
+    [System.Serializable] struct ResourceConsume
     {
         public GameManager.ResourceType resourceType;
         public float amountPerRound;
     }
 
-
+    [SerializeField]
+    ResourceConsume[] allResourceUsedPerRound;
+    [SerializeField]
+    ResourceConsume[] allResourceGetPerRound;
     private void CheckForVictory()
     {
         bool victory = true;
-        ResourceConsume[] allResourceUsedPerRound = ListToOrganize(GetResourcesUsedPerRound());
-        ResourceConsume[] allResourceGetPerRound = ListToOrganize(GetResourcePerRound());
+allResourceUsedPerRound = ListToOrganize(GetResourcesUsedPerRound());
+allResourceGetPerRound = ListToOrganize(GetResourcePerRound());
 
+        for (int i = 0; i < allResourceUsedPerRound.Length; i++)
+        {
+
+        }
         for (int i =0; i < allResourceUsedPerRound.Length; i++)
         {
             if (allResourceGetPerRound[i].amountPerRound < allResourceUsedPerRound[i].amountPerRound)
@@ -442,26 +449,22 @@ public class CharaAvatar : MonoBehaviour
         {
             if (tile.CheckForSameTypeAround(tile.neighbours))
             {
-                ResourceConsume rC = new ResourceConsume();
                 if (tile.resourcesInfos != null)
                 {
-                    if (allResourceGetPerRound.Any(x => x.resourceType == tile.resourcesInfos.resourceType))
+                    bool resourceAlreadyUsed = false;
+                    for (int i = 0; i < allResourceGetPerRound.Count; i++)
                     {
-                        rC = allResourceGetPerRound.Find(x => x.resourceType == tile.resourcesInfos.resourceType);
-                        rC.amountPerRound += tile.resourcesInfos.WonPerRound;
-                        for (int i =0; i < allResourceGetPerRound.Count; i++)
+                        if(allResourceGetPerRound[i].resourceType == tile.resourcesInfos.resourceType)
                         {
-                            if (allResourceGetPerRound[i].resourceType == rC.resourceType)
-                            {
-                                rC.amountPerRound += allResourceGetPerRound[i].amountPerRound;
-                                allResourceGetPerRound.RemoveAt(i);
-                                allResourceGetPerRound.Add(rC);
-                                break;
-                            }
+                            resourceAlreadyUsed = true;
+                            ResourceConsume rC = allResourceGetPerRound[i];
+                            rC.amountPerRound += tile.resourcesInfos.WonPerRound;
+                            allResourceGetPerRound[i] = rC;
                         }
                     }
-                    else
+                    if(!resourceAlreadyUsed)
                     {
+                        ResourceConsume rC = new ResourceConsume();
                         rC.resourceType = tile.resourcesInfos.resourceType;
                         rC.amountPerRound = tile.resourcesInfos.WonPerRound;
                         allResourceGetPerRound.Add(rC);
@@ -477,12 +480,19 @@ public class CharaAvatar : MonoBehaviour
         List<ResourceConsume> allResourceNeeded = new List<ResourceConsume>();
         foreach (Need need in needs)
         {
-            if (allResourceNeeded.Any(x => x.resourceType == need.ResourceUsed.resourcesInfos.resourceType))
+            bool resourceAlreadyUsed = false;
+            //check if a resource is already used
+            for (int i = 0; i < allResourceNeeded.Count; i++)
             {
-                ResourceConsume rC = allResourceNeeded.Find(x => x.resourceType == need.ResourceUsed.resourcesInfos.resourceType);
-                rC.amountPerRound += need.ResourceUsed.resourcesInfos.GetAmontUseFor(need.needType);
+                if(allResourceNeeded[i].resourceType == need.ResourceUsed.resourcesInfos.resourceType)
+                {
+                    resourceAlreadyUsed = true;
+                    ResourceConsume rC = allResourceNeeded[i];
+                    rC.amountPerRound += need.ResourceUsed.resourcesInfos.GetAmontUseFor(need.needType);
+                    allResourceNeeded[i] = rC;
+                }
             }
-            else
+            if (!resourceAlreadyUsed)
             {
                 ResourceConsume rC = new ResourceConsume();
                 rC.resourceType = need.ResourceUsed.resourcesInfos.resourceType;
@@ -500,7 +510,7 @@ public class CharaAvatar : MonoBehaviour
         if (collider.transform.tag == "Hexagone")
         {
             Tile tile = collider.GetComponent<Tile>();
-            if (tile != null && tile.tileType != Tile.TypeOfTile.None)
+            if (tile != null && tile.tileType != Tile.TypeOfTile.None && tile.State != Tile.StateOfResources.Reloading)
             {
                 tile.State = Tile.StateOfResources.Reloading;
             }

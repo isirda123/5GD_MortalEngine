@@ -276,7 +276,6 @@ public class Tile : MonoBehaviour
     {
         if (resourcesInfos != null && State != StateOfResources.Available)
         {
-            print(roundNbrOfDesable);
             bool neighbourWithSameType = CheckForSameTypeAround(neighbours);
             
             if (neighbourWithSameType == false)

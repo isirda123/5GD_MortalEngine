@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: Berry
   m_EditorClassIdentifier: 
   resourceType: 3
-  resourcesRoundsToRespawn: 20
-  resourcesAmount: 4
-  wastForEnergyPerRound: 4
+  resourcesAmount: 80
+  wastForEnergyPerRound: 60
   wastForBuildPerRound: 0
-  wastForFoodPerRound: 4
+  wastForFoodPerRound: 40
   sprite: {fileID: 21300000, guid: 751ab58a1e0efd246ada6e40f0beb1be, type: 3}
   nbrOfTurnsToRegrow: 2
