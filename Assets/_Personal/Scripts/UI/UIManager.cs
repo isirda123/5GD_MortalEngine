@@ -31,9 +31,14 @@ public class UIManager : Singleton<UIManager>
     private void DrawEndLevelPopUp(bool win)
     {
         if (win)
+        {
             DrawWinPopUp();
+        }
         else
+        {
             DrawLoosePopUp();
+            SoundManager.Instance.GameOverSound();
+        }
     }
 
     private void HideButtons()

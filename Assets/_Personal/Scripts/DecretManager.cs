@@ -224,6 +224,7 @@ public class DecretManager : Singleton<DecretManager>
             HideItAll();
             ShowNormalUI();
         }
+        SoundManager.Instance.DecreeSound();
         RoundManager.Instance.LaunchEndRound();
     }
 

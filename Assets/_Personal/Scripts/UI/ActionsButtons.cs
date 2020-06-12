@@ -59,4 +59,9 @@ public class ActionsButtons : MonoBehaviour, IPointerUpHandler, IPointerDownHand
                 break;
         }
     }
+
+    public void ReturnToMenu()
+    {
+        ReturnMenu?.Invoke();
+    }
 }
