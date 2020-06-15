@@ -408,21 +408,17 @@ public class CharaAvatar : MonoBehaviour
         GetResourceInStock(typeOfResource).NumberInStock += amount;
     }
 
-    [System.Serializable] struct ResourceConsume
+    struct ResourceConsume
     {
         public GameManager.ResourceType resourceType;
         public float amountPerRound;
     }
 
-    [SerializeField]
-    ResourceConsume[] allResourceUsedPerRound;
-    [SerializeField]
-    ResourceConsume[] allResourceGetPerRound;
     private void CheckForVictory()
     {
         bool victory = true;
-allResourceUsedPerRound = ListToOrganize(GetResourcesUsedPerRound());
-allResourceGetPerRound = ListToOrganize(GetResourcePerRound());
+        ResourceConsume[] allResourceUsedPerRound = ListToOrganize(GetResourcesUsedPerRound());
+        ResourceConsume[] allResourceGetPerRound = ListToOrganize(GetResourcePerRound());
 
         for (int i = 0; i < allResourceUsedPerRound.Length; i++)
         {
