@@ -200,7 +200,6 @@ public class Tile : MonoBehaviour
 
     public void SetNormalColor()
     {
-        GetComponent<MeshRenderer>().materials[0].color = (Resources.Load("MaterialTiles/BaseBorderTile", typeof(Material)) as Material).color;
 
         switch (tileType)
         {
