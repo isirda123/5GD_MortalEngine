@@ -16,3 +16,4 @@ MonoBehaviour:
     type: 3}
   popUpResourceStock: {fileID: 676407465981247386, guid: bf3f3c62d0c77db4a83f6078b8096f50,
     type: 3}
+  arrow: {fileID: 559049548936131572, guid: 74dd398f7598ecd43835d7c60633c701, type: 3}

@@ -14,6 +14,8 @@ public class CharaAvatar : MonoBehaviour
     [SerializeField] private int mouvementRange;
     private Tile tileSelectedForMove = null;
     private int mouvementRemain;
+    [SerializeField] Color lerpFrom, LerpTo;
+    LineRenderer line;
     #endregion
 
     #region STATE MACHINE
@@ -333,7 +335,7 @@ public class CharaAvatar : MonoBehaviour
             }
             if (tileSelectedForMove != null)
             {
-                List<Tile>resetTiles = TilesManager.Instance.GeneratePathTo(GetTileUnder(), tileSelectedForMove);
+                List<Tile> resetTiles = TilesManager.Instance.GeneratePathTo(GetTileUnder(), tileSelectedForMove);
                 foreach (Tile tile in resetTiles)
                 {
                     tile.SetNormalColor();
@@ -341,18 +343,42 @@ public class CharaAvatar : MonoBehaviour
             }
             List<Tile> preview = TilesManager.Instance.GeneratePathTo(GetTileUnder(), tileHit);
             TilesManager.Instance.DrawMoveRange(mouvementRemain);
-            if (preview.Count > mouvementRemain +1)
+            if (preview.Count > mouvementRemain + 1)
             {
                 print("Too Far");
                 tileSelectedForMove = null;
                 return;
             }
             tileSelectedForMove = tileHit;
+            List<Vector3> posForArrow = new List<Vector3>();
             for (int i = 0; i < preview.Count; i++)
             {
-                Color colorLerped = Color.Lerp(Color.yellow, Color.green, ((float)(i + 1) / (float)preview.Count));
-                preview[i].GetComponent<MeshRenderer>().materials[1].color = colorLerped;
+                //Color colorLerped = Color.Lerp(lerpFrom, LerpTo, ((float)(i + 1) / (float)preview.Count));
+                //preview[i].GetComponent<MeshRenderer>().materials[1].color = colorLerped;
+                posForArrow.Add(preview[i].transform.position);
+                print("add");
             }
+            if (posForArrow.Count > 0)
+            {
+                print("Print Arrow");
+                SetVisualArrow(posForArrow);
+            }
+        }
+    }
+
+    void SetVisualArrow(List<Vector3> posForArrow)
+    {
+        if (line != null)
+        {
+            Destroy(line.gameObject);
+            line = null;
+        }
+
+        line = (Instantiate(GameManager.Instance.gameAssets.arrow, GetTileUnder().transform.position, Quaternion.identity)).GetComponent<LineRenderer>();
+        line.positionCount = posForArrow.Count;
+        for (int i =0; i < posForArrow.Count; i++)
+        {
+            line.SetPositions(posForArrow.ToArray());
         }
     }
 
