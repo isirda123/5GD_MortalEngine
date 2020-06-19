@@ -54,6 +54,11 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         m_ShuttingDown = false;
     }
 
+    private void Start()
+    {
+        m_ShuttingDown = false;
+    }
+
     private void OnApplicationQuit()
     {
         m_ShuttingDown = true;

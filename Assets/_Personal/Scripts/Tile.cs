@@ -73,8 +73,6 @@ public class Tile : MonoBehaviour
     }
     
 
-
-
     void VisualRespawnResource()
     {
         visualResource.SetActive(true);
@@ -353,7 +351,7 @@ public class Tile : MonoBehaviour
         RoundManager.RoundStart += Regrow;
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         RoundManager.RoundStart -= Regrow;
     }

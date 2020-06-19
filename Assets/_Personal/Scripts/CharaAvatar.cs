@@ -36,8 +36,8 @@ public class CharaAvatar : MonoBehaviour
                 actualState = CharacterState.WaitForAction;
                 break;
             case CharacterState.WaitForMoving:
+                print(TilesManager.Instance);
                 TilesManager.Instance.DrawMoveRange(mouvementRemain);
-
                 actualState = CharacterState.WaitForMoving;
                 break;
             case CharacterState.Moving:
