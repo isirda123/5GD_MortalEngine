@@ -37,7 +37,7 @@ public class RoundManager : Singleton<RoundManager>
         AssignEvents();
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         UnassignEvents();
     }
@@ -86,7 +86,9 @@ public class RoundManager : Singleton<RoundManager>
     public void EndLevel(bool win)
     {
         if (GameManager.Instance.State == GameManager.GameState.Playing)
+        {
             LevelEnd?.Invoke(win);
+        }
     }
 
     public void LaunchEndRound()

@@ -80,7 +80,7 @@ public class CharaAvatar : MonoBehaviour
     {
         AssignEvents();
     }
-    private void OnDesable()
+    private void OnDisable()
     {
         UnassignEvents();
     }
@@ -156,7 +156,6 @@ public class CharaAvatar : MonoBehaviour
     }
     #endregion
 
-    [SerializeField] private GameObject workZone;
     [SerializeField] private Need[] needs;
     [SerializeField] public ResourceInStock[] stock;
     [SerializeField] ResourcesNeedsStartDatas resourcesNeedsStartDatas;
@@ -280,7 +279,6 @@ public class CharaAvatar : MonoBehaviour
         {
             return;
         }
-        workZone.SetActive(false);
         if (tileHit == tileSelectedForMove)
         {
             tileSelectedForMove = null;
@@ -300,7 +298,6 @@ public class CharaAvatar : MonoBehaviour
             mouvementSequence = DOTween.Sequence();
 
             State = CharacterState.Moving;
-            workZone.SetActive(false);
 
             Vector3 start = transform.position;
             for (int i = 0; i < positionToGo.Count; i++)
@@ -371,7 +368,6 @@ public class CharaAvatar : MonoBehaviour
         GetTileUnder().avatarOnMe = true;
         if (mouvementRemain == 0)
         {
-            workZone.SetActive(true);
             SetMaxMouvementRemain();
             TilesManager.Instance.SetNormalColorOfTiles();
             RoundManager.Instance.LaunchEndRound();

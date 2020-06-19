@@ -11,6 +11,7 @@ public class Tile : MonoBehaviour
 
     [HideInInspector] public bool checkedForRespawn = false;
     private int roundNbrOfDesable;
+
     public void OnMouseUp()
     {
         TileTouched?.Invoke(this);
@@ -281,7 +282,7 @@ public class Tile : MonoBehaviour
         RoundManager.RoundStart += Regrow;
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         RoundManager.RoundStart -= Regrow;
     }

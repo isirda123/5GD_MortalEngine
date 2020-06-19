@@ -26,9 +26,6 @@ public class Need : MonoBehaviour
     [SerializeField] public ResourcesInfos[] resourceForValidation;
     [HideInInspector] public float multiplicator;
 
-
-
-
     public bool CanUseResource(GameManager.ResourceType resourceType)
     {   
         //check if the need can use a resource type

@@ -85,7 +85,7 @@ public class NeedViewer : MonoBehaviour, IPointerDownHandler
         CharaAvatar.ResourceUsed += SetResourceUsedAmontText;
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         Need.ResourceUsedChange -= SetNewResourceUsed;
         CharaAvatar.ResourceUsed -= SetResourceUsedAmontText;

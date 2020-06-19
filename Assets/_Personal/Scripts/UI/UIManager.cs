@@ -124,7 +124,7 @@ public class UIManager : Singleton<UIManager>
         AssignEvents();
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         UnassignEvents();
     }
