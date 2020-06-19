@@ -12,6 +12,7 @@ public class Tile : MonoBehaviour
     [HideInInspector] public bool checkedForRespawn = false;
     private int roundNbrOfDesable;
 
+    Vector3 basePosition;
     public void OnMouseUp()
     {
         TileTouched?.Invoke(this);
@@ -64,7 +65,15 @@ public class Tile : MonoBehaviour
 
     public bool avatarOnMe = false;
 
+    public bool reachable = false;
+
+    void Start()
+    {
+        basePosition = this.transform.position;
+    }
     
+
+
 
     void VisualRespawnResource()
     {
@@ -189,10 +198,72 @@ public class Tile : MonoBehaviour
             popUp.SetText((int)resourcesInfos.resourcesAmount + DecretManager.Instance.totalDecreeInfos.collectQuantityBerry);
         }
     }
+
+
     public void SetNormalColor()
     {
         GetComponent<MeshRenderer>().materials[0].color = (Resources.Load("MaterialTiles/BaseBorderTile", typeof(Material)) as Material).color;
+
+        switch (tileType)
+        {
+            case TypeOfTile.None:
+                GetComponent<MeshRenderer>().materials[1].color = (Resources.Load("MaterialTiles/None", typeof(Material)) as Material).color;
+                break;
+            case TypeOfTile.Blocker:
+                GetComponent<MeshRenderer>().materials[1].color = (Resources.Load("MaterialTiles/Blocker", typeof(Material)) as Material).color;
+                break;
+            case TypeOfTile.Mouflu:
+                GetComponent<MeshRenderer>().materials[1].color = (Resources.Load("MaterialTiles/Floor", typeof(Material)) as Material).color;
+                break;
+            case TypeOfTile.Rock:
+                GetComponent<MeshRenderer>().materials[1].color = (Resources.Load("MaterialTiles/Floor", typeof(Material)) as Material).color;
+                break;
+            case TypeOfTile.Wood:
+                GetComponent<MeshRenderer>().materials[1].color = (Resources.Load("MaterialTiles/Floor", typeof(Material)) as Material).color;
+                break;
+            case TypeOfTile.Berry:
+                GetComponent<MeshRenderer>().materials[1].color = (Resources.Load("MaterialTiles/Floor", typeof(Material)) as Material).color;
+                break;
+        }
     }
+
+    public void drawOffsetTile(bool enable)
+    {
+        if (enable == false)
+        {
+            this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - TilesManager.Instance.offSetTile, this.transform.position.z);
+        }
+        else
+        {
+            this.transform.position = basePosition;
+        }
+    }
+
+    public void DrawDisableTile()
+    {
+        switch (tileType)
+        {
+            case TypeOfTile.None:
+                GetComponent<MeshRenderer>().materials[1].color = (Resources.Load("MaterialTiles/NoneDisable", typeof(Material)) as Material).color;
+                break;
+            case TypeOfTile.Blocker:
+                GetComponent<MeshRenderer>().materials[1].color = (Resources.Load("MaterialTiles/BlockerDisable", typeof(Material)) as Material).color;
+                break;
+            case TypeOfTile.Mouflu:
+                GetComponent<MeshRenderer>().materials[1].color = (Resources.Load("MaterialTiles/FloorDisable", typeof(Material)) as Material).color;
+                break;
+            case TypeOfTile.Rock:
+                GetComponent<MeshRenderer>().materials[1].color = (Resources.Load("MaterialTiles/FloorDisable", typeof(Material)) as Material).color;
+                break;
+            case TypeOfTile.Wood:
+                GetComponent<MeshRenderer>().materials[1].color = (Resources.Load("MaterialTiles/FloorDisable", typeof(Material)) as Material).color;
+                break;
+            case TypeOfTile.Berry:
+                GetComponent<MeshRenderer>().materials[1].color = (Resources.Load("MaterialTiles/FloorDisable", typeof(Material)) as Material).color;
+                break;
+        }
+    }
+
 
     public void DrawVisualTile()
     {
@@ -282,7 +353,7 @@ public class Tile : MonoBehaviour
         RoundManager.RoundStart += Regrow;
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         RoundManager.RoundStart -= Regrow;
     }

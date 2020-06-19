@@ -37,6 +37,7 @@ public class CharaAvatar : MonoBehaviour
                 break;
             case CharacterState.WaitForMoving:
                 TilesManager.Instance.DrawMoveRange(mouvementRemain);
+
                 actualState = CharacterState.WaitForMoving;
                 break;
             case CharacterState.Moving:
@@ -54,6 +55,7 @@ public class CharaAvatar : MonoBehaviour
     {
         Tile.TileTouched += Move;
         ActionsButtons.Move += SetWaitForMoving;
+        ActionsButtons.ReturnMenu += SetWaitForAction;
         ActionsButtons.Harvest += HarvestTilesAround;
         ActionsButtons.PassDurigMove += UseAllMovement;
         RoundManager.RoundEnd += UseResourcesInStock;
@@ -67,6 +69,7 @@ public class CharaAvatar : MonoBehaviour
     {
         Tile.TileTouched -= Move;
         ActionsButtons.Move -= SetWaitForMoving;
+        ActionsButtons.ReturnMenu -= SetWaitForAction;
         ActionsButtons.Harvest -= HarvestTilesAround;
         ActionsButtons.PassDurigMove -= UseAllMovement;
         RoundManager.RoundEnd -= UseResourcesInStock;
@@ -171,6 +174,12 @@ public class CharaAvatar : MonoBehaviour
     private void SetWaitForMoving()
     {
         State = CharacterState.WaitForMoving;
+    }
+
+    private void SetWaitForAction()
+    {
+        State = CharacterState.WaitForAction;
+        tileSelectedForMove = null;
     }
 
     private void SetMaxMouvementRemain() => mouvementRemain = mouvementRange + DecretManager.Instance.totalDecreeInfos.numberOfMove;
@@ -283,6 +292,7 @@ public class CharaAvatar : MonoBehaviour
         {
             tileSelectedForMove = null;
             TilesManager.Instance.SetNormalColorOfTiles();
+            TilesManager.Instance.DrawOffset(true);
             if (tileHit.tileType == Tile.TypeOfTile.Blocker)
             {
                 return;
@@ -366,6 +376,9 @@ public class CharaAvatar : MonoBehaviour
     private void EndMove()
     {
         GetTileUnder().avatarOnMe = true;
+        TilesManager.Instance.SetReachableTileTo(false);
+        TilesManager.Instance.DrawOffset(true);
+        TilesManager.Instance.SetNormalColorOfTiles();
         if (mouvementRemain == 0)
         {
             SetMaxMouvementRemain();
@@ -376,6 +389,8 @@ public class CharaAvatar : MonoBehaviour
         else
         {
             TilesManager.Instance.DrawMoveRange(mouvementRemain);
+            UIManager.Instance.returnMenu.gameObject.SetActive(false);
+            UIManager.Instance.passDuringMove.gameObject.SetActive(true);
             State = CharacterState.WaitForMoving;
         }
     }
