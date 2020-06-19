@@ -17,6 +17,8 @@ public class TilesManager : Singleton<TilesManager>
 
     [SerializeField]List<Tile> currentPath = null;
 
+    [Range(0,10)]
+    [SerializeField] public float offSetTile;
     [ContextMenu("Set All Tiles")]
     public void SetAllTiles()
     {
@@ -47,6 +49,22 @@ public class TilesManager : Singleton<TilesManager>
                 tiles[i].GetComponent<Tile>().GetTileAround();
             }
         }
+    }
+
+    public void SetReachableTileTo (bool b)
+    {
+        foreach (Tile tile in tiles)
+        {
+            tile.reachable = b;
+        }
+    }
+    public void DrawOffset(bool enable)
+    {
+        foreach(Tile tile in tiles)
+        {
+            tile.drawOffsetTile(enable);
+        }
+
     }
 
     public void SetNormalColorOfTiles()
@@ -219,7 +237,17 @@ public class TilesManager : Singleton<TilesManager>
 
         foreach(Tile tile in tileReachable)
         {
-            tile.GetComponent<MeshRenderer>().materials[0].color = (Resources.Load("MaterialTiles/BorderReachableTiles", typeof(Material)) as Material).color;
+            tile.reachable = true;
+        }
+
+        foreach (Tile tile in tiles)
+        {
+            if (tile.reachable == false)
+            {
+                tile.DrawDisableTile();
+                tile.drawOffsetTile(true);
+                tile.drawOffsetTile(false);
+            }
         }
 
 
@@ -272,6 +300,8 @@ public class TilesManager : Singleton<TilesManager>
             }
         }
     }
+
+   
 
     //Debug
     void GetGo(List<Tile> tiles)

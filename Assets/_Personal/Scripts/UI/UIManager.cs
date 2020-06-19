@@ -13,6 +13,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] public NeedViewer[] needViewers;
     [SerializeField] PopUpResourceStock popUpResourceStock;
     [SerializeField] PopUpResourceHarvest popUpResourceHarvest;
+    [SerializeField] ActionsButtons returnMenu;
     [SerializeField] ActionsButtons passDuringMove;
 
     private void SetNeedViewers()
@@ -54,7 +55,7 @@ public class UIManager : Singleton<UIManager>
         {
             actionsButtons[i].gameObject.SetActive(false);
         }
-        passDuringMove.gameObject.SetActive(true);
+        returnMenu.gameObject.SetActive(true);
     }
     private void DrawButtons()
     {
@@ -62,6 +63,7 @@ public class UIManager : Singleton<UIManager>
         {
             actionsButtons[i].gameObject.SetActive(true);
         }
+        returnMenu.gameObject.SetActive(false);
         passDuringMove.gameObject.SetActive(false);
     }
 

@@ -369,6 +369,9 @@ public class CharaAvatar : MonoBehaviour
     private void EndMove()
     {
         GetTileUnder().avatarOnMe = true;
+        TilesManager.Instance.SetReachableTileTo(false);
+        TilesManager.Instance.DrawOffset(true);
+        TilesManager.Instance.SetNormalColorOfTiles();
         if (mouvementRemain == 0)
         {
             workZone.SetActive(true);
