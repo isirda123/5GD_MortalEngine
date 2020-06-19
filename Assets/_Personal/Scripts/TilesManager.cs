@@ -396,4 +396,20 @@ public class TilesManager : Singleton<TilesManager>
             tile.checkedForRespawn = false;
         }
     }
+
+    void returnToNormalWorld()
+    {
+        DrawOffset(true);
+        SetNormalColorOfTiles();
+    }
+
+    private void OnEnable()
+    {
+        ActionsButtons.ReturnMenu += returnToNormalWorld;
+    }
+
+    private void OnDestroy()
+    {
+        ActionsButtons.ReturnMenu -= returnToNormalWorld;
+    }
 }

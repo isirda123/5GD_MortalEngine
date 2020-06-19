@@ -37,6 +37,7 @@ public class CharaAvatar : MonoBehaviour
                 break;
             case CharacterState.WaitForMoving:
                 TilesManager.Instance.DrawMoveRange(mouvementRemain);
+
                 actualState = CharacterState.WaitForMoving;
                 break;
             case CharacterState.Moving:
@@ -54,6 +55,7 @@ public class CharaAvatar : MonoBehaviour
     {
         Tile.TileTouched += Move;
         ActionsButtons.Move += SetWaitForMoving;
+        ActionsButtons.ReturnMenu += SetWaitForAction;
         ActionsButtons.Harvest += HarvestTilesAround;
         ActionsButtons.PassDurigMove += UseAllMovement;
         RoundManager.RoundEnd += UseResourcesInStock;
@@ -67,6 +69,7 @@ public class CharaAvatar : MonoBehaviour
     {
         Tile.TileTouched -= Move;
         ActionsButtons.Move -= SetWaitForMoving;
+        ActionsButtons.ReturnMenu -= SetWaitForAction;
         ActionsButtons.Harvest -= HarvestTilesAround;
         ActionsButtons.PassDurigMove -= UseAllMovement;
         RoundManager.RoundEnd -= UseResourcesInStock;
@@ -172,6 +175,12 @@ public class CharaAvatar : MonoBehaviour
     private void SetWaitForMoving()
     {
         State = CharacterState.WaitForMoving;
+    }
+
+    private void SetWaitForAction()
+    {
+        State = CharacterState.WaitForAction;
+        tileSelectedForMove = null;
     }
 
     private void SetMaxMouvementRemain() => mouvementRemain = mouvementRange + DecretManager.Instance.totalDecreeInfos.numberOfMove;
@@ -383,6 +392,8 @@ public class CharaAvatar : MonoBehaviour
         else
         {
             TilesManager.Instance.DrawMoveRange(mouvementRemain);
+            UIManager.Instance.returnMenu.gameObject.SetActive(false);
+            UIManager.Instance.passDuringMove.gameObject.SetActive(true);
             State = CharacterState.WaitForMoving;
         }
     }

@@ -13,8 +13,8 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] public NeedViewer[] needViewers;
     [SerializeField] PopUpResourceStock popUpResourceStock;
     [SerializeField] PopUpResourceHarvest popUpResourceHarvest;
-    [SerializeField] ActionsButtons returnMenu;
-    [SerializeField] ActionsButtons passDuringMove;
+    [SerializeField] public ActionsButtons returnMenu;
+    [SerializeField] public ActionsButtons passDuringMove;
 
     private void SetNeedViewers()
     {
