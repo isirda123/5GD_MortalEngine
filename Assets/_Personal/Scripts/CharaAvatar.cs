@@ -294,6 +294,7 @@ public class CharaAvatar : MonoBehaviour
         {
             tileSelectedForMove = null;
             TilesManager.Instance.SetNormalColorOfTiles();
+            TilesManager.Instance.DrawOffset(true);
             if (tileHit.tileType == Tile.TypeOfTile.Blocker)
             {
                 return;
