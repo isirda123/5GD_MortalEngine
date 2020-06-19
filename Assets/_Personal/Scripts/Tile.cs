@@ -190,28 +190,7 @@ public class Tile : MonoBehaviour
     }
     public void SetNormalColor()
     {
-        switch (tileType)
-        {
-
-            case TypeOfTile.None:
-                GetComponent<MeshRenderer>().materials[1].color = (Resources.Load("MaterialTiles/None", typeof(Material)) as Material).color;
-                break;
-            case TypeOfTile.Blocker:
-                GetComponent<MeshRenderer>().materials[1].color = (Resources.Load("MaterialTiles/Blocker", typeof(Material)) as Material).color;
-                break;
-            case TypeOfTile.Mouflu:
-                GetComponent<MeshRenderer>().materials[1].color = (Resources.Load("MaterialTiles/Mouflu", typeof(Material)) as Material).color;
-                break;
-            case TypeOfTile.Rock:
-                GetComponent<MeshRenderer>().materials[1].color = (Resources.Load("MaterialTiles/Rock", typeof(Material)) as Material).color;
-                break;
-            case TypeOfTile.Wood:
-                GetComponent<MeshRenderer>().materials[1].color = (Resources.Load("MaterialTiles/Wood", typeof(Material)) as Material).color;
-                break;
-            case TypeOfTile.Berry:
-                GetComponent<MeshRenderer>().materials[1].color = (Resources.Load("MaterialTiles/Berry", typeof(Material)) as Material).color;
-                break;
-        }
+        GetComponent<MeshRenderer>().materials[0].color = (Resources.Load("MaterialTiles/BaseBorderTile", typeof(Material)) as Material).color;
     }
 
     public void DrawVisualTile()

@@ -219,7 +219,7 @@ public class TilesManager : Singleton<TilesManager>
 
         foreach(Tile tile in tileReachable)
         {
-            tile.GetComponent<MeshRenderer>().materials[1].color = Color.cyan;
+            tile.GetComponent<MeshRenderer>().materials[0].color = (Resources.Load("MaterialTiles/BorderReachableTiles", typeof(Material)) as Material).color;
         }
 
 
