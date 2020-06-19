@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: be9148915dcf4c243acb49ecef861d46, type: 3}
-  m_Name: RNS_tuto_00
+  m_Name: RNS_05
   m_EditorClassIdentifier: 
-  wood: 100
-  berry: 100
+  wood: 200
+  berry: 200
   rock: 0
   mouflu: 0
   needEnergyStart: 1

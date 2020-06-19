@@ -34,7 +34,7 @@ public class Tile : MonoBehaviour
         Reloading,
     }
 
-     public ResourcesInfos resourcesInfos = null;
+    public ResourcesInfos resourcesInfos = null;
 
     public TypeOfTile tileType;
 
