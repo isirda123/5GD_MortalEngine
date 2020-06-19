@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouvementAnimationSpeed: 3
-  mouvementRange: 4
+  mouvementRange: 3
   workZone: {fileID: 8328702119486262992}
   needs:
   - {fileID: 8328702119957186977}

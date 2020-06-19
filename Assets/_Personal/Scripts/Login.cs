@@ -8,8 +8,9 @@ using TMPro;
 using JsonObject = PlayFab.Json.JsonObject;
 using System.Runtime.CompilerServices;
 using System.Collections.Specialized;
+#if UNITY_EDITOR
 using PlayFab.PfEditor.Json;
-
+#endif
 
 public class Login : MonoBehaviour
 {

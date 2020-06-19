@@ -1,4 +1,6 @@
-﻿using PlayFab.PfEditor.EditorModels;
+﻿#if UNITY_EDITOR	
+using PlayFab.PfEditor.EditorModels;
+#endif
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
