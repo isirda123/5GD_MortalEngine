@@ -12,7 +12,7 @@ public class NeedViewer : MonoBehaviour, IPointerDownHandler
     [SerializeField] private Image ressourceUsedImage;
     [SerializeField] private TextMeshProUGUI resourceUsedSotck;
     [SerializeField] private TextMeshProUGUI resourceUsedPerRound;
-    [SerializeField] private Need.NeedType needType;
+    [SerializeField] public Need.NeedType needType;
     [HideInInspector] public Need need;
 
     public void SetResourceUsedAmontText(Need need)
@@ -33,13 +33,16 @@ public class NeedViewer : MonoBehaviour, IPointerDownHandler
 
     public void SetImageResourceUsed(Need need)
     {
+        print("set image resource used : need " + need.needType);
+        print("set image resource used : this.need " + this.need.needType);
         if (need == this.need)
         {
+            print(need);
+            print(need.ResourceUsed);
             ressourceUsedImage.sprite = need.ResourceUsed.resourcesInfos.sprite;
         }
     }
     
-
     public void OnPointerDown(PointerEventData eventData)
     {
         DrawStockViewer();
@@ -58,6 +61,7 @@ public class NeedViewer : MonoBehaviour, IPointerDownHandler
         }
         for (int i = 0; i < stockViewer.resourcesViewers.Length; i++)
         {
+            print(need);
             for (int j = 0; j < need.resourcesUsable.Length; j++)
             {
                 if (stockViewer.resourcesViewers[i].resourcesInfos.resourceType == need.resourcesUsable[j] 
@@ -74,6 +78,7 @@ public class NeedViewer : MonoBehaviour, IPointerDownHandler
 
     private void SetNewResourceUsed(Need need)
     {
+        print("set new resource used " + need.needType);
         SetImageResourceUsed(need);
         SetResourceUsedAmontText(need);
         SetResourceUsedPerRoundText(need);

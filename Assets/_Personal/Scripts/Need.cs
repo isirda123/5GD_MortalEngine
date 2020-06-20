@@ -19,6 +19,7 @@ public class Need : MonoBehaviour
         set
         {
             resourceUsed = value;
+            print("resource used changed " + needType + " value : " + value.resourcesInfos.resourceType);
             ResourceUsedChange?.Invoke(this);
         }
     }

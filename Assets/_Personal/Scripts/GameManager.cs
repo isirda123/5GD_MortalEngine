@@ -50,7 +50,7 @@ public class GameManager : Singleton<GameManager>
             SceneManager.LoadScene(levelId);
         }
     }
-    private void Start()
+    private void OnEnable()
     {
         RoundManager.LevelEnd += CountDownLoadLevel;
     }

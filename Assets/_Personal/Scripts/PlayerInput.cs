@@ -33,6 +33,7 @@ public class PlayerInput : Singleton<PlayerInput>
 
     public void ChangeNeedSelectedResourceUse(ResourcesInfos resourceToSet)
     {
+        print("change need selected resource use");
         needSelected.ResourceUsed = cityPlayer.GetResourceInStock(resourceToSet.resourceType);
     }
 

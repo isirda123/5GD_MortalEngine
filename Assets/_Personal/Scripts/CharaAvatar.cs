@@ -84,7 +84,12 @@ public class CharaAvatar : MonoBehaviour
     private void OnEnable()
     {
         AssignEvents();
+
+        SetStartingValues();
+        SetMaxMouvementRemain();
+        GetTileUnder().avatarOnMe = true;
     }
+
     private void OnDisable()
     {
         UnassignEvents();
@@ -93,12 +98,13 @@ public class CharaAvatar : MonoBehaviour
     #endregion
 
     #region START SETTINGS
-    void Start()
-    {
-        SetStartingValues();
-        SetMaxMouvementRemain();
-        GetTileUnder().avatarOnMe = true;
-    }
+
+    //void Start()
+    //{
+    //    SetStartingValues();
+    //    SetMaxMouvementRemain();
+    //    GetTileUnder().avatarOnMe = true;
+    //}
 
     private void SetStartingValues()
     {
@@ -147,6 +153,7 @@ public class CharaAvatar : MonoBehaviour
     }
     private void SetNeeds()
     {
+        print("set needs start");
         for (int i = 0; i < needs.Length; i++)
         {
             ResourceInStock firstResourceUsable = null;
@@ -156,12 +163,14 @@ public class CharaAvatar : MonoBehaviour
                 if (resourceInStock.NumberInStock > 0)
                     firstResourceUsable = resourceInStock;
             }
+            print("set needs " + needs[i].needType);
+            print(firstResourceUsable);
             needs[i].ResourceUsed = firstResourceUsable;
         }
     }
     #endregion
 
-    [SerializeField] private Need[] needs;
+    [SerializeField] public Need[] needs;
     [SerializeField] public ResourceInStock[] stock;
     [SerializeField] ResourcesNeedsStartDatas resourcesNeedsStartDatas;
 
@@ -170,6 +179,7 @@ public class CharaAvatar : MonoBehaviour
     private void SetResourceUsed(ResourcesInfos resourceToUseInfos,Need need)
     {
         ResourceInStock resourceInStock = GetResourceInStock(resourceToUseInfos.resourceType);
+        print("set resource used");
         PlayerInput.Instance.needSelected.ResourceUsed = resourceInStock;
     }
 
@@ -231,6 +241,8 @@ public class CharaAvatar : MonoBehaviour
 
     private void ChangeUsingRessource(GameManager.ResourceType emptyResource)
     {
+        print("change using resource");
+
         for (int i = 0; i < needs.Length; i++)
         {
             if (needs[i].ResourceUsed == null)

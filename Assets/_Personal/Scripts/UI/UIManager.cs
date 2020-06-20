@@ -18,7 +18,14 @@ public class UIManager : Singleton<UIManager>
 
     private void SetNeedViewers()
     {
-
+        for (int i = 0; i < needViewers.Length; i++)
+        {
+            for (int j = 0; j < PlayerInput.Instance.cityPlayer.needs.Length; j++)
+            {
+                if (needViewers[i].needType == PlayerInput.Instance.cityPlayer.needs[j].needType)
+                    needViewers[i].need = PlayerInput.Instance.cityPlayer.needs[j];
+            }
+        }
     }
 
     private void DrawWinPopUp()
@@ -124,6 +131,7 @@ public class UIManager : Singleton<UIManager>
     private void OnEnable()
     {
         AssignEvents();
+        SetNeedViewers();
     }
 
     private void OnDisable()
