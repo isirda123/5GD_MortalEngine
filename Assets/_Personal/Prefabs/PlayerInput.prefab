@@ -49,6 +49,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouvementAnimationSpeed: 3
   mouvementRange: 3
+  lerpFrom: {r: 0, g: 0, b: 0, a: 0}
+  LerpTo: {r: 0, g: 0, b: 0, a: 0}
   needs:
   - {fileID: 8328702119957186977}
   - {fileID: 8328702119816191160}
@@ -297,7 +299,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourcesInfos: {fileID: 11400000, guid: 5cd3135e6fce66c479a4c696d2c3c0e0, type: 2}
   amontInStock: 0
-  amontInStockMax: 1000
+  amontInStockMax: 50
 --- !u!1 &8328702119816191166
 GameObject:
   m_ObjectHideFlags: 0
