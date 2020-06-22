@@ -45,11 +45,13 @@ public class Tile : MonoBehaviour
         switch(stateFocused)
         {
             case StateOfResources.Available:
-                DrawStateFeedBack(true);
+                //DrawStateFeedBack(true);
                 break;
             case StateOfResources.Reloading:
                 roundNbrOfDesable = RoundManager.Instance.numberOfRound;
-                DrawStateFeedBack(false);
+                // DrawStateFeedBack(false);
+                SpriteRenderer sR = this.transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>();
+                sR.sprite = null;
                 break;
         }
         stateResources = stateFocused;
@@ -313,6 +315,7 @@ public class Tile : MonoBehaviour
         {
             if (tile.tileType == this.tileType)
             {
+                
                 if (tile.State == StateOfResources.Available)
                     sameType = true;
             }
@@ -325,6 +328,12 @@ public class Tile : MonoBehaviour
     {
         if (resourcesInfos != null && State != StateOfResources.Available)
         {
+            if (this.avatarOnMe == true)
+            {
+                print("avatarOnMe");
+                roundNbrOfDesable = RoundManager.Instance.numberOfRound;
+            }
+            print("PärtDone");
             bool neighbourWithSameType = CheckForSameTypeAround(neighbours);
             
             if (neighbourWithSameType == false)
@@ -335,14 +344,24 @@ public class Tile : MonoBehaviour
                     DrawVisualTile();
                 }
             }
+            print("Before Colapse");
             if (resourcesInfos != null)
             {
                 if (RoundManager.Instance.numberOfRound - roundNbrOfDesable > resourcesInfos.nbrOfTurnsToRegrow)
                 {
                     State = StateOfResources.Available;
+                    SpriteRenderer sR = this.transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>();
+                    sR.sprite = resourcesInfos.visualOfRegrowingResource[RoundManager.Instance.numberOfRound - roundNbrOfDesable - 1];
+                }
+                else
+                {
+                    SpriteRenderer sR= this.transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>();
+                    if (RoundManager.Instance.numberOfRound - roundNbrOfDesable>0)
+                        sR.sprite = resourcesInfos.visualOfRegrowingResource[RoundManager.Instance.numberOfRound - roundNbrOfDesable - 1];
                 }
             }
         }
+        print("EndOfFunction");
     }
 
     private void OnEnable()

@@ -19,3 +19,7 @@ MonoBehaviour:
   wastForFoodPerRound: 40
   sprite: {fileID: 21300000, guid: 751ab58a1e0efd246ada6e40f0beb1be, type: 3}
   nbrOfTurnsToRegrow: 2
+  visualOfRegrowingResource:
+  - {fileID: 21300000, guid: 69c496dd57d589b45a80346aaa6e0e97, type: 3}
+  - {fileID: 21300000, guid: 56c12e84c4058f94083f7a1e89b4e234, type: 3}
+  - {fileID: 741109447367382677, guid: e8d76fe45885438408c872e7a98f3e35, type: 3}

@@ -11,6 +11,8 @@ public class ResourcesInfos : ScriptableObject
     public float wastForFoodPerRound;
     public Sprite sprite;
     public int nbrOfTurnsToRegrow;
+    [Tooltip("Same Value of NumberOfTurnsToRegrow + 1")]
+    public Sprite[] visualOfRegrowingResource;
 
     public float WonPerRound
     {
