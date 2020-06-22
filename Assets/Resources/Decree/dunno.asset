@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a8c48185ad84304588d4268def754e5, type: 3}
-  m_Name: TrOfOrT
+  m_Name: dunno
   m_EditorClassIdentifier: 
   decretsInfos:
     reference: 0
     myTypeOfDecree: 0
-    title: C'est fort
-    flavorText: Vraiment fort
+    title: A380
+    flavorText: "\xE7a vole"
     maxMouffluFlat: 0
     maxRockFlat: 0
     maxWoodFlat: 0
@@ -28,12 +28,12 @@ MonoBehaviour:
     giveMouflu: 0
     giveRock: 0
     giveWood: 0
-    giveBerry: 10
-    collectQuantityMouflu: 0
-    collectQuantityRock: 0
-    collectQuantityWood: 0
-    collectQuantityBerry: 0
+    giveBerry: 0
+    collectQuantityMouflu: 50
+    collectQuantityRock: 50
+    collectQuantityWood: 50
+    collectQuantityBerry: 50
     numberOfMove: 5
     fly: 0
     roundBetweenDecree: 0
-  targetField: 2655271
+  targetField: 1016327

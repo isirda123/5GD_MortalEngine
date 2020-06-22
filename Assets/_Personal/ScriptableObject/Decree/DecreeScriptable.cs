@@ -36,7 +36,6 @@ public class DecreeScriptable : ScriptableObject
 
     public DecretsInfos decretsInfos = new DecretsInfos();
 
-
     public TargetFields targetField = (TargetFields)((int)TargetFields.typeOfDecree | (int)TargetFields.title | (int)TargetFields.flavorText);
 
     public bool CheckField(TargetFields fieldToCheck)

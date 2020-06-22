@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a8c48185ad84304588d4268def754e5, type: 3}
-  m_Name: Logan
+  m_Name: Ecological Builds
   m_EditorClassIdentifier: 
   decretsInfos:
     reference: 0
     myTypeOfDecree: 0
-    title: Logan Porati
-    flavorText: Ludovic Moge
+    title: Florian
+    flavorText: Chinois
     maxMouffluFlat: 0
     maxRockFlat: 0
     maxWoodFlat: 0
@@ -35,5 +35,5 @@ MonoBehaviour:
     collectQuantityBerry: 50
     numberOfMove: 5
     fly: 0
-    roundBetweenDecree: 3
-  targetField: 2064391
+    roundBetweenDecree: 0
+  targetField: 1015823

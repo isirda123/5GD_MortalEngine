@@ -138,4 +138,12 @@ public class UIManager : Singleton<UIManager>
     {
         UnassignEvents();
     }
+
+    private void Awake()
+    {
+        SetCamera();
+    }
+
+    private void SetCamera() => GetComponent<Canvas>().worldCamera = Camera.main;
+    
 }
