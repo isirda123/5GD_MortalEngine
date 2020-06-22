@@ -59,6 +59,7 @@ public class CharaAvatar : MonoBehaviour
         ActionsButtons.Move += SetWaitForMoving;
         ActionsButtons.ReturnMenu += SetWaitForAction;
         ActionsButtons.ReturnMenu += destroyLineRenderer;
+        ActionsButtons.ReturnMenu += HideHarvestButton;
         ActionsButtons.Harvest += HarvestTilesAround;
         ActionsButtons.PassDurigMove += UseAllMovement;
         RoundManager.RoundEnd += UseResourcesInStock;
@@ -74,6 +75,7 @@ public class CharaAvatar : MonoBehaviour
         ActionsButtons.Move -= SetWaitForMoving;
         ActionsButtons.ReturnMenu -= SetWaitForAction;
         ActionsButtons.ReturnMenu -= destroyLineRenderer;
+        ActionsButtons.ReturnMenu -= HideHarvestButton;
         ActionsButtons.Harvest -= HarvestTilesAround;
         ActionsButtons.PassDurigMove -= UseAllMovement;
         RoundManager.RoundEnd -= UseResourcesInStock;
@@ -201,29 +203,51 @@ public class CharaAvatar : MonoBehaviour
 
     private void SetMaxMouvementRemain() => mouvementRemain = mouvementRange + DecretManager.Instance.totalDecreeInfos.numberOfMove;
 
+
+    [HideInInspector] bool waitForHarvest = false;
     private void HarvestTilesAround()
     {
-        List<Tile> tiles = GetResourcesAround(GetTileUnder().neighbours);
-        if (SomethingAroundToHarvest(tiles) == true)
+        if (waitForHarvest == true)
         {
-            for (int i = 0; i < tiles.Count; i++)
+            List<Tile> tiles = GetResourcesAround(GetTileUnder().neighbours);
+            if (SomethingAroundToHarvest(tiles) == true)
             {
-                if (tiles[i].State == Tile.StateOfResources.Available)
+                for (int i = 0; i < tiles.Count; i++)
                 {
-                    SetResourceInStock(tiles[i]);
-                    tiles[i].State = Tile.StateOfResources.Reloading;
-                    tiles[i].DrawResourceHarvest();
+                    if (tiles[i].State == Tile.StateOfResources.Available)
+                    {
+                        SetResourceInStock(tiles[i]);
+                        tiles[i].State = Tile.StateOfResources.Reloading;
+                        tiles[i].DrawResourceHarvest();
+                    }
                 }
+                SoundManager.Instance.RecolteFeedBackSound();
+                Sequence sequence = DOTween.Sequence();
+                sequence.AppendInterval(2);
+                sequence.OnComplete(() => RoundManager.Instance.LaunchEndRound());
             }
-            SoundManager.Instance.RecolteFeedBackSound();
-            Sequence sequence = DOTween.Sequence();
-            sequence.AppendInterval(2);
-            sequence.OnComplete(() => RoundManager.Instance.LaunchEndRound());
+            else
+            {
+
+            }
+            HideHarvestButton();
+            waitForHarvest = false;
         }
         else
         {
-           
+            DrawResourcesValueAround();
+            waitForHarvest = true;
         }
+    }
+    void HideHarvestButton()
+    {
+        UIManager.Instance.Harvest.gameObject.SetActive(false);
+        UIManager.Instance.returnMenuHarvest.gameObject.SetActive(false);
+    }
+
+    void DrawResourcesValueAround()
+    {
+
     }
 
     public bool SomethingAroundToHarvest(List<Tile>Neighbours)
@@ -467,7 +491,7 @@ public class CharaAvatar : MonoBehaviour
         GetResourceInStock(typeOfResource).NumberInStock += amount;
     }
 
-    struct ResourceConsume
+    public struct ResourceConsume
     {
         public GameManager.ResourceType resourceType;
         public float amountPerRound;
@@ -479,10 +503,6 @@ public class CharaAvatar : MonoBehaviour
         ResourceConsume[] allResourceUsedPerRound = ListToOrganize(GetResourcesUsedPerRound());
         ResourceConsume[] allResourceGetPerRound = ListToOrganize(GetResourcePerRound());
 
-        for (int i = 0; i < allResourceUsedPerRound.Length; i++)
-        {
-
-        }
         for (int i =0; i < allResourceUsedPerRound.Length; i++)
         {
             if (allResourceGetPerRound[i].amountPerRound < allResourceUsedPerRound[i].amountPerRound)
@@ -545,7 +565,7 @@ public class CharaAvatar : MonoBehaviour
         return allResourceGetPerRound;
     }
 
-    private List<ResourceConsume> GetResourcesUsedPerRound()
+    public List<ResourceConsume> GetResourcesUsedPerRound()
     {
         List<ResourceConsume> allResourceNeeded = new List<ResourceConsume>();
         foreach (Need need in needs)
