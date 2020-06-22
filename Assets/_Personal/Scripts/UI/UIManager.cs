@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class UIManager : Singleton<UIManager>
 {
@@ -15,6 +16,11 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] PopUpResourceHarvest popUpResourceHarvest;
     [SerializeField] public ActionsButtons returnMenu;
     [SerializeField] public ActionsButtons passDuringMove;
+    [SerializeField] public ActionsButtons returnMenuHarvest;
+    [SerializeField] public ActionsButtons Harvest;
+
+    [SerializeField] GameObject resourcesNeededFolder;
+    [SerializeField] GameObject resourcesNeeded;
 
     private void SetNeedViewers()
     {
@@ -24,6 +30,73 @@ public class UIManager : Singleton<UIManager>
             {
                 if (needViewers[i].needType == PlayerInput.Instance.cityPlayer.needs[j].needType)
                     needViewers[i].need = PlayerInput.Instance.cityPlayer.needs[j];
+            }
+        }
+    }
+
+    public void DrawInformationResourcesNeededAround()
+    {
+        for (int i =0; i < resourcesNeededFolder.transform.childCount; i++)
+        {
+            print("destroy");
+            Destroy(resourcesNeededFolder.transform.GetChild(i).gameObject);
+        }
+        CharaAvatar avatar = (CharaAvatar)GameObject.FindObjectOfType(typeof(CharaAvatar));
+
+        List<CharaAvatar.ResourceConsume> rC = avatar.GetResourcesUsedPerRound();
+
+        for (int i =0; i < rC.Count; i++)
+        {
+            if (rC[i].resourceType == GameManager.ResourceType.Berry)
+            {
+                ResourcesInfos rI = (Resources.Load("ResourcesInfos/Berry", typeof(ResourcesInfos)) as ResourcesInfos);
+                print(rC[i].amountPerRound + "    " + rI.WonPerRound);
+                int numberOfTileNeeded = (int)Mathf.Ceil(rC[i].amountPerRound / (rI.WonPerRound +DecretManager.Instance.totalDecreeInfos.collectQuantityBerry));
+                if (numberOfTileNeeded > 0)
+                {
+                    GameObject uIResource = Instantiate(resourcesNeeded, resourcesNeededFolder.transform.position, resourcesNeededFolder.transform.rotation, resourcesNeededFolder.transform);
+                    uIResource.GetComponent<Image>().sprite = (Resources.Load<Sprite>("UINeededResources/Berry"));
+                    uIResource.transform.GetChild(0).GetComponent<Text>().text = numberOfTileNeeded.ToString();
+                }
+            }
+
+            if (rC[i].resourceType == GameManager.ResourceType.Wood)
+            {
+                ResourcesInfos rI = (Resources.Load("ResourcesInfos/Wood", typeof(ResourcesInfos)) as ResourcesInfos);
+                print(rC[i].amountPerRound + "    " + rI.WonPerRound);
+                int numberOfTileNeeded = (int)Mathf.Ceil(rC[i].amountPerRound / (rI.WonPerRound + DecretManager.Instance.totalDecreeInfos.collectQuantityWood));
+                if (numberOfTileNeeded > 0)
+                {
+                    GameObject uIResource = Instantiate(resourcesNeeded, resourcesNeededFolder.transform.position, resourcesNeededFolder.transform.rotation, resourcesNeededFolder.transform);
+                    uIResource.GetComponent<Image>().sprite = (Resources.Load<Sprite>("UINeededResources/Wood"));
+                    uIResource.transform.GetChild(0).GetComponent<Text>().text = numberOfTileNeeded.ToString();
+                }
+            }
+
+            if (rC[i].resourceType == GameManager.ResourceType.Rock)
+            {
+                ResourcesInfos rI = (Resources.Load("ResourcesInfos/Rock", typeof(ResourcesInfos)) as ResourcesInfos);
+                print(rC[i].amountPerRound + "    " + rI.WonPerRound);
+                int numberOfTileNeeded = (int)Mathf.Ceil(rC[i].amountPerRound / (rI.WonPerRound + DecretManager.Instance.totalDecreeInfos.collectQuantityRock));
+                if (numberOfTileNeeded > 0)
+                {
+                    GameObject uIResource = Instantiate(resourcesNeeded, resourcesNeededFolder.transform.position, resourcesNeededFolder.transform.rotation, resourcesNeededFolder.transform);
+                    uIResource.GetComponent<Image>().sprite = (Resources.Load<Sprite>("UINeededResources/Rock"));
+                    uIResource.transform.GetChild(0).GetComponent<Text>().text = numberOfTileNeeded.ToString();
+                }
+            }
+
+            if (rC[i].resourceType == GameManager.ResourceType.Mouflu)
+            {
+                ResourcesInfos rI = (Resources.Load("ResourcesInfos/Mouflu", typeof(ResourcesInfos)) as ResourcesInfos);
+                print(rC[i].amountPerRound + "    " + rI.WonPerRound);
+                int numberOfTileNeeded = (int)Mathf.Ceil(rC[i].amountPerRound / (rI.WonPerRound + DecretManager.Instance.totalDecreeInfos.collectQuantityMouflu));
+                if (numberOfTileNeeded > 0)
+                {
+                    GameObject uIResource = Instantiate(resourcesNeeded, resourcesNeededFolder.transform.position, resourcesNeededFolder.transform.rotation, resourcesNeededFolder.transform);
+                    uIResource.GetComponent<Image>().sprite = (Resources.Load<Sprite>("UINeededResources/Mouflu"));
+                    uIResource.transform.GetChild(0).GetComponent<Text>().text = numberOfTileNeeded.ToString();
+                }
             }
         }
     }
@@ -63,6 +136,16 @@ public class UIManager : Singleton<UIManager>
             actionsButtons[i].gameObject.SetActive(false);
         }
         returnMenu.gameObject.SetActive(true);
+    }
+    private void HideButtonsHarvest()
+    {
+        for (int i = 0; i < actionsButtons.Length; i++)
+        {
+            actionsButtons[i].gameObject.SetActive(false);
+        }
+        returnMenuHarvest.gameObject.SetActive(true);
+        Harvest.gameObject.SetActive(true);
+
     }
     private void DrawButtons()
     {
@@ -104,11 +187,11 @@ public class UIManager : Singleton<UIManager>
         RoundManager.RoundStart += DrawButtons;
         
         RoundManager.RoundEnd += DrawPopUpResourceStockUsed;
-
+        RoundManager.RoundEnd += DrawInformationResourcesNeededAround;
         ActionsButtons.Move += HideButtonsMoving;
         ActionsButtons.Pass += HideButtons;
         ActionsButtons.PassDurigMove += HideButtons;
-        ActionsButtons.Harvest += HideButtons;
+        ActionsButtons.Harvest += HideButtonsHarvest;
         ActionsButtons.Vote += HideButtons;
         ActionsButtons.ReturnMenu += DrawButtons;
     }
@@ -118,11 +201,11 @@ public class UIManager : Singleton<UIManager>
         RoundManager.LevelEnd -= DrawEndLevelPopUp;
         RoundManager.RoundStart -= DrawButtons;
         RoundManager.RoundEnd -= DrawPopUpResourceStockUsed;
-
+        RoundManager.RoundEnd -= DrawInformationResourcesNeededAround;
         ActionsButtons.Move -= HideButtonsMoving;
         ActionsButtons.Pass -= HideButtons;
         ActionsButtons.PassDurigMove -= HideButtons;
-        ActionsButtons.Harvest -= HideButtons;
+        ActionsButtons.Harvest -= HideButtonsHarvest;
         ActionsButtons.Vote -= HideButtons;
         ActionsButtons.ReturnMenu -= DrawButtons;
 

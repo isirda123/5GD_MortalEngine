@@ -420,8 +420,11 @@ MonoBehaviour:
   speedOFZoom: 1
   minLenghCamera: 3
   maxLenghCamera: 7
-  cheatInput: 
-  stateOfCity: []
+  cheatInput: 010100000201000003010000
+  stateOfCity:
+  - {fileID: 364212951839166994}
+  - {fileID: 8795273125453507324}
+  - {fileID: 945785022515398540}
 --- !u!1 &8328702119609187688
 GameObject:
   m_ObjectHideFlags: 0
