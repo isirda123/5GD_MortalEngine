@@ -50,7 +50,7 @@ public class UIManager : Singleton<UIManager>
             if (rC[i].resourceType == GameManager.ResourceType.Berry)
             {
                 ResourcesInfos rI = (Resources.Load("ResourcesInfos/Berry", typeof(ResourcesInfos)) as ResourcesInfos);
-                print(rC[i].amountPerRound + "    " + rI.WonPerRound);
+                print(rC[i].resourceType + "     " + rC[i].amountPerRound + "    " + rI.WonPerRound);
                 int numberOfTileNeeded = (int)Mathf.Ceil(rC[i].amountPerRound / (rI.WonPerRound +DecretManager.Instance.totalDecreeInfos.collectQuantityBerry));
                 if (numberOfTileNeeded > 0)
                 {
@@ -63,7 +63,7 @@ public class UIManager : Singleton<UIManager>
             if (rC[i].resourceType == GameManager.ResourceType.Wood)
             {
                 ResourcesInfos rI = (Resources.Load("ResourcesInfos/Wood", typeof(ResourcesInfos)) as ResourcesInfos);
-                print(rC[i].amountPerRound + "    " + rI.WonPerRound);
+                print(rC[i].resourceType + "     " + rC[i].amountPerRound + "    " + rI.WonPerRound);
                 int numberOfTileNeeded = (int)Mathf.Ceil(rC[i].amountPerRound / (rI.WonPerRound + DecretManager.Instance.totalDecreeInfos.collectQuantityWood));
                 if (numberOfTileNeeded > 0)
                 {
@@ -76,7 +76,7 @@ public class UIManager : Singleton<UIManager>
             if (rC[i].resourceType == GameManager.ResourceType.Rock)
             {
                 ResourcesInfos rI = (Resources.Load("ResourcesInfos/Rock", typeof(ResourcesInfos)) as ResourcesInfos);
-                print(rC[i].amountPerRound + "    " + rI.WonPerRound);
+                print(rC[i].resourceType + "     " + rC[i].amountPerRound + "    " + rI.WonPerRound);
                 int numberOfTileNeeded = (int)Mathf.Ceil(rC[i].amountPerRound / (rI.WonPerRound + DecretManager.Instance.totalDecreeInfos.collectQuantityRock));
                 if (numberOfTileNeeded > 0)
                 {
@@ -89,7 +89,7 @@ public class UIManager : Singleton<UIManager>
             if (rC[i].resourceType == GameManager.ResourceType.Mouflu)
             {
                 ResourcesInfos rI = (Resources.Load("ResourcesInfos/Mouflu", typeof(ResourcesInfos)) as ResourcesInfos);
-                print(rC[i].amountPerRound + "    " + rI.WonPerRound);
+                print(rC[i].resourceType + "     " + rC[i].amountPerRound + "    " + rI.WonPerRound);
                 int numberOfTileNeeded = (int)Mathf.Ceil(rC[i].amountPerRound / (rI.WonPerRound + DecretManager.Instance.totalDecreeInfos.collectQuantityMouflu));
                 if (numberOfTileNeeded > 0)
                 {

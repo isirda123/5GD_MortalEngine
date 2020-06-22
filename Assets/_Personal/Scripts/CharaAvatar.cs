@@ -573,7 +573,7 @@ public class CharaAvatar : MonoBehaviour
                 {
                     resourceAlreadyUsed = true;
                     ResourceConsume rC = allResourceNeeded[i];
-                    rC.amountPerRound += need.ResourceUsed.resourcesInfos.GetAmontUseFor(need.needType);
+                    rC.amountPerRound += need.ResourceUsed.resourcesInfos.GetAmontUseFor(need.needType) * need.Multiplicator;
                     allResourceNeeded[i] = rC;
                 }
             }
@@ -581,7 +581,7 @@ public class CharaAvatar : MonoBehaviour
             {
                 ResourceConsume rC = new ResourceConsume();
                 rC.resourceType = need.ResourceUsed.resourcesInfos.resourceType;
-                rC.amountPerRound = need.ResourceUsed.resourcesInfos.GetAmontUseFor(need.needType);
+                rC.amountPerRound = need.ResourceUsed.resourcesInfos.GetAmontUseFor(need.needType) * need.Multiplicator;
                 allResourceNeeded.Add(rC);
             }
         }
