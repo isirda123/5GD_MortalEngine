@@ -24,7 +24,9 @@ public class Need : MonoBehaviour
     }
     [SerializeField] public GameManager.ResourceType[] resourcesUsable;
     [SerializeField] public ResourcesInfos[] resourceForValidation;
-    [HideInInspector] public float multiplicator;
+
+    [HideInInspector] private float multiplicator;
+    public float Multiplicator { get { return multiplicator - DecretManager.Instance.GetNeedConsumption(needType);} set { multiplicator = value; } }
 
     public bool CanUseResource(GameManager.ResourceType resourceType)
     {   
@@ -61,17 +63,6 @@ public class Need : MonoBehaviour
 
     public void UseResources()
     {
-        if (needType == NeedType.Food)
-        {
-            ResourceUsed.NumberInStock -= (ResourceUsed.resourcesInfos.GetAmontUseFor(needType) * (multiplicator - DecretManager.Instance.totalDecreeInfos.consumptionFoodModificator)) ;
-        }
-        else if (needType == NeedType.Energy)
-        {
-            ResourceUsed.NumberInStock -= (ResourceUsed.resourcesInfos.GetAmontUseFor(needType) * (multiplicator - DecretManager.Instance.totalDecreeInfos.consumptionEnergyModificator)) ;
-        }
-        else if (needType == NeedType.Build)
-        {
-            ResourceUsed.NumberInStock -= (ResourceUsed.resourcesInfos.GetAmontUseFor(needType) * (multiplicator - DecretManager.Instance.totalDecreeInfos.consumptionBuildModificator)) ;
-        }
+        ResourceUsed.NumberInStock -= (ResourceUsed.resourcesInfos.GetAmontUseFor(needType) * Multiplicator);
     }
 }

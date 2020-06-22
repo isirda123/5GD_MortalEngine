@@ -22,13 +22,13 @@ MonoBehaviour:
     maxWoodFlat: 0
     maxBerryFlat: 0
     consumptionFoodModificator: 0
-    consumptionEnergyModificator: 0.2
+    consumptionEnergyModificator: 0.5
     consumptionBuildModificator: 0
     collectRangeMax: 0
     giveMouflu: 0
     giveRock: 0
     giveWood: 0
-    giveBerry: 10
+    giveBerry: 0
     collectQuantityMouflu: 0
     collectQuantityRock: 0
     collectQuantityWood: 0

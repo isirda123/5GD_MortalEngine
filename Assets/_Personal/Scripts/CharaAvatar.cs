@@ -144,20 +144,19 @@ public class CharaAvatar : MonoBehaviour
             switch (needs[i].needType)
             {
                 case Need.NeedType.Build:
-                    needs[i].multiplicator = resourcesNeedsStartDatas.needBuildsStart;
+                    needs[i].Multiplicator = resourcesNeedsStartDatas.needBuildsStart;
                     break;
                 case Need.NeedType.Energy:
-                    needs[i].multiplicator = resourcesNeedsStartDatas.needEnergyStart;
+                    needs[i].Multiplicator = resourcesNeedsStartDatas.needEnergyStart;
                     break;
                 case Need.NeedType.Food:
-                    needs[i].multiplicator = resourcesNeedsStartDatas.needFoodStart;
+                    needs[i].Multiplicator = resourcesNeedsStartDatas.needFoodStart;
                     break;
             }
         }
     }
     private void SetNeeds()
     {
-        print("set needs start");
         for (int i = 0; i < needs.Length; i++)
         {
             ResourceInStock firstResourceUsable = null;
@@ -167,8 +166,6 @@ public class CharaAvatar : MonoBehaviour
                 if (resourceInStock.NumberInStock > 0)
                     firstResourceUsable = resourceInStock;
             }
-            print("set needs " + needs[i].needType);
-            print(firstResourceUsable);
             needs[i].ResourceUsed = firstResourceUsable;
         }
     }
@@ -292,7 +289,7 @@ public class CharaAvatar : MonoBehaviour
                             }
                             else
                             {
-                                if (needs[i].multiplicator > 0)
+                                if (needs[i].Multiplicator > 0)
                                     RoundManager.Instance.EndLevel(false);
                             }
                         }
