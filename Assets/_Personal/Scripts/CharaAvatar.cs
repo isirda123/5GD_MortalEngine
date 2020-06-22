@@ -58,6 +58,7 @@ public class CharaAvatar : MonoBehaviour
         Tile.TileTouched += Move;
         ActionsButtons.Move += SetWaitForMoving;
         ActionsButtons.ReturnMenu += SetWaitForAction;
+        ActionsButtons.ReturnMenu += destroyLineRenderer;
         ActionsButtons.Harvest += HarvestTilesAround;
         ActionsButtons.PassDurigMove += UseAllMovement;
         RoundManager.RoundEnd += UseResourcesInStock;
@@ -72,6 +73,7 @@ public class CharaAvatar : MonoBehaviour
         Tile.TileTouched -= Move;
         ActionsButtons.Move -= SetWaitForMoving;
         ActionsButtons.ReturnMenu -= SetWaitForAction;
+        ActionsButtons.ReturnMenu -= destroyLineRenderer;
         ActionsButtons.Harvest -= HarvestTilesAround;
         ActionsButtons.PassDurigMove -= UseAllMovement;
         RoundManager.RoundEnd -= UseResourcesInStock;
@@ -173,6 +175,9 @@ public class CharaAvatar : MonoBehaviour
     [SerializeField] public Need[] needs;
     [SerializeField] public ResourceInStock[] stock;
     [SerializeField] ResourcesNeedsStartDatas resourcesNeedsStartDatas;
+
+   
+
 
     private Tile resourceFocused;
 
@@ -303,6 +308,7 @@ public class CharaAvatar : MonoBehaviour
         if (tileHit == tileSelectedForMove)
         {
             tileSelectedForMove = null;
+            Destroy(line.gameObject);
             TilesManager.Instance.SetNormalColorOfTiles();
             TilesManager.Instance.DrawOffset(true);
             if (tileHit.tileType == Tile.TypeOfTile.Blocker)
@@ -326,7 +332,6 @@ public class CharaAvatar : MonoBehaviour
             {
                 Vector3 point = positionToGo[i].transform.position;
                 float time = Vector3.Distance(start, point);
-                mouvementSequence.AppendCallback(() => transform.LookAt(point));
                 mouvementSequence.Append(transform.DOMove(point, time).SetEase(Ease.Linear));
                 start = positionToGo[i].transform.position;
             }
@@ -373,13 +378,18 @@ public class CharaAvatar : MonoBehaviour
         }
     }
 
-    void SetVisualArrow(List<Vector3> posForArrow)
+    void destroyLineRenderer()
     {
         if (line != null)
         {
             Destroy(line.gameObject);
             line = null;
         }
+    }
+
+    void SetVisualArrow(List<Vector3> posForArrow)
+    {
+        destroyLineRenderer();
 
         line = (Instantiate(GameManager.Instance.gameAssets.arrow, GetTileUnder().transform.position, Quaternion.identity)).GetComponent<LineRenderer>();
         line.positionCount = posForArrow.Count;

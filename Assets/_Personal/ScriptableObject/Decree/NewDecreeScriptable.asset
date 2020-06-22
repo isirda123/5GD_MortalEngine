@@ -12,5 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a8c48185ad84304588d4268def754e5, type: 3}
   m_Name: NewDecreeScriptable
   m_EditorClassIdentifier: 
-  decretsInfos: {fileID: 0}
-  targetField: 0
+  decretsInfos:
+    reference: 0
+    myTypeOfDecree: 0
+    title: 
+    flavorText: 
+    maxMouffluFlat: 0
+    maxRockFlat: 0
+    maxWoodFlat: 0
+    maxBerryFlat: 0
+    consumptionFoodFlat: 0
+    consumptionEnergyFlat: 0
+    consumptionBuildFlat: 0
+    collectRangeMax: 0
+    giveMouflu: 0
+    giveRock: 0
+    giveWood: 0
+    giveBerry: 0
+    collectQuantityMouflu: 0
+    collectQuantityRock: 0
+    collectQuantityWood: 0
+    collectQuantityBerry: 0
+    numberOfMove: 0
+    fly: 0
+    roundBetweenDecree: 0
+  targetField: 9

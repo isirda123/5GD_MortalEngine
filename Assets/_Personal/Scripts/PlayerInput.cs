@@ -13,10 +13,22 @@ public class PlayerInput : Singleton<PlayerInput>
     [Header("Camera")]
     
     [SerializeField] float speedOfCamera;
-
     [SerializeField] LayerMask myMask;
     [HideInInspector] public Need needSelected;
     [SerializeField] public CharaAvatar cityPlayer;
+    [SerializeField] float speedOFZoom;
+    [SerializeField] float minLenghCamera;
+    [SerializeField] float maxLenghCamera;
+    float valueOfWheel;
+
+    [Header("Cheat Ma Mene")]
+    #region CHEAT
+    [SerializeField] KeyCode[] cheatInput;
+    [SerializeField] GameObject[] stateOfCity;
+    #endregion
+
+
+
 
     private RaycastHit ReturnRaycastHit()
     {
@@ -46,11 +58,33 @@ public class PlayerInput : Singleton<PlayerInput>
 
         if (Input.GetMouseButton(0))
         {
-            if (Time.time - startTime > lenghtOfAClick )
+            if (Time.time - startTime > lenghtOfAClick)
             {
-                Camera.main.transform.localPosition -= new Vector3(Input.GetAxisRaw("Mouse X") * Time.deltaTime 
+                Camera.main.transform.localPosition -= new Vector3(Input.GetAxisRaw("Mouse X") * Time.deltaTime
                     * speedOfCamera, 0.0f, Input.GetAxisRaw("Mouse Y") * Time.deltaTime * speedOfCamera);
             }
         }
+
+        for (int i = 0; i < cheatInput.Length; i++)
+        {
+            if (Input.GetKeyDown(cheatInput[i]))
+            {
+                for (int j = 0; j < stateOfCity.Length; j++)
+                {
+                    stateOfCity[j].SetActive(false);
+                }
+                stateOfCity[i].SetActive(true);
+            }
+        }
+
+        //Zoom
+        valueOfWheel = Input.GetAxis("Mouse ScrollWheel");
+        ScaleCameraZoom(valueOfWheel);
+    }
+
+    void ScaleCameraZoom(float valueOfChange)
+    {
+        
+        Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize -  (valueOfChange * speedOFZoom),minLenghCamera,maxLenghCamera);
     }
 }
