@@ -34,7 +34,7 @@ public class UIManager : Singleton<UIManager>
         }
     }
 
-    public void DrawInformationResourcesNeededAround()
+    public void DrawInformationResourcesNeededAround(Need need)
     {
         for (int i =0; i < resourcesNeededFolder.transform.childCount; i++)
         {
@@ -75,28 +75,20 @@ public class UIManager : Singleton<UIManager>
 
             if (rC[i].resourceType == GameManager.ResourceType.Rock)
             {
-                ResourcesInfos rI = (Resources.Load("ResourcesInfos/Rock", typeof(ResourcesInfos)) as ResourcesInfos);
-                print(rC[i].resourceType + "     " + rC[i].amountPerRound + "    " + rI.WonPerRound);
-                int numberOfTileNeeded = (int)Mathf.Ceil(rC[i].amountPerRound / (rI.WonPerRound + DecretManager.Instance.totalDecreeInfos.collectQuantityRock));
-                if (numberOfTileNeeded > 0)
-                {
-                    GameObject uIResource = Instantiate(resourcesNeeded, resourcesNeededFolder.transform.position, resourcesNeededFolder.transform.rotation, resourcesNeededFolder.transform);
-                    uIResource.GetComponent<Image>().sprite = (Resources.Load<Sprite>("UINeededResources/Rock"));
-                    uIResource.transform.GetChild(0).GetComponent<Text>().text = numberOfTileNeeded.ToString();
-                }
+
+                GameObject uIResource = Instantiate(resourcesNeeded, resourcesNeededFolder.transform.position, resourcesNeededFolder.transform.rotation, resourcesNeededFolder.transform);
+                uIResource.GetComponent<Image>().sprite = (Resources.Load<Sprite>("UINeededResources/Rock"));
+                uIResource.transform.GetChild(0).GetComponent<Text>().text = "X";
+                uIResource.transform.GetChild(0).GetComponent<Text>().color = Color.red;
+
             }
 
             if (rC[i].resourceType == GameManager.ResourceType.Mouflu)
             {
-                ResourcesInfos rI = (Resources.Load("ResourcesInfos/Mouflu", typeof(ResourcesInfos)) as ResourcesInfos);
-                print(rC[i].resourceType + "     " + rC[i].amountPerRound + "    " + rI.WonPerRound);
-                int numberOfTileNeeded = (int)Mathf.Ceil(rC[i].amountPerRound / (rI.WonPerRound + DecretManager.Instance.totalDecreeInfos.collectQuantityMouflu));
-                if (numberOfTileNeeded > 0)
-                {
-                    GameObject uIResource = Instantiate(resourcesNeeded, resourcesNeededFolder.transform.position, resourcesNeededFolder.transform.rotation, resourcesNeededFolder.transform);
-                    uIResource.GetComponent<Image>().sprite = (Resources.Load<Sprite>("UINeededResources/Mouflu"));
-                    uIResource.transform.GetChild(0).GetComponent<Text>().text = numberOfTileNeeded.ToString();
-                }
+                GameObject uIResource = Instantiate(resourcesNeeded, resourcesNeededFolder.transform.position, resourcesNeededFolder.transform.rotation, resourcesNeededFolder.transform);
+                uIResource.GetComponent<Image>().sprite = (Resources.Load<Sprite>("UINeededResources/Rock"));
+                uIResource.transform.GetChild(0).GetComponent<Text>().text = "X";
+                uIResource.transform.GetChild(0).GetComponent<Text>().color = Color.red;
             }
         }
     }
@@ -187,9 +179,9 @@ public class UIManager : Singleton<UIManager>
         RoundManager.RoundStart += DrawButtons;
         
         RoundManager.RoundEnd += DrawPopUpResourceStockUsed;
-        RoundManager.RoundEnd += DrawInformationResourcesNeededAround;
         ActionsButtons.Move += HideButtonsMoving;
         ActionsButtons.Pass += HideButtons;
+        Need.ResourceUsedChange += DrawInformationResourcesNeededAround;
         ActionsButtons.PassDurigMove += HideButtons;
         ActionsButtons.Harvest += HideButtonsHarvest;
         ActionsButtons.Vote += HideButtons;
@@ -201,8 +193,8 @@ public class UIManager : Singleton<UIManager>
         RoundManager.LevelEnd -= DrawEndLevelPopUp;
         RoundManager.RoundStart -= DrawButtons;
         RoundManager.RoundEnd -= DrawPopUpResourceStockUsed;
-        RoundManager.RoundEnd -= DrawInformationResourcesNeededAround;
         ActionsButtons.Move -= HideButtonsMoving;
+        Need.ResourceUsedChange -= DrawInformationResourcesNeededAround;
         ActionsButtons.Pass -= HideButtons;
         ActionsButtons.PassDurigMove -= HideButtons;
         ActionsButtons.Harvest -= HideButtonsHarvest;

@@ -57,11 +57,23 @@ public class SoundManager : Singleton<SoundManager>
         PlayInstantFeedBack(decreeSound,1);
     }
 
+    public void Deplacement()
+    {
+        AudioClip Deplacement = (AudioClip)Resources.Load("Sound/Deplacement");
+        PlayInstantFeedBack(Deplacement, 0.2f);
+    }
+
 
 
     public void PlayInstantFeedBack(AudioClip clip, float volume)
     {
         audioSource.PlayOneShot(clip,volume);
+        
+    }
+
+    public void StopInstantFeedBack()
+    {
+        audioSource.Stop();
     }
 
     public void PlayMusicBackGround(AudioClip music, float volume)

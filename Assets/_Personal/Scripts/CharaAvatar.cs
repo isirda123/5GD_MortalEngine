@@ -358,6 +358,7 @@ public class CharaAvatar : MonoBehaviour
             }
             mouvementRemain -= positionToGo.Count - 1;
             mouvementSequence.timeScale = mouvementAnimationSpeed;
+            SoundManager.Instance.Deplacement();
             mouvementSequence.onComplete += EndMove;
         }
         else
@@ -446,6 +447,7 @@ public class CharaAvatar : MonoBehaviour
         TilesManager.Instance.SetReachableTileTo(false);
         TilesManager.Instance.DrawOffset(true);
         TilesManager.Instance.SetNormalColorOfTiles();
+        SoundManager.Instance.StopInstantFeedBack();
         if (mouvementRemain == 0)
         {
             SetMaxMouvementRemain();
@@ -569,6 +571,8 @@ public class CharaAvatar : MonoBehaviour
             //check if a resource is already used
             for (int i = 0; i < allResourceNeeded.Count; i++)
             {
+                print(allResourceNeeded[i].resourceType);
+                print(need.ResourceUsed);
                 if(allResourceNeeded[i].resourceType == need.ResourceUsed.resourcesInfos.resourceType)
                 {
                     resourceAlreadyUsed = true;
