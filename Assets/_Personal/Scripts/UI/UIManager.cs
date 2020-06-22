@@ -41,6 +41,14 @@ public class UIManager : Singleton<UIManager>
             print("destroy");
             Destroy(resourcesNeededFolder.transform.GetChild(i).gameObject);
         }
+
+        for (int j =0; j < PlayerInput.Instance.cityPlayer.needs.Length; j++)
+        {
+            if (PlayerInput.Instance.cityPlayer.needs[j].ResourceUsed == null)
+            {
+                return;
+            }
+        }
         CharaAvatar avatar = (CharaAvatar)GameObject.FindObjectOfType(typeof(CharaAvatar));
 
         List<CharaAvatar.ResourceConsume> rC = avatar.GetResourcesUsedPerRound();
