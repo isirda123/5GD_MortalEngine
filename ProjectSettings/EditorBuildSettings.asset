@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Personal/Levels/LD_07/LD_07.unity
     guid: e5177048caee27a43b5f6b74cde92fc9
+  - enabled: 1
+    path: Assets/_Personal/Levels/LD_09/LD_09.unity
+    guid: c715aaf5c3bc94346a6371999b4bdc97
   m_configObjects: {}
