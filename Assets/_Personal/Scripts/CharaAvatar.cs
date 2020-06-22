@@ -65,7 +65,6 @@ public class CharaAvatar : MonoBehaviour
         RoundManager.RoundEnd += UseResourcesInStock;
         RoundManager.RoundEnd += SetMaxMouvementRemain;
         ResourceInStock.ResourceEmpty += ChangeUsingRessource;
-        ActionsButtons.Harvest += CheckForVictory;
         RoundManager.RoundStart += CheckForNumberOfTurnWithoutDying;
     }
 
@@ -81,7 +80,6 @@ public class CharaAvatar : MonoBehaviour
         RoundManager.RoundEnd -= UseResourcesInStock;
         RoundManager.RoundEnd -= SetMaxMouvementRemain;
         ResourceInStock.ResourceEmpty -= ChangeUsingRessource;
-        ActionsButtons.Harvest -= CheckForVictory;
         RoundManager.RoundStart -= CheckForNumberOfTurnWithoutDying;
     }
 
@@ -222,6 +220,7 @@ public class CharaAvatar : MonoBehaviour
                 Sequence sequence = DOTween.Sequence();
                 sequence.AppendInterval(2);
                 sequence.OnComplete(() => RoundManager.Instance.LaunchEndRound());
+                CheckForVictory();
             }
             else
             {

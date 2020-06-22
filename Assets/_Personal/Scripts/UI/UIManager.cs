@@ -63,7 +63,7 @@ public class UIManager : Singleton<UIManager>
                 if (numberOfTileNeeded > 0)
                 {
                     GameObject uIResource = Instantiate(resourcesNeeded, resourcesNeededFolder.transform.position, resourcesNeededFolder.transform.rotation, resourcesNeededFolder.transform);
-                    uIResource.GetComponent<Image>().sprite = (Resources.Load<Sprite>("UINeededResources/Berry"));
+                    uIResource.GetComponent<Image>().sprite = (Resources.Load<Sprite>("UINeededResources/Icones_01_2"));
                     uIResource.transform.GetChild(0).GetComponent<Text>().text = numberOfTileNeeded.ToString();
                 }
             }
@@ -76,7 +76,7 @@ public class UIManager : Singleton<UIManager>
                 if (numberOfTileNeeded > 0)
                 {
                     GameObject uIResource = Instantiate(resourcesNeeded, resourcesNeededFolder.transform.position, resourcesNeededFolder.transform.rotation, resourcesNeededFolder.transform);
-                    uIResource.GetComponent<Image>().sprite = (Resources.Load<Sprite>("UINeededResources/Wood"));
+                    uIResource.GetComponent<Image>().sprite = (Resources.Load<Sprite>("UINeededResources/Icones_01_1"));
                     uIResource.transform.GetChild(0).GetComponent<Text>().text = numberOfTileNeeded.ToString();
                 }
             }
@@ -85,7 +85,7 @@ public class UIManager : Singleton<UIManager>
             {
 
                 GameObject uIResource = Instantiate(resourcesNeeded, resourcesNeededFolder.transform.position, resourcesNeededFolder.transform.rotation, resourcesNeededFolder.transform);
-                uIResource.GetComponent<Image>().sprite = (Resources.Load<Sprite>("UINeededResources/Rock"));
+                uIResource.GetComponent<Image>().sprite = (Resources.Load<Sprite>("UINeededResources/Icones_01_1"));
                 uIResource.transform.GetChild(0).GetComponent<Text>().text = "X";
                 uIResource.transform.GetChild(0).GetComponent<Text>().color = Color.red;
 
@@ -94,7 +94,7 @@ public class UIManager : Singleton<UIManager>
             if (rC[i].resourceType == GameManager.ResourceType.Mouflu)
             {
                 GameObject uIResource = Instantiate(resourcesNeeded, resourcesNeededFolder.transform.position, resourcesNeededFolder.transform.rotation, resourcesNeededFolder.transform);
-                uIResource.GetComponent<Image>().sprite = (Resources.Load<Sprite>("UINeededResources/Rock"));
+                uIResource.GetComponent<Image>().sprite = (Resources.Load<Sprite>("UINeededResources/Resource/Icones_01_3"));
                 uIResource.transform.GetChild(0).GetComponent<Text>().text = "X";
                 uIResource.transform.GetChild(0).GetComponent<Text>().color = Color.red;
             }
