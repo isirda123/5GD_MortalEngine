@@ -82,6 +82,10 @@ public class DecreeScriptableEditor : Editor
             EditorGUILayout.EndFoldoutHeaderGroup();
             EditorGUILayout.Space();
         }
+        else
+        {
+            manager.decretsInfos.myTypeOfDecree = DecretsInfos.typeOfDecree.decree;
+        }
 
 
         if (manager.CheckField(DecreeScriptable.TargetFields.title))
@@ -94,6 +98,10 @@ public class DecreeScriptableEditor : Editor
             EditorGUILayout.EndFoldoutHeaderGroup();
             EditorGUILayout.Space();
         }
+        else
+        {
+            manager.decretsInfos.title = null;
+        }
 
         if (manager.CheckField(DecreeScriptable.TargetFields.flavorText))
         {
@@ -104,6 +112,10 @@ public class DecreeScriptableEditor : Editor
             }
             EditorGUILayout.EndFoldoutHeaderGroup();
             EditorGUILayout.Space();
+        }
+        else
+        {
+            manager.decretsInfos.flavorText = null;
         }
 
         if (manager.CheckField(DecreeScriptable.TargetFields.maxMouffluFlat))
@@ -116,6 +128,10 @@ public class DecreeScriptableEditor : Editor
             EditorGUILayout.EndFoldoutHeaderGroup();
             EditorGUILayout.Space();
         }
+        else
+        {
+            manager.decretsInfos.maxMouffluFlat = 0;
+        }
 
         if (manager.CheckField(DecreeScriptable.TargetFields.maxRockFlat))
         {
@@ -126,6 +142,10 @@ public class DecreeScriptableEditor : Editor
             }
             EditorGUILayout.EndFoldoutHeaderGroup();
             EditorGUILayout.Space();
+        }
+        else
+        {
+            manager.decretsInfos.maxRockFlat = 0;
         }
 
         if (manager.CheckField(DecreeScriptable.TargetFields.maxWoodFlat))
@@ -138,6 +158,10 @@ public class DecreeScriptableEditor : Editor
             EditorGUILayout.EndFoldoutHeaderGroup();
             EditorGUILayout.Space();
         }
+        else
+        {
+            manager.decretsInfos.maxWoodFlat = 0;
+        }
 
         if (manager.CheckField(DecreeScriptable.TargetFields.maxBerryFlat))
         {
@@ -148,6 +172,10 @@ public class DecreeScriptableEditor : Editor
             }
             EditorGUILayout.EndFoldoutHeaderGroup();
             EditorGUILayout.Space();
+        }
+        else
+        {
+            manager.decretsInfos.maxBerryFlat = 0;
         }
 
         if (manager.CheckField(DecreeScriptable.TargetFields.consumptionFoodFlat))
@@ -160,6 +188,10 @@ public class DecreeScriptableEditor : Editor
             EditorGUILayout.EndFoldoutHeaderGroup();
             EditorGUILayout.Space();
         }
+        else
+        {
+            manager.decretsInfos.consumptionFoodFlat = 0;
+        }
 
         if (manager.CheckField(DecreeScriptable.TargetFields.consumptionEnergyFlat))
         {
@@ -170,6 +202,10 @@ public class DecreeScriptableEditor : Editor
             }
             EditorGUILayout.EndFoldoutHeaderGroup();
             EditorGUILayout.Space();
+        }
+        else
+        {
+            manager.decretsInfos.consumptionEnergyFlat = 0;
         }
 
         if (manager.CheckField(DecreeScriptable.TargetFields.consumptionBuildFlat))
@@ -182,6 +218,10 @@ public class DecreeScriptableEditor : Editor
             EditorGUILayout.EndFoldoutHeaderGroup();
             EditorGUILayout.Space();
         }
+        else
+        {
+            manager.decretsInfos.consumptionBuildFlat = 0;
+        }
 
         if (manager.CheckField(DecreeScriptable.TargetFields.collectRangeMax))
         {
@@ -192,6 +232,10 @@ public class DecreeScriptableEditor : Editor
             }
             EditorGUILayout.EndFoldoutHeaderGroup();
             EditorGUILayout.Space();
+        }
+        else
+        {
+            manager.decretsInfos.collectRangeMax = 0;
         }
 
         if (manager.CheckField(DecreeScriptable.TargetFields.giveMouflu))
@@ -204,6 +248,10 @@ public class DecreeScriptableEditor : Editor
             EditorGUILayout.EndFoldoutHeaderGroup();
             EditorGUILayout.Space();
         }
+        else
+        {
+            manager.decretsInfos.giveMouflu = 0;
+        }
 
         if (manager.CheckField(DecreeScriptable.TargetFields.giveRock))
         {
@@ -214,6 +262,10 @@ public class DecreeScriptableEditor : Editor
             }
             EditorGUILayout.EndFoldoutHeaderGroup();
             EditorGUILayout.Space();
+        }
+        else
+        {
+            manager.decretsInfos.giveRock = 0;
         }
 
         if (manager.CheckField(DecreeScriptable.TargetFields.giveWood))
@@ -226,6 +278,10 @@ public class DecreeScriptableEditor : Editor
             EditorGUILayout.EndFoldoutHeaderGroup();
             EditorGUILayout.Space();
         }
+        else
+        {
+            manager.decretsInfos.giveWood = 0;
+        }
 
         if (manager.CheckField(DecreeScriptable.TargetFields.giveBerry))
         {
@@ -236,6 +292,10 @@ public class DecreeScriptableEditor : Editor
             }
             EditorGUILayout.EndFoldoutHeaderGroup();
             EditorGUILayout.Space();
+        }
+        else
+        {
+            manager.decretsInfos.giveBerry = 0;
         }
 
         if (manager.CheckField(DecreeScriptable.TargetFields.collectQuantityMouflu))
@@ -248,6 +308,10 @@ public class DecreeScriptableEditor : Editor
             EditorGUILayout.EndFoldoutHeaderGroup();
             EditorGUILayout.Space();
         }
+        else
+        {
+            manager.decretsInfos.collectQuantityMouflu = 0;
+        }
 
         if (manager.CheckField(DecreeScriptable.TargetFields.collectQuantityRock))
         {
@@ -258,6 +322,10 @@ public class DecreeScriptableEditor : Editor
             }
             EditorGUILayout.EndFoldoutHeaderGroup();
             EditorGUILayout.Space();
+        }
+        else
+        {
+            manager.decretsInfos.collectQuantityRock = 0;
         }
 
         if (manager.CheckField(DecreeScriptable.TargetFields.collectQuantityWood))
@@ -270,6 +338,10 @@ public class DecreeScriptableEditor : Editor
             EditorGUILayout.EndFoldoutHeaderGroup();
             EditorGUILayout.Space();
         }
+        else
+        {
+            manager.decretsInfos.collectQuantityWood = 0;
+        }
 
         if (manager.CheckField(DecreeScriptable.TargetFields.collectQuantityBerry))
         {
@@ -280,6 +352,10 @@ public class DecreeScriptableEditor : Editor
             }
             EditorGUILayout.EndFoldoutHeaderGroup();
             EditorGUILayout.Space();
+        }
+        else
+        {
+            manager.decretsInfos.collectQuantityBerry = 0;
         }
 
         if (manager.CheckField(DecreeScriptable.TargetFields.numberOfMove))
@@ -292,6 +368,10 @@ public class DecreeScriptableEditor : Editor
             EditorGUILayout.EndFoldoutHeaderGroup();
             EditorGUILayout.Space();
         }
+        else
+        {
+            manager.decretsInfos.numberOfMove = 0;
+        }
 
         if (manager.CheckField(DecreeScriptable.TargetFields.fly))
         {
@@ -303,16 +383,24 @@ public class DecreeScriptableEditor : Editor
             EditorGUILayout.EndFoldoutHeaderGroup();
             EditorGUILayout.Space();
         }
+        else
+        {
+            manager.decretsInfos.fly = 0;
+        }
 
         if (manager.CheckField(DecreeScriptable.TargetFields.roundBetweenDecree))
         {
             roundBetweenDecreeFolder = EditorGUILayout.BeginFoldoutHeaderGroup(roundBetweenDecreeFolder, "Decrease time between Decree");
             if (roundBetweenDecreeFolder)
             {
-                manager.decretsInfos.roundBetweenDecree = EditorGUILayout.IntField("0 false 1 true", manager.decretsInfos.roundBetweenDecree);
+                manager.decretsInfos.roundBetweenDecree = EditorGUILayout.IntField("flat", manager.decretsInfos.roundBetweenDecree);
             }
             EditorGUILayout.EndFoldoutHeaderGroup();
             EditorGUILayout.Space();
+        }
+        else
+        {
+            manager.decretsInfos.roundBetweenDecree = 0;
         }
 
 
@@ -327,6 +415,7 @@ public class DecreeScriptableEditor : Editor
         {
             EditorUtility.SetDirty(manager);
         }
+        
 
     }
 }
