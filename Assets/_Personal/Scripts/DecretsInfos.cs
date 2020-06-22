@@ -13,9 +13,9 @@ public class DecretsInfos
     public int maxRockFlat;
     public int maxWoodFlat;
     public int maxBerryFlat;
-    public int consumptionFoodFlat;
-    public int consumptionEnergyFlat;
-    public int consumptionBuildFlat;
+    public float consumptionFoodModificator;
+    public float consumptionEnergyModificator;
+    public float consumptionBuildModificator;
     public int collectRangeMax;
     public int giveMouflu;
     public int giveRock;

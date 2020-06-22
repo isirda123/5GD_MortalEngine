@@ -234,9 +234,9 @@ public class DecretManager : Singleton<DecretManager>
         totalDecreeInfos.maxMouffluFlat += dS.decretsInfos.maxMouffluFlat;
         totalDecreeInfos.maxRockFlat += dS.decretsInfos.maxRockFlat;
         totalDecreeInfos.maxWoodFlat += dS.decretsInfos.maxWoodFlat;
-        totalDecreeInfos.consumptionFoodFlat += dS.decretsInfos.consumptionFoodFlat;
-        totalDecreeInfos.consumptionEnergyFlat += dS.decretsInfos.consumptionEnergyFlat;
-        totalDecreeInfos.consumptionBuildFlat += dS.decretsInfos.consumptionBuildFlat;
+        totalDecreeInfos.consumptionFoodModificator += dS.decretsInfos.consumptionFoodModificator;
+        totalDecreeInfos.consumptionEnergyModificator += dS.decretsInfos.consumptionEnergyModificator;
+        totalDecreeInfos.consumptionBuildModificator += dS.decretsInfos.consumptionBuildModificator;
         totalDecreeInfos.collectRangeMax += dS.decretsInfos.collectRangeMax;
 
         totalDecreeInfos.giveMouflu += dS.decretsInfos.giveMouflu;

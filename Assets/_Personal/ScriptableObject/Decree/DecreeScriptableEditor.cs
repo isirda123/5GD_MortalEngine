@@ -155,7 +155,7 @@ public class DecreeScriptableEditor : Editor
             consumptionFoodFlatFolder = EditorGUILayout.BeginFoldoutHeaderGroup(consumptionFoodFlatFolder, "Consumption Food");
             if (consumptionFoodFlatFolder)
             {
-                manager.decretsInfos.consumptionFoodFlat = EditorGUILayout.IntField("Flat", manager.decretsInfos.consumptionFoodFlat);
+                manager.decretsInfos.consumptionFoodModificator = EditorGUILayout.FloatField("Flat", manager.decretsInfos.consumptionFoodModificator);
             }
             EditorGUILayout.EndFoldoutHeaderGroup();
             EditorGUILayout.Space();
@@ -166,7 +166,7 @@ public class DecreeScriptableEditor : Editor
             consumptionEnergyFlatFolder = EditorGUILayout.BeginFoldoutHeaderGroup(consumptionEnergyFlatFolder, "Consumption Energy");
             if (consumptionEnergyFlatFolder)
             {
-                manager.decretsInfos.consumptionEnergyFlat = EditorGUILayout.IntField("Flat", manager.decretsInfos.consumptionEnergyFlat);
+                manager.decretsInfos.consumptionEnergyModificator = EditorGUILayout.FloatField("Flat", manager.decretsInfos.consumptionEnergyModificator);
             }
             EditorGUILayout.EndFoldoutHeaderGroup();
             EditorGUILayout.Space();
@@ -177,7 +177,7 @@ public class DecreeScriptableEditor : Editor
             consumptionBuildFlatFolder = EditorGUILayout.BeginFoldoutHeaderGroup(consumptionBuildFlatFolder, "Consumption Build");
             if (consumptionBuildFlatFolder)
             {
-                manager.decretsInfos.consumptionBuildFlat = EditorGUILayout.IntField("Flat", manager.decretsInfos.consumptionBuildFlat);
+                manager.decretsInfos.consumptionBuildModificator = EditorGUILayout.FloatField("Flat", manager.decretsInfos.consumptionBuildModificator);
             }
             EditorGUILayout.EndFoldoutHeaderGroup();
             EditorGUILayout.Space();

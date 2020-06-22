@@ -46,19 +46,19 @@ public class DecretsUI : MonoBehaviour
             effect.text += "Construction max : " + dS.decretsInfos.maxWoodFlat;
             EnterKey();
         }
-        if (dS.decretsInfos.consumptionFoodFlat != 0)
+        if (dS.decretsInfos.consumptionFoodModificator != 0)
         {
-            effect.text += "Consommation nourriture : " + dS.decretsInfos.consumptionFoodFlat;
+            effect.text += "Consommation nourriture : " + dS.decretsInfos.consumptionFoodModificator;
             EnterKey();
         }
-        if (dS.decretsInfos.consumptionEnergyFlat != 0)
+        if (dS.decretsInfos.consumptionEnergyModificator != 0)
         {
-            effect.text += "Consommation energie : " + dS.decretsInfos.consumptionEnergyFlat;
+            effect.text += "Consommation energie : " + dS.decretsInfos.consumptionEnergyModificator;
             EnterKey();
         }
-        if (dS.decretsInfos.consumptionBuildFlat != 0)
+        if (dS.decretsInfos.consumptionBuildModificator != 0)
         {
-            effect.text += "Consommation construction : " + dS.decretsInfos.consumptionBuildFlat;
+            effect.text += "Consommation construction : " + dS.decretsInfos.consumptionBuildModificator;
             EnterKey();
         }
         if (dS.decretsInfos.collectRangeMax != 0)

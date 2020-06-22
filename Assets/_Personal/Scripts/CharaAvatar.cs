@@ -241,8 +241,6 @@ public class CharaAvatar : MonoBehaviour
 
     private void ChangeUsingRessource(GameManager.ResourceType emptyResource)
     {
-        print("change using resource");
-
         for (int i = 0; i < needs.Length; i++)
         {
             if (needs[i].ResourceUsed == null)

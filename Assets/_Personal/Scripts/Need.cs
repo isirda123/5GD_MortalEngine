@@ -19,7 +19,6 @@ public class Need : MonoBehaviour
         set
         {
             resourceUsed = value;
-            print("resource used changed " + needType + " value : " + value.resourcesInfos.resourceType);
             ResourceUsedChange?.Invoke(this);
         }
     }
@@ -64,15 +63,15 @@ public class Need : MonoBehaviour
     {
         if (needType == NeedType.Food)
         {
-            ResourceUsed.NumberInStock -= (ResourceUsed.resourcesInfos.GetAmontUseFor(needType) * multiplicator) - DecretManager.Instance.totalDecreeInfos.consumptionFoodFlat;
+            ResourceUsed.NumberInStock -= (ResourceUsed.resourcesInfos.GetAmontUseFor(needType) * (multiplicator - DecretManager.Instance.totalDecreeInfos.consumptionFoodModificator)) ;
         }
         else if (needType == NeedType.Energy)
         {
-            ResourceUsed.NumberInStock -= (ResourceUsed.resourcesInfos.GetAmontUseFor(needType) * multiplicator) - DecretManager.Instance.totalDecreeInfos.consumptionEnergyFlat;
+            ResourceUsed.NumberInStock -= (ResourceUsed.resourcesInfos.GetAmontUseFor(needType) * (multiplicator - DecretManager.Instance.totalDecreeInfos.consumptionEnergyModificator)) ;
         }
         else if (needType == NeedType.Build)
         {
-            ResourceUsed.NumberInStock -= (ResourceUsed.resourcesInfos.GetAmontUseFor(needType) * multiplicator) - DecretManager.Instance.totalDecreeInfos.consumptionBuildFlat;
+            ResourceUsed.NumberInStock -= (ResourceUsed.resourcesInfos.GetAmontUseFor(needType) * (multiplicator - DecretManager.Instance.totalDecreeInfos.consumptionBuildModificator)) ;
         }
     }
 }

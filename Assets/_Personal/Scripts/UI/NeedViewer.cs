@@ -33,12 +33,8 @@ public class NeedViewer : MonoBehaviour, IPointerDownHandler
 
     public void SetImageResourceUsed(Need need)
     {
-        print("set image resource used : need " + need.needType);
-        print("set image resource used : this.need " + this.need.needType);
         if (need == this.need)
         {
-            print(need);
-            print(need.ResourceUsed);
             ressourceUsedImage.sprite = need.ResourceUsed.resourcesInfos.sprite;
         }
     }
@@ -78,7 +74,6 @@ public class NeedViewer : MonoBehaviour, IPointerDownHandler
 
     private void SetNewResourceUsed(Need need)
     {
-        print("set new resource used " + need.needType);
         SetImageResourceUsed(need);
         SetResourceUsedAmontText(need);
         SetResourceUsedPerRoundText(need);

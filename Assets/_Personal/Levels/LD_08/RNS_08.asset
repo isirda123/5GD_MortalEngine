@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be9148915dcf4c243acb49ecef861d46, type: 3}
   m_Name: RNS_08
   m_EditorClassIdentifier: 
-  wood: 200
-  berry: 200
+  wood: 400
+  berry: 400
   rock: 0
   mouflu: 0
   needEnergyStart: 1.2
-  needFoodStart: 1
-  needBuildsStart: 1
+  needFoodStart: 1.2
+  needBuildsStart: 1.2

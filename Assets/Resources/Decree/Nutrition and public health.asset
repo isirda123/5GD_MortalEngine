@@ -10,20 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a8c48185ad84304588d4268def754e5, type: 3}
-  m_Name: dunno
+  m_Name: Nutrition and public health
   m_EditorClassIdentifier: 
   decretsInfos:
     reference: 0
     myTypeOfDecree: 0
-    title: A380
-    flavorText: "\xE7a vole"
+    title: 'Nutrition and public health '
+    flavorText: We teach at the people how the human nutrition work and how they can
+      benefit of having a good nutrition
     maxMouffluFlat: 0
     maxRockFlat: 0
     maxWoodFlat: 0
     maxBerryFlat: 0
-    consumptionFoodFlat: 0
-    consumptionEnergyFlat: 0
-    consumptionBuildFlat: 0
+    consumptionFoodModificator: 0.2
+    consumptionEnergyModificator: 0
+    consumptionBuildModificator: 0
     collectRangeMax: 0
     giveMouflu: 0
     giveRock: 0
@@ -36,4 +37,4 @@ MonoBehaviour:
     numberOfMove: 5
     fly: 0
     roundBetweenDecree: 0
-  targetField: 1016327
+  targetField: 135
