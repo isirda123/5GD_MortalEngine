@@ -176,6 +176,28 @@ public class CharaAvatar : MonoBehaviour
     [SerializeField] public ResourceInStock[] stock;
     [SerializeField] ResourcesNeedsStartDatas resourcesNeedsStartDatas;
 
+    #region CHEAT
+    [SerializeField] KeyCode[] cheatInput;
+    [SerializeField] GameObject[] stateOfCity;
+
+
+    void Update()
+    {
+        for (int i =0; i < cheatInput.Length; i++)
+        {
+            if (Input.GetKeyDown(cheatInput[i]))
+            {
+                for (int j =0; j < stateOfCity.Length; j++)
+                {
+                    stateOfCity[j].SetActive(false);
+                }
+                stateOfCity[i].SetActive(true);
+            }
+        }
+    }
+    #endregion
+
+
     private Tile resourceFocused;
 
     private void SetResourceUsed(ResourcesInfos resourceToUseInfos,Need need)

@@ -129,8 +129,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouvementAnimationSpeed: 3
   mouvementRange: 3
-  lerpFrom: {r: 0, g: 0, b: 0, a: 0}
-  LerpTo: {r: 0, g: 0, b: 0, a: 0}
+  lerpFrom: {r: 0.8889715, g: 0.99215686, b: 0, a: 1}
+  LerpTo: {r: 0.12187504, g: 0.46226418, b: 0, a: 1}
   needs:
   - {fileID: 8328702119957186977}
   - {fileID: 8328702119816191160}
@@ -142,6 +142,11 @@ MonoBehaviour:
   - {fileID: 8328702120139716011}
   resourcesNeedsStartDatas: {fileID: 11400000, guid: e37f57031379fc448bf48c25f7d1eff1,
     type: 2}
+  cheatInput: 010100000201000003010000
+  stateOfCity:
+  - {fileID: 364212951839166994}
+  - {fileID: 8795273125453507324}
+  - {fileID: 945785022515398540}
 --- !u!54 &8347393480470199620
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -462,7 +467,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourcesInfos: {fileID: 11400000, guid: 5cd3135e6fce66c479a4c696d2c3c0e0, type: 2}
   amontInStock: 0
-  amontInStockMax: 50
+  amontInStockMax: 1000
 --- !u!1 &8328702119816191166
 GameObject:
   m_ObjectHideFlags: 0
