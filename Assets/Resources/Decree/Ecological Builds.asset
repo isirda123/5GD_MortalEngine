@@ -22,18 +22,18 @@ MonoBehaviour:
     maxWoodFlat: 0
     maxBerryFlat: 0
     consumptionFoodModificator: 0
-    consumptionEnergyModificator: 0.2
-    consumptionBuildModificator: 0.2
+    consumptionEnergyModificator: 0
+    consumptionBuildModificator: 0.5
     collectRangeMax: 0
     giveMouflu: 0
     giveRock: 0
     giveWood: 0
     giveBerry: 0
-    collectQuantityMouflu: 50
-    collectQuantityRock: 50
-    collectQuantityWood: 50
-    collectQuantityBerry: 50
-    numberOfMove: 5
+    collectQuantityMouflu: 0
+    collectQuantityRock: 0
+    collectQuantityWood: 0
+    collectQuantityBerry: 0
+    numberOfMove: 0
     fly: 0
     roundBetweenDecree: 0
   targetField: 519

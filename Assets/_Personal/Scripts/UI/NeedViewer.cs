@@ -27,8 +27,13 @@ public class NeedViewer : MonoBehaviour, IPointerDownHandler
     {
         if (need == this.need)
         {
-            resourceUsedPerRound.text = "- " + ((int)need.ResourceUsed.resourcesInfos.GetAmontUseFor(needType) * need.multiplicator).ToString();
+            resourceUsedPerRound.text = "- " + ((int)need.ResourceUsed.resourcesInfos.GetAmontUseFor(needType) * need.Multiplicator).ToString();
         }
+    }
+
+    public void SetResourceUsedPerRoundText()
+    {
+        resourceUsedPerRound.text = "- " + ((int)need.ResourceUsed.resourcesInfos.GetAmontUseFor(needType) * need.Multiplicator).ToString();
     }
 
     public void SetImageResourceUsed(Need need)
@@ -83,11 +88,13 @@ public class NeedViewer : MonoBehaviour, IPointerDownHandler
     {
         Need.ResourceUsedChange += SetNewResourceUsed;
         CharaAvatar.ResourceUsed += SetResourceUsedAmontText;
+        DecretManager.DecretSelected += SetResourceUsedPerRoundText;
     }
 
     private void OnDisable()
     {
         Need.ResourceUsedChange -= SetNewResourceUsed;
         CharaAvatar.ResourceUsed -= SetResourceUsedAmontText;
+        DecretManager.DecretSelected -= SetResourceUsedPerRoundText;
     }
 }

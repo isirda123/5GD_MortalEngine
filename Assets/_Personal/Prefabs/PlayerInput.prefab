@@ -142,11 +142,6 @@ MonoBehaviour:
   - {fileID: 8328702120139716011}
   resourcesNeedsStartDatas: {fileID: 11400000, guid: e37f57031379fc448bf48c25f7d1eff1,
     type: 2}
-  cheatInput: 010100000201000003010000
-  stateOfCity:
-  - {fileID: 364212951839166994}
-  - {fileID: 8795273125453507324}
-  - {fileID: 945785022515398540}
 --- !u!54 &8347393480470199620
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -422,6 +417,11 @@ MonoBehaviour:
     m_Bits: 544
   needSelected: {fileID: 0}
   cityPlayer: {fileID: 453796294348892090}
+  speedOFZoom: 1
+  minLenghCamera: 3
+  maxLenghCamera: 7
+  cheatInput: 
+  stateOfCity: []
 --- !u!1 &8328702119609187688
 GameObject:
   m_ObjectHideFlags: 0

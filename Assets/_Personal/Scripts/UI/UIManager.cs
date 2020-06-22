@@ -82,7 +82,7 @@ public class UIManager : Singleton<UIManager>
             GameObject popUpGo = Instantiate(popUpResourceStock.gameObject, posInstant, Quaternion.identity , transform) as GameObject;
             PopUpResourceStock popUp = popUpGo.GetComponent<PopUpResourceStock>();
             popUp.SetImage(needViewers[i].need.ResourceUsed.resourcesInfos);
-            popUp.SetText(-(int)(needViewers[i].need.ResourceUsed.resourcesInfos.GetAmontUseFor(needViewers[i].need.needType)* needViewers[i].need.multiplicator));
+            popUp.SetText(-(int)(needViewers[i].need.ResourceUsed.resourcesInfos.GetAmontUseFor(needViewers[i].need.needType) * needViewers[i].need.Multiplicator));
         }
     }
 
@@ -146,4 +146,5 @@ public class UIManager : Singleton<UIManager>
 
     private void SetCamera() => GetComponent<Canvas>().worldCamera = Camera.main;
     
+
 }

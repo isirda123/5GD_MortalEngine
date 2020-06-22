@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using System;
 public class DecretManager : Singleton<DecretManager>
 {
     [SerializeField] int numberOfRoundBetweenDecree;
@@ -27,7 +28,7 @@ public class DecretManager : Singleton<DecretManager>
     [HideInInspector] public DecretsInfos totalDecreeInfos;
     [HideInInspector] CharaAvatar avatar;
 
-
+    public static Action DecretSelected;
 
     bool decreeCanvasOpen = false;
     bool decreeChoiceCanvasOpen = false;
@@ -182,7 +183,7 @@ public class DecretManager : Singleton<DecretManager>
         for (int i = 0; i < 3; i++)
         {
             print(i);
-            int randomDecreeIndex = Random.Range(0, allDecree.Count);
+            int randomDecreeIndex = UnityEngine.Random.Range(0, allDecree.Count);
             decreeChoosen.Add(allDecree[randomDecreeIndex]);
             availableDecree.transform.GetChild(i).GetComponent<DecretsUI>().showInfoDecret(allDecree[randomDecreeIndex]);
             allDecree.Remove(decreeChoosen[i]);
@@ -224,6 +225,7 @@ public class DecretManager : Singleton<DecretManager>
             HideItAll();
             ShowNormalUI();
         }
+        DecretSelected?.Invoke();
         SoundManager.Instance.DecreeSound();
         RoundManager.Instance.LaunchEndRound();
     }
@@ -260,5 +262,22 @@ public class DecretManager : Singleton<DecretManager>
         totalDecreeInfos.roundBetweenDecree += dS.decretsInfos.roundBetweenDecree;
     }
 
-    
+    public float GetNeedConsumption(Need.NeedType needType)
+    {
+        float needConsumption = 0;
+        switch (needType)
+        {
+            case Need.NeedType.Build:
+                needConsumption = totalDecreeInfos.consumptionBuildModificator;
+                break;
+            case Need.NeedType.Energy:
+                needConsumption = totalDecreeInfos.consumptionEnergyModificator;
+                break;
+            case Need.NeedType.Food:
+                needConsumption = totalDecreeInfos.consumptionFoodModificator;
+                break;
+        }
+        return needConsumption;
+    }
+
 }

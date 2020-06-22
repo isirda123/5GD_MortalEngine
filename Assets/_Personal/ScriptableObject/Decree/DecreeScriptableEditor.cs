@@ -190,7 +190,7 @@ public class DecreeScriptableEditor : Editor
         }
         else
         {
-            manager.decretsInfos.consumptionFoodFlat = 0;
+            manager.decretsInfos.consumptionFoodModificator = 0;
         }
 
         if (manager.CheckField(DecreeScriptable.TargetFields.consumptionEnergyFlat))
@@ -205,7 +205,7 @@ public class DecreeScriptableEditor : Editor
         }
         else
         {
-            manager.decretsInfos.consumptionEnergyFlat = 0;
+            manager.decretsInfos.consumptionEnergyModificator = 0;
         }
 
         if (manager.CheckField(DecreeScriptable.TargetFields.consumptionBuildFlat))
@@ -220,7 +220,7 @@ public class DecreeScriptableEditor : Editor
         }
         else
         {
-            manager.decretsInfos.consumptionBuildFlat = 0;
+            manager.decretsInfos.consumptionBuildModificator = 0;
         }
 
         if (manager.CheckField(DecreeScriptable.TargetFields.collectRangeMax))
