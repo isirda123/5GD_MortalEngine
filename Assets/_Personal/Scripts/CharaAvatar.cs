@@ -437,7 +437,8 @@ public class CharaAvatar : MonoBehaviour
     {
         mouvementRemain = 0;
         State = CharacterState.WaitForAction;
-        Destroy(line.gameObject);
+        if(line != null)
+            Destroy(line.gameObject);
         EndMove();
     }
 
