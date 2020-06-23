@@ -16,7 +16,7 @@ MonoBehaviour:
     reference: 0
     myTypeOfDecree: 0
     title: Public lights management
-    flavorText: 'Turn the streets'' lights during '
+    flavorText: Turn the streets and publicities' lights during night
     maxMouffluFlat: 0
     maxRockFlat: 0
     maxWoodFlat: 0

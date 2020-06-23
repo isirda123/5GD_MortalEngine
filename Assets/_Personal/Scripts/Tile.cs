@@ -278,7 +278,6 @@ public class Tile : MonoBehaviour
             visualResource = Instantiate(TilesManager.Instance.visualForNoneTile[random], transform.position + offset, Quaternion.identity, transform);
             visualResource.transform.Rotate(45, 0, 0);
 
-
         }
     }
 
