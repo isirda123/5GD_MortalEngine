@@ -10,7 +10,7 @@ public class Tile : MonoBehaviour
     public static event Action<Tile> TileTouched;
 
     [HideInInspector] public bool checkedForRespawn = false;
-    private int roundNbrOfDesable;
+    public int roundNbrOfDesable;
 
     Vector3 basePosition;
     public void OnMouseUp()
@@ -38,7 +38,7 @@ public class Tile : MonoBehaviour
 
     public TypeOfTile tileType;
 
-    private StateOfResources stateResources;
+    public StateOfResources stateResources;
     public StateOfResources State { get { return stateResources; } set { SwitchState(value); } }
     private void SwitchState(StateOfResources stateFocused)
     {
@@ -362,17 +362,16 @@ public class Tile : MonoBehaviour
             }
             if (resourcesInfos != null)
             {
-                if (RoundManager.Instance.numberOfRound - roundNbrOfDesable > resourcesInfos.nbrOfTurnsToRegrow)
+                if (RoundManager.Instance.numberOfRound - roundNbrOfDesable >= resourcesInfos.nbrOfTurnsToRegrow)
                 {
                     State = StateOfResources.Available;
                     SpriteRenderer sR = this.transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>();
-                    sR.sprite = resourcesInfos.visualOfRegrowingResource[RoundManager.Instance.numberOfRound - roundNbrOfDesable - 1];
+                    sR.sprite = resourcesInfos.visualOfRegrowingResource[RoundManager.Instance.numberOfRound - roundNbrOfDesable];
                 }
                 else
                 {
                     SpriteRenderer sR= this.transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>();
-                    if (RoundManager.Instance.numberOfRound - roundNbrOfDesable>0)
-                        sR.sprite = resourcesInfos.visualOfRegrowingResource[RoundManager.Instance.numberOfRound - roundNbrOfDesable - 1];
+                    sR.sprite = resourcesInfos.visualOfRegrowingResource[RoundManager.Instance.numberOfRound - roundNbrOfDesable];
                 }
             }
         }

@@ -437,6 +437,7 @@ public class CharaAvatar : MonoBehaviour
     {
         mouvementRemain = 0;
         State = CharacterState.WaitForAction;
+        Destroy(line.gameObject);
         EndMove();
     }
 
@@ -487,17 +488,22 @@ public class CharaAvatar : MonoBehaviour
         GetResourceInStock(typeOfResource).NumberInStock += amount;
     }
 
+    [System.Serializable]
     public struct ResourceConsume
     {
         public GameManager.ResourceType resourceType;
         public float amountPerRound;
     }
 
+    [SerializeField]
+    public ResourceConsume[] allResourceUsedPerRound;
+    [SerializeField]
+    public ResourceConsume[] allResourceGetPerRound;
     private void CheckForVictory()
     {
         bool victory = true;
-        ResourceConsume[] allResourceUsedPerRound = ListToOrganize(GetResourcesUsedPerRound());
-        ResourceConsume[] allResourceGetPerRound = ListToOrganize(GetResourcePerRound());
+        allResourceUsedPerRound = ListToOrganize(GetResourcesUsedPerRound());
+        allResourceGetPerRound = ListToOrganize(GetResourcePerRound());
 
         for (int i =0; i < allResourceUsedPerRound.Length; i++)
         {
@@ -537,23 +543,27 @@ public class CharaAvatar : MonoBehaviour
             {
                 if (tile.resourcesInfos != null)
                 {
-                    bool resourceAlreadyUsed = false;
-                    for (int i = 0; i < allResourceGetPerRound.Count; i++)
+                    if (tile.roundNbrOfDesable == RoundManager.Instance.numberOfRound)
                     {
-                        if(allResourceGetPerRound[i].resourceType == tile.resourcesInfos.resourceType)
+
+                        bool resourceAlreadyUsed = false;
+                        for (int i = 0; i < allResourceGetPerRound.Count; i++)
                         {
-                            resourceAlreadyUsed = true;
-                            ResourceConsume rC = allResourceGetPerRound[i];
-                            rC.amountPerRound += tile.resourcesInfos.WonPerRound;
-                            allResourceGetPerRound[i] = rC;
+                            if (allResourceGetPerRound[i].resourceType == tile.resourcesInfos.resourceType)
+                            {
+                                resourceAlreadyUsed = true;
+                                ResourceConsume rC = allResourceGetPerRound[i];
+                                rC.amountPerRound += tile.resourcesInfos.WonPerRound;
+                                allResourceGetPerRound[i] = rC;
+                            }
                         }
-                    }
-                    if(!resourceAlreadyUsed)
-                    {
-                        ResourceConsume rC = new ResourceConsume();
-                        rC.resourceType = tile.resourcesInfos.resourceType;
-                        rC.amountPerRound = tile.resourcesInfos.WonPerRound;
-                        allResourceGetPerRound.Add(rC);
+                        if (!resourceAlreadyUsed)
+                        {
+                            ResourceConsume rC = new ResourceConsume();
+                            rC.resourceType = tile.resourcesInfos.resourceType;
+                            rC.amountPerRound = tile.resourcesInfos.WonPerRound;
+                            allResourceGetPerRound.Add(rC);
+                        }
                     }
                 }
             }
