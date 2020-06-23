@@ -366,12 +366,14 @@ public class Tile : MonoBehaviour
                 {
                     State = StateOfResources.Available;
                     SpriteRenderer sR = this.transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>();
-                    sR.sprite = resourcesInfos.visualOfRegrowingResource[RoundManager.Instance.numberOfRound - roundNbrOfDesable];
+                    if (tileType != TypeOfTile.Mouflu && tileType != TypeOfTile.Rock)
+                        sR.sprite = resourcesInfos.visualOfRegrowingResource[RoundManager.Instance.numberOfRound - roundNbrOfDesable];
                 }
                 else
                 {
                     SpriteRenderer sR= this.transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>();
-                    sR.sprite = resourcesInfos.visualOfRegrowingResource[RoundManager.Instance.numberOfRound - roundNbrOfDesable];
+                    if (tileType != TypeOfTile.Mouflu && tileType != TypeOfTile.Rock)
+                        sR.sprite = resourcesInfos.visualOfRegrowingResource[RoundManager.Instance.numberOfRound - roundNbrOfDesable];
                 }
             }
         }
