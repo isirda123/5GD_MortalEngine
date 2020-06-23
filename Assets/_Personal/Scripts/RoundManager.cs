@@ -54,6 +54,12 @@ public class RoundManager : Singleton<RoundManager>
 
     private RoundState roundState;
 
+    public RoundState State
+    {
+        get { return roundState; }
+        set { SwitchRoundState(value); }
+    }
+
     private void SwitchRoundState(RoundState roundStateFocused)
     {
         switch (roundStateFocused)
