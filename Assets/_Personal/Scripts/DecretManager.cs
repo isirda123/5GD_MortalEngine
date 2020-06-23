@@ -7,6 +7,7 @@ using System;
 public class DecretManager : Singleton<DecretManager>
 {
     [SerializeField] int numberOfRoundBetweenDecree;
+    int nextDecreeRound;
     int numberOfDecreeAvailable = 0;
     [SerializeField] int timeBetweenTwoDecree;
     [SerializeField] GameObject canvasDecree;
@@ -43,6 +44,7 @@ public class DecretManager : Singleton<DecretManager>
         allDecree = Resources.LoadAll<DecreeScriptable>("Decree").ToList();
         numberOfDecreeGO.SetActive(false);
         avatar = (CharaAvatar)GameObject.FindObjectOfType(typeof(CharaAvatar));
+        SetRoundWhenGetAnotherDecree();
     }
 
     void OnEnable()
@@ -71,11 +73,16 @@ public class DecretManager : Singleton<DecretManager>
         }
     }
 
+    void SetRoundWhenGetAnotherDecree()
+    {
+        nextDecreeRound = RoundManager.Instance.numberOfRound + numberOfRoundBetweenDecree;
+    }
+
     void addRound()
     {
         if (RoundManager.Instance.numberOfRound != 0)
         {
-            if (RoundManager.Instance.numberOfRound % numberOfRoundBetweenDecree == 0)
+            if (RoundManager.Instance.numberOfRound == nextDecreeRound -1)
             {
                 NewDecree();
             }
@@ -199,6 +206,7 @@ public class DecretManager : Singleton<DecretManager>
     public void ValidateDecree()
     {
         numberOfDecreeAvailable -= 1;
+        SetRoundWhenGetAnotherDecree();
         SetAllDecreeInfos(decreeChoosen[choosenDecree]);
         decreeValidate.Add(decreeChoosen[choosenDecree]);
         GameObject dVP = Instantiate(decretValidatePrefab, decretValidateManager.transform.GetChild(0));
