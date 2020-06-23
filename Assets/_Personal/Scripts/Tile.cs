@@ -263,6 +263,24 @@ public class Tile : MonoBehaviour
         }
     }
 
+    public void DrawRandomVisualOnNoneTile()
+    {
+        if (tileType == TypeOfTile.None)
+        {
+            if (transform.childCount != 0)
+            {
+                DestroyImmediate(transform.GetChild(0).gameObject);
+            }
+
+            int random = UnityEngine.Random.Range(0, TilesManager.Instance.visualForNoneTile.Length);
+
+            Vector3 offset = new Vector3(UnityEngine.Random.Range(-0.3f, 0.3f), 0, UnityEngine.Random.Range(-0.4f, 0.4f));
+            visualResource = Instantiate(TilesManager.Instance.visualForNoneTile[random], transform.position + offset, Quaternion.identity, transform);
+            visualResource.transform.Rotate(45, 0, 0);
+
+
+        }
+    }
 
     public void DrawVisualTile()
     {
@@ -330,10 +348,8 @@ public class Tile : MonoBehaviour
         {
             if (this.avatarOnMe == true)
             {
-                print("avatarOnMe");
                 roundNbrOfDesable = RoundManager.Instance.numberOfRound;
             }
-            print("PärtDone");
             bool neighbourWithSameType = CheckForSameTypeAround(neighbours);
             
             if (neighbourWithSameType == false)
@@ -344,7 +360,6 @@ public class Tile : MonoBehaviour
                     DrawVisualTile();
                 }
             }
-            print("Before Colapse");
             if (resourcesInfos != null)
             {
                 if (RoundManager.Instance.numberOfRound - roundNbrOfDesable > resourcesInfos.nbrOfTurnsToRegrow)
@@ -361,7 +376,6 @@ public class Tile : MonoBehaviour
                 }
             }
         }
-        print("EndOfFunction");
     }
 
     private void OnEnable()

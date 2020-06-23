@@ -5,11 +5,9 @@ using System;
 using System.Linq;
 
 using Random = UnityEngine.Random;
-
+[ExecuteInEditMode]
 public class TilesManager : Singleton<TilesManager>
 {
-    //Debug
-    [SerializeField] List<GameObject> allAmasGO = new List<GameObject>();
 
     [SerializeField] List<Tile> tileReachable = new List<Tile>();
 
@@ -19,6 +17,9 @@ public class TilesManager : Singleton<TilesManager>
 
     [Range(0,10)]
     [SerializeField] public float offSetTile;
+
+    [SerializeField] public GameObject[] visualForNoneTile;
+
     [ContextMenu("Set All Tiles")]
     public void SetAllTiles()
     {
@@ -35,6 +36,7 @@ public class TilesManager : Singleton<TilesManager>
             if (tiles[i].tag == "Hexagone")
             {
                 tiles[i].GetComponent<Tile>().DrawVisualTile();
+                tiles[i].GetComponent<Tile>().DrawRandomVisualOnNoneTile();
             }
         }
     }
@@ -303,14 +305,7 @@ public class TilesManager : Singleton<TilesManager>
 
    
 
-    //Debug
-    void GetGo(List<Tile> tiles)
-    {
-        foreach (Tile tile in tiles)
-        {
-            allAmasGO.Add(tile.gameObject);
-        }
-    }
+   
 
     Tile.TypeOfTile[] spawnResourceTypes = { Tile.TypeOfTile.Wood, Tile.TypeOfTile.Berry, Tile.TypeOfTile.Mouflu };
     public AnimationCurve curve;
