@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 public class Need : MonoBehaviour
 {
+    [HideInInspector] public bool resourceJustChanged = false;
     public enum NeedType
     {
         Build,

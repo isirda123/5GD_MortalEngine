@@ -5,22 +5,65 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using DG.Tweening;
 
 public class NeedViewer : MonoBehaviour, IPointerDownHandler
 {
     [SerializeField] private StockViewer stockViewer;
     [SerializeField] private Image ressourceUsedImage;
-    [SerializeField] private TextMeshProUGUI resourceUsedSotck;
+    [SerializeField] private TextMeshProUGUI resourceUsedStockText;
     [SerializeField] private TextMeshProUGUI resourceUsedPerRound;
     [SerializeField] public Need.NeedType needType;
     [HideInInspector] public Need need;
+
 
     public void SetResourceUsedAmontText(Need need)
     {
         if (need == this.need)
         {
-            resourceUsedSotck.text = ((int)(need.ResourceUsed.NumberInStock)).ToString();
+            //resourceUsedSotck.text = ((int)(need.ResourceUsed.NumberInStock)).ToString();
+            float start = int.Parse(resourceUsedStockText.text);
+            float end = (int)(need.ResourceUsed.NumberInStock);
+            float pacing = start - end;
+
+            float value = start;
+
+            if (RoundManager.Instance.State == RoundManager.RoundState.ResolvingRound && need.resourceJustChanged == false)
+            {
+                print(start + "   " + end);
+                DOTween.To(() => value, x => value = x, end, 2).OnUpdate(() => VisualDrawResources(value,pacing)).OnComplete(() => EndVisualDrawResources());
+                print(value);
+            }
+            else
+            {
+                resourceUsedStockText.text = ((int)(need.ResourceUsed.NumberInStock)).ToString();
+                need.resourceJustChanged = false;
+            }
+            //StartCoroutine(DrawVisualResourceAmount(start, end));
         }
+    }
+
+    private void VisualDrawResources(float value, float pacing)
+    {
+        resourceUsedStockText.text = ((int)value).ToString();
+        if (pacing > 0)
+        {
+            resourceUsedStockText.fontSize = (float) ((-Mathf.PingPong(Time.time * pacing * 0.5f, 5)) + 25);
+            Color color = Color.red;
+            resourceUsedStockText.color = color;
+        }
+        else
+        {
+            resourceUsedStockText.fontSize = (float)((Mathf.PingPong(Time.time * pacing * 0.5f, 5)) + 25);
+            Color color = Color.green;
+            resourceUsedStockText.color = color;
+        }
+    }
+
+    private void EndVisualDrawResources()
+    {
+         resourceUsedStockText.color = Color.black;
+        resourceUsedStockText.fontSize = 25;
     }
 
     public void SetResourceUsedPerRoundText(Need need)
@@ -62,7 +105,6 @@ public class NeedViewer : MonoBehaviour, IPointerDownHandler
         }
         for (int i = 0; i < stockViewer.resourcesViewers.Length; i++)
         {
-            print(need);
             for (int j = 0; j < need.resourcesUsable.Length; j++)
             {
                 if (stockViewer.resourcesViewers[i].resourcesInfos.resourceType == need.resourcesUsable[j] 

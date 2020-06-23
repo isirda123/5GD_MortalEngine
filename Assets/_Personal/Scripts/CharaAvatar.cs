@@ -270,6 +270,7 @@ public class CharaAvatar : MonoBehaviour
         {
             if (needs[i].ResourceUsed == null)
             {
+                needs[i].resourceJustChanged = true;
                 ResourceInStock firstResourceUsable = GetResourceInStock(needs[i].resourcesUsable[0]);
                 needs[i].ResourceUsed = firstResourceUsable;
             }
@@ -284,6 +285,7 @@ public class CharaAvatar : MonoBehaviour
                             ResourceInStock otherResourceUsable = GetResourceInStock(needs[i].resourcesUsable[j]);
                             if (otherResourceUsable.NumberInStock > 0)
                             {
+                                needs[i].resourceJustChanged = true;
                                 needs[i].ResourceUsed = otherResourceUsable;
                             }
                             else
@@ -581,8 +583,6 @@ public class CharaAvatar : MonoBehaviour
             //check if a resource is already used
             for (int i = 0; i < allResourceNeeded.Count; i++)
             {
-                print(allResourceNeeded[i].resourceType);
-                print(need.ResourceUsed);
                 if(allResourceNeeded[i].resourceType == need.ResourceUsed.resourcesInfos.resourceType)
                 {
                     resourceAlreadyUsed = true;
