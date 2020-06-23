@@ -19,6 +19,7 @@ public class RoundManager : Singleton<RoundManager>
         ActionsButtons.Move += SetMakingAction;
         ActionsButtons.Pass += LaunchEndRound;
         ActionsButtons.Harvest += SetMakingAction;
+        RoundStart += SetChoosingForAction;
         RoundEnd += SetRoundStateResolving;
         RoundEnd += AddRound;
     }
@@ -28,6 +29,7 @@ public class RoundManager : Singleton<RoundManager>
         ActionsButtons.Move -= SetMakingAction;
         ActionsButtons.Pass -= LaunchEndRound;
         ActionsButtons.Harvest -= SetMakingAction;
+        RoundStart -= SetChoosingForAction;
         RoundEnd -= SetRoundStateResolving;
         RoundEnd -= AddRound;
     }
@@ -72,22 +74,25 @@ public class RoundManager : Singleton<RoundManager>
                 break;
         }
         roundState = roundStateFocused;
+        print(roundState);
     }
     #endregion
 
     #region METHODS
+
     private void SetMakingAction()
     {
-        SwitchRoundState(RoundState.MakingAction);
+        State = RoundState.MakingAction;
     }
 
     private void SetRoundStateResolving()
     {
-        SwitchRoundState(RoundState.ResolvingRound);
+        State = RoundState.ResolvingRound;
     }
+
     private void SetChoosingForAction()
     {
-        SwitchRoundState(RoundState.ChoosingAction);
+        State = RoundState.ChoosingAction;
     }
 
     public void EndLevel(bool win)
