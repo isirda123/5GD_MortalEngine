@@ -71,6 +71,7 @@ public class RoundManager : Singleton<RoundManager>
             case RoundState.ResolvingRound:
                 break;
         }
+        roundState = roundStateFocused;
     }
     #endregion
 
