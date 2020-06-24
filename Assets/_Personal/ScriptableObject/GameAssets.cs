@@ -8,4 +8,7 @@ public class GameAssets : ScriptableObject
     public PopUpResourceHarvest popUpResourceHarvest;
     public PopUpResourceStock popUpResourceStock;
     public GameObject arrow;
+
+    public Material border;
+    public Material center;
 }

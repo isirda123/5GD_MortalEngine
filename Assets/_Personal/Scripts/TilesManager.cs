@@ -19,6 +19,7 @@ public class TilesManager : Singleton<TilesManager>
     [SerializeField] public float offSetTile;
 
     [SerializeField] public GameObject[] visualForNoneTile;
+    [SerializeField] public GameObject[] visualForWaterTile;
 
     [ContextMenu("Set All Tiles")]
     public void SetAllTiles()
@@ -37,6 +38,7 @@ public class TilesManager : Singleton<TilesManager>
             {
                 tiles[i].GetComponent<Tile>().DrawVisualTile();
                 tiles[i].GetComponent<Tile>().DrawRandomVisualOnNoneTile();
+                tiles[i].GetComponent<Tile>().DrawRandomVisualOnWaterTile();
             }
         }
     }

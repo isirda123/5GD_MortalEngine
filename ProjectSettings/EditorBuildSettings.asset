@@ -14,8 +14,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Personal/Levels/LD_02/LD_02.unity
     guid: d90279f8638b0b64897ee5508266814d
-  - enabled: 1
-    path: Assets/_Personal/Levels/LD_03/LD_03.unity
+  - enabled: 0
+    path: Assets/__DELETED_GUID_Trash/a5c307c3a6ce4884eb7d90e98f80c97a
     guid: a5c307c3a6ce4884eb7d90e98f80c97a
   - enabled: 1
     path: Assets/_Personal/Levels/LD_04/LD_04.unity
