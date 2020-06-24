@@ -16,6 +16,8 @@ public class NeedViewer : MonoBehaviour, IPointerDownHandler
     [SerializeField] public Need.NeedType needType;
     [HideInInspector] public Need need;
 
+    bool showStockViewer = false;
+
 
     public void SetResourceUsedAmontText(Need need)
     {
@@ -62,7 +64,7 @@ public class NeedViewer : MonoBehaviour, IPointerDownHandler
 
     private void EndVisualDrawResources()
     {
-         resourceUsedStockText.color = Color.black;
+        resourceUsedStockText.color = Color.black;
         resourceUsedStockText.fontSize = 25;
     }
 
@@ -95,7 +97,42 @@ public class NeedViewer : MonoBehaviour, IPointerDownHandler
         SetNeedSelected();
     }
 
-    private void DrawStockViewer() => stockViewer.gameObject.SetActive(true);
+    
+    public void DrawStockViewer()
+    {
+        print(gameObject.name);
+        showStockViewer = !showStockViewer;
+        StartCoroutine(SetViewerPos());
+    }
+
+    IEnumerator SetViewerPos()
+    {
+        stockViewer.gameObject.SetActive(true);
+        if (showStockViewer == true)
+        {
+            while (stockViewer.transform.localPosition.y > 70)
+            {
+                if (showStockViewer == false)
+                {
+                    break;
+                }
+                stockViewer.transform.localPosition = new Vector3(stockViewer.transform.localPosition.x, stockViewer.transform.localPosition.y - 4f, stockViewer.transform.localPosition.z);
+                yield return new WaitForSeconds(0.01f);
+            }
+        }
+        else
+        {
+            while (stockViewer.transform.localPosition.y < 315)
+            {
+                if (showStockViewer == true)
+                {
+                    break;
+                }
+                stockViewer.transform.localPosition = new Vector3(stockViewer.transform.localPosition.x, stockViewer.transform.localPosition.y + 4f, stockViewer.transform.localPosition.z);
+                yield return new WaitForSeconds(0.01f);
+            }
+        }
+    }
 
     private void SetResourcesUsableViewer()
     {

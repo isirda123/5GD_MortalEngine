@@ -5,8 +5,10 @@ using UnityEngine.EventSystems;
 
 public class StockViewerEscape : MonoBehaviour, IPointerDownHandler
 {
+    [SerializeField] NeedViewer NeedViewer;
     public void OnPointerDown(PointerEventData eventData)
     {
-        UIManager.Instance.stockViewer.DesableStockViewer();
+        print("Down");
+        NeedViewer.DrawStockViewer();
     }
 }

@@ -5,10 +5,9 @@ using UnityEngine;
 public class StockViewer : MonoBehaviour
 {
     [SerializeField] public ResourceViewer[] resourcesViewers;
-
-    public void DesableStockViewer() => gameObject.SetActive(false);
-    private void Start()
+    [SerializeField] NeedViewer NeedViewer;
+    public void DisableStockViewer()
     {
-        gameObject.SetActive(false);
+        NeedViewer.DrawStockViewer();
     }
 }

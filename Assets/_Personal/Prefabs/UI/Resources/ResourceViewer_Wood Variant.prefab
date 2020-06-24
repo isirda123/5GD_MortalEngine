@@ -9,11 +9,6 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8177813058137672601, guid: 3002fe2cac5824c4a9b14097cb700d08,
         type: 3}
-      propertyPath: resourceType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8177813058137672601, guid: 3002fe2cac5824c4a9b14097cb700d08,
-        type: 3}
       propertyPath: resourcesInfos
       value: 
       objectReference: {fileID: 11400000, guid: e424dd937ad32a54fa2578e580611f2e,
@@ -21,7 +16,7 @@ PrefabInstance:
     - target: {fileID: 8177813058137672606, guid: 3002fe2cac5824c4a9b14097cb700d08,
         type: 3}
       propertyPath: m_Name
-      value: ResourceViewer_Wood
+      value: ResourceViewer_Wood Variant
       objectReference: {fileID: 0}
     - target: {fileID: 8177813058137672607, guid: 3002fe2cac5824c4a9b14097cb700d08,
         type: 3}
@@ -91,12 +86,12 @@ PrefabInstance:
     - target: {fileID: 8177813058137672607, guid: 3002fe2cac5824c4a9b14097cb700d08,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 124.6
       objectReference: {fileID: 0}
     - target: {fileID: 8177813058137672607, guid: 3002fe2cac5824c4a9b14097cb700d08,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 48
       objectReference: {fileID: 0}
     - target: {fileID: 8177813058137672607, guid: 3002fe2cac5824c4a9b14097cb700d08,
         type: 3}
@@ -128,5 +123,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 8177813060193443494, guid: 3002fe2cac5824c4a9b14097cb700d08,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -5172798903270527596, guid: 62c3468ef9604ac4eb044fda912622ff,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3002fe2cac5824c4a9b14097cb700d08, type: 3}

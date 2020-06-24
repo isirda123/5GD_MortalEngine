@@ -21,7 +21,7 @@ public class ResourceViewer : MonoBehaviour, IPointerUpHandler, IPointerDownHand
         if (CheckResourceType())
         {
             PlayerInput.Instance.ChangeNeedSelectedResourceUse(resourcesInfos);
-            UIManager.Instance.stockViewer.DesableStockViewer();
+            transform.parent.GetComponent<StockViewer>().DisableStockViewer();
         }
     }
 
