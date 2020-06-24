@@ -16,7 +16,9 @@ public class ActionsButtons : MonoBehaviour, IPointerUpHandler, IPointerDownHand
         Pass,
         Vote,
         PassDurigMove,
-        ReturnMenu
+        ReturnMenu,
+        GoToNextLevel,
+        ReloadTheSameLevel
     }
     public static event Action Move;
     public static event Action Pass;
@@ -24,6 +26,8 @@ public class ActionsButtons : MonoBehaviour, IPointerUpHandler, IPointerDownHand
     public static event Action Vote;
     public static event Action PassDurigMove;
     public static event Action ReturnMenu;
+    public static event Action GoToNextLevel;
+    public static event Action ReloadTheSameLevel;
 
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -56,6 +60,12 @@ public class ActionsButtons : MonoBehaviour, IPointerUpHandler, IPointerDownHand
                 break;
             case PlayerAction.ReturnMenu:
                 ReturnMenu?.Invoke();
+                break;
+            case PlayerAction.GoToNextLevel:
+                GoToNextLevel?.Invoke();
+                break;
+            case PlayerAction.ReloadTheSameLevel:
+                ReloadTheSameLevel?.Invoke();
                 break;
         }
     }

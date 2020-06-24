@@ -11,7 +11,6 @@ public class PlayerInput : Singleton<PlayerInput>
     [SerializeField] float lenghtOfAClick;
 
     [Header("Camera")]
-    
     [SerializeField] float speedOfCamera;
     [SerializeField] LayerMask myMask;
     [HideInInspector] public Need needSelected;
