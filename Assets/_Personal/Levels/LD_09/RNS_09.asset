@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: RNS_09
   m_EditorClassIdentifier: 
   wood: 200
-  berry: 200
+  berry: 300
   rock: 0
   mouflu: 0
-  needEnergyStart: 1
-  needFoodStart: 1
-  needBuildsStart: 1
+  needEnergyStart: 1.2
+  needFoodStart: 1.3
+  needBuildsStart: 1.3
