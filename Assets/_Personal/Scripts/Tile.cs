@@ -179,7 +179,7 @@ public class Tile : MonoBehaviour
 
     public void DrawResourceHarvest()
     {
-        GameObject popUpGo = Instantiate(GameManager.Instance.gameAssets.popUpResourceHarvest.gameObject, transform.position /*+ (transform.up*0.5f)*/, Quaternion.identity) as GameObject;
+        GameObject popUpGo = Instantiate(GameManager.Instance.gameAssets.popUpResourceHarvest.gameObject, transform.position + (transform.up*0.5f), Quaternion.Euler(45,0,0)) as GameObject;
         PopUpResourceHarvest popUp = popUpGo.GetComponent<PopUpResourceHarvest>();
         popUp.SetImage(resourcesInfos);
         if (resourcesInfos.resourceType == GameManager.ResourceType.Mouflu)
