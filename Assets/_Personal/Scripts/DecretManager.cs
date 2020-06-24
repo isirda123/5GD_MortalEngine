@@ -131,19 +131,17 @@ public class DecretManager : Singleton<DecretManager>
     public void ChoiceADecree(int WhichDecree)
     {
         UnSelectAllDecree();
-        availableDecree.transform.GetChild(WhichDecree - 1).GetComponent<Image>().sprite = selectedDecree;
+        availableDecree.transform.GetChild(WhichDecree - 1).transform.GetChild(4).gameObject.SetActive(true);
         choosenDecree = WhichDecree - 1;
         print(choosenDecree);
-        validateButton.SetActive(true);
     }
 
     void UnSelectAllDecree()
     {
         for (int i = 0; i < availableDecree.transform.childCount; i++)
         {
-            availableDecree.transform.GetChild(i).GetComponent<Image>().sprite = baseDecreeColor;
+            availableDecree.transform.GetChild(i).transform.GetChild(4).gameObject.SetActive(false);
         }
-        validateButton.SetActive(false);
     }
 
     void ShowNormalUI()
