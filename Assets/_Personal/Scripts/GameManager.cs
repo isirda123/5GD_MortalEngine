@@ -31,32 +31,28 @@ public class GameManager : Singleton<GameManager>
     }
     #endregion
 
-    private void CountDownLoadLevel(bool win)
+
+    void GoToNextLevel()
     {
-        Sequence sequence = DOTween.Sequence();
-        sequence.AppendInterval(2f);
-        sequence.OnComplete(() => LoadLevel(win, levelId));
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
-    private void LoadLevel(bool win, int levelId)
+    void ReloadSameLevel()
     {
-        if (win)
-        {
-            levelId++;
-            SceneManager.LoadScene(levelId);
-        }
-        else
-        {
-            SceneManager.LoadScene(levelId);
-        }
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+
+    
     private void OnEnable()
     {
-        RoundManager.LevelEnd += CountDownLoadLevel;
+        ActionsButtons.ReloadTheSameLevel += ReloadSameLevel;
+        ActionsButtons.GoToNextLevel += GoToNextLevel;
     }
 
     private void OnDisable()
     {
-        RoundManager.LevelEnd -= CountDownLoadLevel;
+        ActionsButtons.ReloadTheSameLevel -= ReloadSameLevel;
+        ActionsButtons.GoToNextLevel -= GoToNextLevel;
+
     }
 }

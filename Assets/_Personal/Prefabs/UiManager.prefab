@@ -317,7 +317,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 49.7, y: -174}
+  m_AnchoredPosition: {x: 66, y: -174}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1842710027625595011
@@ -1384,7 +1384,7 @@ GameObject:
   - component: {fileID: 2793611219542425491}
   - component: {fileID: 2793611219542425489}
   - component: {fileID: 2793611219542425490}
-  - component: {fileID: 2793611219542425488}
+  - component: {fileID: 111136347384234012}
   m_Layer: 5
   m_Name: Niveau Suivant
   m_TagString: Untagged
@@ -1448,7 +1448,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2793611219542425488
+--- !u!114 &111136347384234012
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1457,9 +1457,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2793611219542425492}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b34851bf7c62c2c4481c7f48218a07a4, type: 3}
+  m_Script: {fileID: 11500000, guid: 76e16a5654250b348bcfd80781b0df54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerAction: 6
 --- !u!1 &2793611219725814764
 GameObject:
   m_ObjectHideFlags: 0
@@ -1902,7 +1903,7 @@ GameObject:
   - component: {fileID: 3693657830456647158}
   - component: {fileID: 9000344482959892106}
   - component: {fileID: 3822603618895707143}
-  - component: {fileID: 4930362322837762208}
+  - component: {fileID: 1262309943961526867}
   m_Layer: 5
   m_Name: Niveau Suivant
   m_TagString: Untagged
@@ -1966,7 +1967,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4930362322837762208
+--- !u!114 &1262309943961526867
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1975,9 +1976,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4056564451285611868}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b34851bf7c62c2c4481c7f48218a07a4, type: 3}
+  m_Script: {fileID: 11500000, guid: 76e16a5654250b348bcfd80781b0df54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerAction: 7
 --- !u!1 &4466886535339436715
 GameObject:
   m_ObjectHideFlags: 0
@@ -2496,7 +2498,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -50, y: -174}
+  m_AnchoredPosition: {x: -66, y: -174}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5224972286659251123
