@@ -16,6 +16,6 @@ MonoBehaviour:
   berry: 100
   rock: 0
   mouflu: 0
-  needEnergyStart: 0
-  needFoodStart: 0
-  needBuildsStart: 0
+  needEnergyStart: 1
+  needFoodStart: 1
+  needBuildsStart: 1
