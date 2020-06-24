@@ -64,6 +64,15 @@ public class PlayerInput : Singleton<PlayerInput>
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.Plus))
+        {
+            speedOfCamera += 2;
+        }
+        if (Input.GetKeyDown(KeyCode.Minus))
+        {
+            speedOfCamera -= 2;
+        }
+
         for (int i = 0; i < cheatInput.Length; i++)
         {
             if (Input.GetKeyDown(cheatInput[i]))

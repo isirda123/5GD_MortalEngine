@@ -11,6 +11,8 @@ public class GameManager : Singleton<GameManager>
 {
     [SerializeField] public GameAssets gameAssets;
     [HideInInspector] public int levelId;
+    [SerializeField] KeyCode[] inputField;
+
     public enum ResourceType
     {
         None,
@@ -34,7 +36,16 @@ public class GameManager : Singleton<GameManager>
     #endregion
 
 
-
+    void Update()
+    {
+        for (int i =0; i < inputField.Length; i++)
+        {
+            if (Input.GetKeyDown(inputField[i]))
+            {
+                SceneManager.LoadScene(i);
+            }
+        }
+    }
 
     void GoToNextLevel()
     {
