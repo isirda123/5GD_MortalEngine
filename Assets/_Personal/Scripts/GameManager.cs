@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 [ExecuteInEditMode]
 public class GameManager : Singleton<GameManager>
@@ -33,17 +34,57 @@ public class GameManager : Singleton<GameManager>
     #endregion
 
 
+
+
     void GoToNextLevel()
     {
+        StartCoroutine(FadeInNextLevel());
+    }
+
+    IEnumerator FadeInNextLevel()
+    {
+        while (UIManager.Instance.fade.GetComponent<Image>().color.a < 1)
+        {
+            UIManager.Instance.fade.GetComponent<Image>().color = new Color(UIManager.Instance.fade.GetComponent<Image>().color.r, UIManager.Instance.fade.GetComponent<Image>().color.g,
+                UIManager.Instance.fade.GetComponent<Image>().color.b, UIManager.Instance.fade.GetComponent<Image>().color.a + 0.01f);
+            yield return new WaitForSeconds(0.01f);
+        }
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
+    
+
+
     void ReloadSameLevel()
     {
+        StartCoroutine(FadeInLevelReload());
+    }
+
+    IEnumerator FadeInLevelReload()
+    {
+        while (UIManager.Instance.fade.GetComponent<Image>().color.a < 1)
+        {
+            UIManager.Instance.fade.GetComponent<Image>().color = new Color(UIManager.Instance.fade.GetComponent<Image>().color.r, UIManager.Instance.fade.GetComponent<Image>().color.g,
+                UIManager.Instance.fade.GetComponent<Image>().color.b, UIManager.Instance.fade.GetComponent<Image>().color.a + 0.01f);
+            yield return new WaitForSeconds(0.01f);
+        }
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    
+    public IEnumerator FadeOut()
+    {
+        while (UIManager.Instance.fade.GetComponent<Image>().color.a > 0)
+        {
+            UIManager.Instance.fade.GetComponent<Image>().color = new Color(UIManager.Instance.fade.GetComponent<Image>().color.r, UIManager.Instance.fade.GetComponent<Image>().color.g,
+                UIManager.Instance.fade.GetComponent<Image>().color.b, UIManager.Instance.fade.GetComponent<Image>().color.a - 0.01f);
+            yield return new WaitForSeconds(0.01f);
+
+        }
+    }
+
+
     private void OnEnable()
     {
         ActionsButtons.ReloadTheSameLevel += ReloadSameLevel;

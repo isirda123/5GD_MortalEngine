@@ -85,6 +85,7 @@ public class CharaAvatar : MonoBehaviour
 
     private void OnEnable()
     {
+        StartCoroutine(GameManager.Instance.FadeOut());
         AssignEvents();
 
         SetStartingValues();

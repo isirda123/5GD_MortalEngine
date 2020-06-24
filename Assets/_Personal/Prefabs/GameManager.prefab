@@ -305,6 +305,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameAssets: {fileID: 11400000, guid: 088a0618633f1324cb4a712ae2b3d0b1, type: 2}
   levelId: 0
+  fade: {fileID: 0}
 --- !u!1 &6178514527730196959
 GameObject:
   m_ObjectHideFlags: 0

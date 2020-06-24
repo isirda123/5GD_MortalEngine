@@ -21,6 +21,7 @@ public class UIManager : Singleton<UIManager>
 
     [SerializeField] GameObject resourcesNeededFolder;
     [SerializeField] GameObject resourcesNeeded;
+    [SerializeField] public GameObject fade;
 
     private void SetNeedViewers()
     {
