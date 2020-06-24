@@ -282,10 +282,10 @@ public class Tile : MonoBehaviour
                 DestroyImmediate(transform.GetChild(0).gameObject);
             }
 
-            int random = UnityEngine.Random.Range(0, TilesManager.Instance.visualForNoneTile.Length);
+            int random = UnityEngine.Random.Range(0, GameManager.Instance.gameAssets.visualForNoneTile.Length);
 
             Vector3 offset = new Vector3(UnityEngine.Random.Range(-0.3f, 0.3f), 0, UnityEngine.Random.Range(-0.4f, 0.4f));
-            visualResource = Instantiate(TilesManager.Instance.visualForNoneTile[random], transform.position + offset + (Vector3.up * 0.2f), Quaternion.identity, transform);
+            visualResource = Instantiate(GameManager.Instance.gameAssets.visualForNoneTile[random], transform.position + offset + (Vector3.up * 0.2f), Quaternion.identity, transform);
             visualResource.transform.Rotate(45, 0, 0);
 
         }
@@ -300,10 +300,10 @@ public class Tile : MonoBehaviour
                 DestroyImmediate(transform.GetChild(0).gameObject);
             }
 
-            int random = UnityEngine.Random.Range(0, TilesManager.Instance.visualForWaterTile.Length);
+            int random = UnityEngine.Random.Range(0, GameManager.Instance.gameAssets.visualForWaterTile.Length);
 
             Vector3 offset = new Vector3(UnityEngine.Random.Range(-0.3f, 0.3f), 0, UnityEngine.Random.Range(-0.4f, 0.4f));
-            visualResource = Instantiate(TilesManager.Instance.visualForWaterTile[random], transform.position + offset + (Vector3.up*0.2f), Quaternion.identity, transform);
+            visualResource = Instantiate(GameManager.Instance.gameAssets.visualForWaterTile[random], transform.position + offset + (Vector3.up*0.2f), Quaternion.identity, transform);
             visualResource.transform.Rotate(45, 0, 0);
 
         }

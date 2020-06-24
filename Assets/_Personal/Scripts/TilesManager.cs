@@ -18,8 +18,7 @@ public class TilesManager : Singleton<TilesManager>
     [Range(0,10)]
     [SerializeField] public float offSetTile;
 
-    [SerializeField] public GameObject[] visualForNoneTile;
-    [SerializeField] public GameObject[] visualForWaterTile;
+
 
     [ContextMenu("Set All Tiles")]
     public void SetAllTiles()

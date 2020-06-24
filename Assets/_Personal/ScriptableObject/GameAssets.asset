@@ -19,3 +19,16 @@ MonoBehaviour:
   arrow: {fileID: 559049548936131572, guid: 74dd398f7598ecd43835d7c60633c701, type: 3}
   border: {fileID: 2100000, guid: 81e300a0abdedd14d854d29820be495d, type: 2}
   center: {fileID: 2100000, guid: 2cd64f96d34776740b52c523eda2c697, type: 2}
+  visualForNoneTile:
+  - {fileID: 3408208446410194387, guid: 3cfd06fcd87667e4199f089b7af469f9, type: 3}
+  - {fileID: 2229307819948443621, guid: 9264f7981b23e104da4b89ae0475c2b1, type: 3}
+  - {fileID: 1448394459764673075, guid: 98d38145b88b5ae4dbb7a42a7e1ab143, type: 3}
+  visualForWaterTile:
+  - {fileID: 7209533042287428663, guid: a3d31d7e8c2bb404286b292bfaf66c96, type: 3}
+  - {fileID: 6890115017622338896, guid: b4c29036c3f048646a37c59ba5f8e280, type: 3}
+  - {fileID: 1946484676990534154, guid: 78bd8754db3f51a448f0bef4d2babb40, type: 3}
+  - {fileID: 475892904875043208, guid: 5f951f6796d56f54289427034bcfe550, type: 3}
+  - {fileID: 2112172779090419337, guid: 3d3fcaf4d608484468de0ffafdf97430, type: 3}
+  - {fileID: 833196200400890595, guid: d4dda2fa91e407a44aae49e242ec2e5f, type: 3}
+  - {fileID: 5569396149434810039, guid: b672dc6fc6fe5f6439a214aa6fd92fda, type: 3}
+  - {fileID: 6356621067682285071, guid: 2b3072bebba349a4ab109431cfdcab24, type: 3}

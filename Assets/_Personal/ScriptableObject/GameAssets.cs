@@ -11,4 +11,7 @@ public class GameAssets : ScriptableObject
 
     public Material border;
     public Material center;
+
+    [SerializeField] public GameObject[] visualForNoneTile;
+    [SerializeField] public GameObject[] visualForWaterTile;
 }
