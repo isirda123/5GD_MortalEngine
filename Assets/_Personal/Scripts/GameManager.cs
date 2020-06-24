@@ -5,6 +5,7 @@ using System;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
 
+[ExecuteInEditMode]
 public class GameManager : Singleton<GameManager>
 {
     [SerializeField] public GameAssets gameAssets;

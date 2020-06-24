@@ -43,13 +43,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d53e1917c8442f499136c0c7b72a80a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  needViewer: {fileID: 0}
+  resourceJustChanged: 0
   needType: 0
-  resourceUsed: {fileID: 6178514528284028440}
   resourcesUsable: 0100000004000000
   resourceForValidation:
   - {fileID: 11400000, guid: e424dd937ad32a54fa2578e580611f2e, type: 2}
-  multiplicateur: 0.5
 --- !u!1 &6178514526622534515
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,14 +125,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d53e1917c8442f499136c0c7b72a80a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  needViewer: {fileID: 0}
+  resourceJustChanged: 0
   needType: 2
-  resourceUsed: {fileID: 6178514527730196952}
   resourcesUsable: 0100000003000000
   resourceForValidation:
   - {fileID: 11400000, guid: b2bf0ac074881f242a365fe7a0e21330, type: 2}
   - {fileID: 11400000, guid: e424dd937ad32a54fa2578e580611f2e, type: 2}
-  multiplicateur: 0.5
 --- !u!1 &6178514526895940746
 GameObject:
   m_ObjectHideFlags: 0
@@ -178,10 +174,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4216f6fc66d0014a91c552bf2f5194c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resourceType: 2
   resourcesInfos: {fileID: 11400000, guid: ecccbfd1fbe98874c9f8b6e199ea99fc, type: 2}
-  resourceImage: {fileID: 21300000, guid: c09e014058ed1304ab0caf05810bfbc9, type: 3}
-  maxStock: 100
+  amontInStock: 0
+  amontInStockMax: 0
 --- !u!1 &6178514527025958073
 GameObject:
   m_ObjectHideFlags: 0
@@ -258,13 +253,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d53e1917c8442f499136c0c7b72a80a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  needViewer: {fileID: 0}
+  resourceJustChanged: 0
   needType: 1
-  resourceUsed: {fileID: 6178514526895940747}
   resourcesUsable: 0200000003000000
   resourceForValidation:
   - {fileID: 11400000, guid: b2bf0ac074881f242a365fe7a0e21330, type: 2}
-  multiplicateur: 0.5
 --- !u!1 &6178514527595694782
 GameObject:
   m_ObjectHideFlags: 0
@@ -310,18 +303,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6cd150c04fc5f449b752d0e447bd950, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ressourcesStartDatas: {fileID: 11400000, guid: 5b9275db706d049459f3047d463e6aca,
-    type: 2}
-  stock:
-  - {fileID: 6178514527730196952}
-  - {fileID: 6178514528284028440}
-  - {fileID: 6178514527936234650}
-  - {fileID: 6178514526895940747}
-  needSelected: {fileID: 0}
-  needs:
-  - {fileID: 6178514526808299920}
-  - {fileID: 6178514526384305525}
-  - {fileID: 6178514527522090596}
+  gameAssets: {fileID: 11400000, guid: 088a0618633f1324cb4a712ae2b3d0b1, type: 2}
+  levelId: 0
 --- !u!1 &6178514527730196959
 GameObject:
   m_ObjectHideFlags: 0
@@ -365,10 +348,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4216f6fc66d0014a91c552bf2f5194c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resourceType: 1
   resourcesInfos: {fileID: 11400000, guid: e424dd937ad32a54fa2578e580611f2e, type: 2}
-  resourceImage: {fileID: 21300000, guid: ee62c1ff8829e0443ab7e83b4f9c6c9a, type: 3}
-  maxStock: 100
+  amontInStock: 0
+  amontInStockMax: 0
 --- !u!1 &6178514527936234649
 GameObject:
   m_ObjectHideFlags: 0
@@ -412,10 +394,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4216f6fc66d0014a91c552bf2f5194c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resourceType: 3
   resourcesInfos: {fileID: 11400000, guid: b2bf0ac074881f242a365fe7a0e21330, type: 2}
-  resourceImage: {fileID: 21300000, guid: 751ab58a1e0efd246ada6e40f0beb1be, type: 3}
-  maxStock: 100
+  amontInStock: 0
+  amontInStockMax: 0
 --- !u!1 &6178514528284028447
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,7 +440,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4216f6fc66d0014a91c552bf2f5194c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resourceType: 4
   resourcesInfos: {fileID: 11400000, guid: 5cd3135e6fce66c479a4c696d2c3c0e0, type: 2}
-  resourceImage: {fileID: 21300000, guid: 4f39d4b8fa93c224eb5ec40511832281, type: 3}
-  maxStock: 100
+  amontInStock: 0
+  amontInStockMax: 0
