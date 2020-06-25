@@ -15,8 +15,8 @@ MonoBehaviour:
   decretsInfos:
     reference: 0
     myTypeOfDecree: 0
-    title: Ecological Builds
-    flavorText: We can build homes with less resources
+    title: Builds Restriction
+    flavorText: Buildings can't use cement
     maxMouffluFlat: 0
     maxRockFlat: 0
     maxWoodFlat: 0
