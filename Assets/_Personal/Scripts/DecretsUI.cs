@@ -8,6 +8,7 @@ public class DecretsUI : MonoBehaviour
     [SerializeField] public Text nameOfDecree;
     [SerializeField] public Text description;
     [SerializeField] public Text effect;
+    [SerializeField] public Image visual;
 
     DecreeScriptable personalDecree;
 

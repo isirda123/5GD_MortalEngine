@@ -17,8 +17,8 @@ public class SoundManager : Singleton<SoundManager>
 
     public void RecolteFeedBackSound()
     {
-        AudioClip recolteSound = (AudioClip) Resources.Load("Sound/Recolte");
-        PlayInstantFeedBack(recolteSound,1);
+        AudioClip recolteSound = (AudioClip) Resources.Load("Sound/Recolte 2");
+        PlayInstantFeedBack(recolteSound,1.25f);
     }
 
     public void LVLSound()
@@ -30,7 +30,7 @@ public class SoundManager : Singleton<SoundManager>
     public void LowSupplySound()
     {
         AudioClip lowSupplySound = (AudioClip)Resources.Load("Sound/Low Supply");
-        PlayInstantFeedBack(lowSupplySound,1);
+        PlayInstantFeedBack(lowSupplySound,0.5f);
     }
 
     public void LooTSound()
@@ -48,7 +48,7 @@ public class SoundManager : Singleton<SoundManager>
     public void GameOverSound()
     {
         AudioClip gameOVerSound = (AudioClip)Resources.Load("Sound/Game Over");
-        PlayInstantFeedBack(gameOVerSound,1);
+        PlayInstantFeedBack(gameOVerSound,0.3f);
     }
 
     public void DecreeSound()

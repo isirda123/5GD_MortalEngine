@@ -36,7 +36,8 @@ public class DecreeScriptableEditor : Editor
         collectQuantityBerryFolder,
         numberOfMoveFolder,
         flyFolder,
-        roundBetweenDecreeFolder = true;
+        roundBetweenDecreeFolder,
+        visualFolder = true;
 
 
     void OnEnable()
@@ -62,7 +63,8 @@ public class DecreeScriptableEditor : Editor
         collectQuantityBerryFolder=
         numberOfMoveFolder=
         flyFolder=
-        roundBetweenDecreeFolder=true;
+        roundBetweenDecreeFolder=
+        visualFolder = true;
     }
 
     public override void OnInspectorGUI()
@@ -402,11 +404,6 @@ public class DecreeScriptableEditor : Editor
         {
             manager.decretsInfos.roundBetweenDecree = 0;
         }
-
-
-
-
-
 
 
         serializedObject.ApplyModifiedProperties();

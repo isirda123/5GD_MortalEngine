@@ -37,4 +37,5 @@ MonoBehaviour:
     numberOfMove: 0
     fly: 0
     roundBetweenDecree: 0
-  targetField: 135
+    visual: {fileID: 2800000, guid: e7f63d05e7d62f74c8d3658f55691384, type: 3}
+  targetField: 4194439

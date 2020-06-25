@@ -21,5 +21,5 @@ MonoBehaviour:
   nbrOfTurnsToRegrow: 2
   visualOfRegrowingResource:
   - {fileID: 0}
-  - {fileID: 2846264424826228332, guid: f94f869d78340c442acffe1cb7b0f88a, type: 3}
+  - {fileID: -7656263219917025119, guid: d4de1404f2cdeb548a7fb7cf91a129d1, type: 3}
   - {fileID: 741109447367382677, guid: e8d76fe45885438408c872e7a98f3e35, type: 3}
