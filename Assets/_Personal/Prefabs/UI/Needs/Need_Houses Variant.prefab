@@ -23,11 +23,34 @@ PrefabInstance:
       propertyPath: m_textInfo.wordCount
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 430784274, guid: aa96824341e211048affc1ad09f34e73, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -2.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 430784274, guid: aa96824341e211048affc1ad09f34e73, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 8.6
+      objectReference: {fileID: 0}
     - target: {fileID: 538734518, guid: aa96824341e211048affc1ad09f34e73, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 4f39d4b8fa93c224eb5ec40511832281,
         type: 3}
+    - target: {fileID: 73449288859468499, guid: aa96824341e211048affc1ad09f34e73,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 91.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 73449288859468499, guid: aa96824341e211048affc1ad09f34e73,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 63
+      objectReference: {fileID: 0}
+    - target: {fileID: 73449288859468499, guid: aa96824341e211048affc1ad09f34e73,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 63
+      objectReference: {fileID: 0}
     - target: {fileID: 773639146298187458, guid: aa96824341e211048affc1ad09f34e73,
         type: 3}
       propertyPath: m_SizeDelta.y

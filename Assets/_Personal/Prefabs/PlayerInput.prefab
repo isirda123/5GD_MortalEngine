@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 364212951839166994}
   m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: 0.098, z: -0.098}
+  m_LocalPosition: {x: -0.119, y: 0.098, z: -0.098}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 4823074808994860891}
@@ -131,6 +131,7 @@ MonoBehaviour:
   mouvementRange: 3
   lerpFrom: {r: 0.8889715, g: 0.99215686, b: 0, a: 1}
   LerpTo: {r: 0.12187504, g: 0.46226418, b: 0, a: 1}
+  pin: {fileID: 8556474807770058200, guid: fe3488293331502409c659695565380f, type: 3}
   needs:
   - {fileID: 8328702119957186977}
   - {fileID: 8328702119816191160}
@@ -185,7 +186,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 945785022515398540}
   m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: 0.09800005, z: -0.09799957}
+  m_LocalPosition: {x: -0.11899948, y: 0.09800005, z: -0.09799957}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 4823074808994860891}
@@ -815,7 +816,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8795273125453507324}
   m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: 0.09800005, z: -0.09799957}
+  m_LocalPosition: {x: -0.11899948, y: 0.09800005, z: -0.09799957}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 4823074808994860891}

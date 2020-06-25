@@ -33,37 +33,37 @@ public class DecretsUI : MonoBehaviour
         EnterKey();
         if (dS.decretsInfos.maxMouffluFlat != 0)
         {
-            effect.text += "Nourriture max: " + dS.decretsInfos.maxMouffluFlat;
+            effect.text += "Max food: " + dS.decretsInfos.maxMouffluFlat;
             EnterKey();
         }
         if (dS.decretsInfos.maxRockFlat != 0)
         {
-            effect.text += "Energie max : " + dS.decretsInfos.maxRockFlat;
+            effect.text += "Max energy : " + dS.decretsInfos.maxRockFlat;
             EnterKey();
         }
         if (dS.decretsInfos.maxWoodFlat != 0)
         {
-            effect.text += "Construction max : " + dS.decretsInfos.maxWoodFlat;
+            effect.text += "Max build : " + dS.decretsInfos.maxWoodFlat;
             EnterKey();
         }
         if (dS.decretsInfos.consumptionFoodModificator != 0)
         {
-            effect.text += "Consommation nourriture : " + dS.decretsInfos.consumptionFoodModificator;
+            effect.text += "Food consumption : " + dS.decretsInfos.consumptionFoodModificator;
             EnterKey();
         }
         if (dS.decretsInfos.consumptionEnergyModificator != 0)
         {
-            effect.text += "Consommation energie : " + dS.decretsInfos.consumptionEnergyModificator;
+            effect.text += "Energy consumption : " + dS.decretsInfos.consumptionEnergyModificator;
             EnterKey();
         }
         if (dS.decretsInfos.consumptionBuildModificator != 0)
         {
-            effect.text += "Consommation construction : " + dS.decretsInfos.consumptionBuildModificator;
+            effect.text += "Build consumption : " + dS.decretsInfos.consumptionBuildModificator;
             EnterKey();
         }
         if (dS.decretsInfos.collectRangeMax != 0)
         {
-            effect.text += "Distance de collect : " + dS.decretsInfos.collectRangeMax;
+            effect.text += "Collect distance : " + dS.decretsInfos.collectRangeMax;
             EnterKey();
         }
 
@@ -75,43 +75,43 @@ public class DecretsUI : MonoBehaviour
 
         if (dS.decretsInfos.giveRock != 0)
         {
-            effect.text += "Pierre : " + dS.decretsInfos.giveRock;
+            effect.text += "Rock : " + dS.decretsInfos.giveRock;
             EnterKey();
         }
 
         if (dS.decretsInfos.giveWood != 0)
         {
-            effect.text += "Bois : " + dS.decretsInfos.giveWood;
+            effect.text += "Wood : " + dS.decretsInfos.giveWood;
             EnterKey();
         }
 
         if (dS.decretsInfos.giveBerry != 0)
         {
-            effect.text += "Baie : " + dS.decretsInfos.giveBerry;
+            effect.text += "Berry : " + dS.decretsInfos.giveBerry;
             EnterKey();
         }
 
         if (dS.decretsInfos.collectQuantityMouflu != 0)
         {
-            effect.text += "Collecte Mouflu : " + dS.decretsInfos.collectQuantityMouflu;
+            effect.text += "Mouflu collect : " + dS.decretsInfos.collectQuantityMouflu;
             EnterKey();
         }
 
         if (dS.decretsInfos.collectQuantityRock != 0)
         {
-            effect.text += "Collecte rock : " + dS.decretsInfos.collectQuantityRock;
+            effect.text += "Rock collect : " + dS.decretsInfos.collectQuantityRock;
             EnterKey();
         }
 
         if (dS.decretsInfos.collectQuantityWood != 0)
         {
-            effect.text += "Collecte bois : " + dS.decretsInfos.collectQuantityWood;
+            effect.text += "Wood collect : " + dS.decretsInfos.collectQuantityWood;
             EnterKey();
         }
 
         if (dS.decretsInfos.collectQuantityBerry != 0)
         {
-            effect.text += "Collecte baie : " + dS.decretsInfos.collectQuantityBerry;
+            effect.text += "Berry collect : " + dS.decretsInfos.collectQuantityBerry;
             EnterKey();
         }
         if (dS.decretsInfos.numberOfMove != 0)

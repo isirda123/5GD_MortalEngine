@@ -43,9 +43,9 @@ public class ResourceViewer : MonoBehaviour, IPointerUpHandler, IPointerDownHand
         {
             int nbr = (int)Mathf.Round(resourcesInStock.NumberInStock);
             if (resourcesInStock.NumberInStock > 0)
-                tmp.text = nbr.ToString();
+                tmp.text = nbr.ToString() + " / " + resourcesInStock.amontInStockMax;
             else
-                tmp.text = "0";
+                tmp.text = "0" + " / " + resourcesInStock.amontInStockMax;
         }
     }
 

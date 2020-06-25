@@ -23,11 +23,33 @@ PrefabInstance:
       propertyPath: m_textInfo.wordCount
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 430784274, guid: aa96824341e211048affc1ad09f34e73, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 6.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 430784274, guid: aa96824341e211048affc1ad09f34e73, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -3.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 538734516, guid: aa96824341e211048affc1ad09f34e73, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 538734518, guid: aa96824341e211048affc1ad09f34e73, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: c09e014058ed1304ab0caf05810bfbc9,
         type: 3}
+    - target: {fileID: 73449288859468499, guid: aa96824341e211048affc1ad09f34e73,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 73449288859468499, guid: aa96824341e211048affc1ad09f34e73,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 773639146298187458, guid: aa96824341e211048affc1ad09f34e73,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -63,6 +85,16 @@ PrefabInstance:
         type: 3}
       propertyPath: needType
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6329092298831948605, guid: aa96824341e211048affc1ad09f34e73,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 48.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6329092298831948605, guid: aa96824341e211048affc1ad09f34e73,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -12.7
       objectReference: {fileID: 0}
     - target: {fileID: 7927568889818812473, guid: aa96824341e211048affc1ad09f34e73,
         type: 3}

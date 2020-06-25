@@ -185,7 +185,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2180264, guid: 410ff0f584c4f3e49995b1cae706c0b0, type: 2}
+  - {fileID: -583093633642929610, guid: 4e33d3b1a2af44e4a84391f5c2c7d984, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -242,15 +242,16 @@ MonoBehaviour:
       m_Calls: []
   m_text: + 50
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 410ff0f584c4f3e49995b1cae706c0b0, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 410ff0f584c4f3e49995b1cae706c0b0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4e33d3b1a2af44e4a84391f5c2c7d984, type: 2}
+  m_sharedMaterial: {fileID: -583093633642929610, guid: 4e33d3b1a2af44e4a84391f5c2c7d984,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278764802
+  m_fontColor: {r: 0.010946936, g: 0.7735849, b: 0.03188214, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

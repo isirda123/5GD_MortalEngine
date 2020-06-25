@@ -43,5 +43,5 @@ public class ResourceInStock : MonoBehaviour
         }
     }
 
-    [SerializeField] int amontInStockMax;
+    [SerializeField] public int amontInStockMax;
 }

@@ -49,38 +49,38 @@ public class DecretsValidate : MonoBehaviour
         EnterKey();
         if (dS.decretsInfos.maxMouffluFlat != 0)
         {
-            effect += "Nourriture max: " + dS.decretsInfos.maxMouffluFlat + "%";
+            effect += "Max food: " + dS.decretsInfos.maxMouffluFlat + "%";
             EnterKey();
         }
         if (dS.decretsInfos.maxRockFlat != 0)
         {
-            effect += "Energie max : " + dS.decretsInfos.maxRockFlat + "%";
+            effect += "Max energy : " + dS.decretsInfos.maxRockFlat + "%";
             EnterKey();
         }
         if (dS.decretsInfos.maxWoodFlat != 0)
         {
-            effect += "Construction max : " + dS.decretsInfos.maxWoodFlat + "%";
+            effect += "Max build : " + dS.decretsInfos.maxWoodFlat + "%";
             EnterKey();
         }
         if (dS.decretsInfos.consumptionFoodModificator != 0)
         {
-            effect += "Consommation nourriture : " + dS.decretsInfos.consumptionFoodModificator + "%";
+            effect += "Food consumption : " + dS.decretsInfos.consumptionFoodModificator + "%";
             EnterKey();
         }
         if (dS.decretsInfos.consumptionEnergyModificator != 0)
         {
-            effect += "Consommation energie : " + dS.decretsInfos.consumptionEnergyModificator + "%";
+            effect += "Energy consumption : " + dS.decretsInfos.consumptionEnergyModificator + "%";
             EnterKey();
         }
         if (dS.decretsInfos.consumptionBuildModificator != 0)
         {
-            effect += "Consommation construction : " + dS.decretsInfos.consumptionBuildModificator + "%";
+            effect += "Build consumption : " + dS.decretsInfos.consumptionBuildModificator + "%";
             EnterKey();
         }
 
         if (dS.decretsInfos.collectRangeMax != 0)
         {
-            effect += "Distance de collect : " + dS.decretsInfos.collectRangeMax;
+            effect += "Collect distance : " + dS.decretsInfos.collectRangeMax;
             EnterKey();
         }
 
@@ -92,43 +92,43 @@ public class DecretsValidate : MonoBehaviour
 
         if (dS.decretsInfos.giveRock != 0)
         {
-            effect += "Pierre : " + dS.decretsInfos.giveRock;
+            effect += "Rock : " + dS.decretsInfos.giveRock;
             EnterKey();
         }
 
         if (dS.decretsInfos.giveWood != 0)
         {
-            effect += "Bois : " + dS.decretsInfos.giveWood;
+            effect += "Wood : " + dS.decretsInfos.giveWood;
             EnterKey();
         }
 
         if (dS.decretsInfos.giveBerry != 0)
         {
-            effect += "Baie : " + dS.decretsInfos.giveBerry;
+            effect += "Berry : " + dS.decretsInfos.giveBerry;
             EnterKey();
         }
 
         if (dS.decretsInfos.collectQuantityMouflu != 0)
         {
-            effect += "Collecte Mouflu : " + dS.decretsInfos.collectQuantityMouflu;
+            effect += "Mouflu collect : " + dS.decretsInfos.collectQuantityMouflu;
             EnterKey();
         }
 
         if (dS.decretsInfos.collectQuantityRock != 0)
         {
-            effect += "Collecte rock : " + dS.decretsInfos.collectQuantityRock;
+            effect += "Rock collect : " + dS.decretsInfos.collectQuantityRock;
             EnterKey();
         }
 
         if (dS.decretsInfos.collectQuantityWood != 0)
         {
-            effect += "Collecte bois : " + dS.decretsInfos.collectQuantityWood;
+            effect += "Wood collect : " + dS.decretsInfos.collectQuantityWood;
             EnterKey();
         }
 
         if (dS.decretsInfos.collectQuantityBerry != 0)
         {
-            effect += "Collecte baie : " + dS.decretsInfos.collectQuantityBerry;
+            effect += "Berry collect : " + dS.decretsInfos.collectQuantityBerry;
             EnterKey();
         }
     }

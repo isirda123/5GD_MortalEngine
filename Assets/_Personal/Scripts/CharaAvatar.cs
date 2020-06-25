@@ -16,6 +16,7 @@ public class CharaAvatar : MonoBehaviour
     private int mouvementRemain;
     [SerializeField] Color lerpFrom, LerpTo;
     LineRenderer line;
+    [SerializeField] GameObject pin;
     #endregion
 
     #region STATE MACHINE
@@ -86,6 +87,8 @@ public class CharaAvatar : MonoBehaviour
     private void OnEnable()
     {
         StartCoroutine(GameManager.Instance.FadeOut());
+        pin = Instantiate(pin, Vector3.zero,pin.transform.rotation);
+        pin.SetActive(false);
         AssignEvents();
 
         SetStartingValues();
@@ -332,6 +335,7 @@ public class CharaAvatar : MonoBehaviour
         {
             tileSelectedForMove = null;
             Destroy(line.gameObject);
+            pin.SetActive(false);
             TilesManager.Instance.SetNormalColorOfTiles();
             TilesManager.Instance.DrawOffset(true);
             if (tileHit.tileType == Tile.TypeOfTile.Blocker)
@@ -407,6 +411,7 @@ public class CharaAvatar : MonoBehaviour
         if (line != null)
         {
             Destroy(line.gameObject);
+            pin.SetActive(false);
             line = null;
         }
     }
@@ -421,6 +426,8 @@ public class CharaAvatar : MonoBehaviour
         {
             line.SetPositions(posForArrow.ToArray());
         }
+        pin.SetActive(true);
+        pin.transform.position = posForArrow[posForArrow.Count - 1];
     }
 
     public Tile GetTileUnder()
@@ -440,8 +447,11 @@ public class CharaAvatar : MonoBehaviour
     {
         mouvementRemain = 0;
         State = CharacterState.WaitForAction;
-        if(line != null)
+        if (line != null)
+        {
             Destroy(line.gameObject);
+            pin.SetActive(false);
+        }
         EndMove();
     }
 

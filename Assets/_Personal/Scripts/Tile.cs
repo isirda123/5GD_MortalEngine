@@ -204,6 +204,7 @@ public class Tile : MonoBehaviour
     public void SetNormalColor()
     {
         GetComponent<MeshRenderer>().materials[0] = GameManager.Instance.gameAssets.border;
+        GetComponent<MeshRenderer>().materials[0].color = Color.white;
         GetComponent<MeshRenderer>().materials[1] = GameManager.Instance.gameAssets.center;
         switch (tileType)
         {
@@ -317,6 +318,7 @@ public class Tile : MonoBehaviour
         }
 
         GetComponent<MeshRenderer>().materials[0].shader = Shader.Find("Unlit/Color");
+        GetComponent<MeshRenderer>().materials[0].color = Color.white;
         GetComponent<MeshRenderer>().materials[1].shader = Shader.Find("Unlit/Color");
         switch (tileType)
         {

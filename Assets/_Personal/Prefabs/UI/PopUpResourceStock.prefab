@@ -119,15 +119,16 @@ MonoBehaviour:
       m_Calls: []
   m_text: '- 50'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 3d1f6f003c0b8154da27270b981586e9, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 3d1f6f003c0b8154da27270b981586e9, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4e33d3b1a2af44e4a84391f5c2c7d984, type: 2}
+  m_sharedMaterial: {fileID: -583093633642929610, guid: 4e33d3b1a2af44e4a84391f5c2c7d984,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190298
+  m_fontColor: {r: 0.8584906, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
