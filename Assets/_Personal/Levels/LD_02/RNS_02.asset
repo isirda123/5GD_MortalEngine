@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be9148915dcf4c243acb49ecef861d46, type: 3}
   m_Name: RNS_02
   m_EditorClassIdentifier: 
-  wood: 200
-  berry: 200
+  wood: 100
+  berry: 110
   rock: 0
   mouflu: 0
   needEnergyStart: 1
